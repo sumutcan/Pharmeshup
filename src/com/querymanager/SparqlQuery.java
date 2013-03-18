@@ -1,14 +1,19 @@
 package com.querymanager;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Map.Entry;
 
+import com.querymanager.elements.BaseElement;
 import com.querymanager.elements.PrefixElement;
 
 
 class SparqlQuery implements ISparqlQuery {
 
-	String queryString = null;
-	Hashtable<String, PrefixElement> prefixes; 
+	private String queryString = null;
+	private ArrayList<PrefixElement> prefixes;
+	private ArrayList<BaseElement> bases;
+	private ArrayList<String> selectElements;
 	
 	
 	SparqlQuery()
@@ -22,25 +27,37 @@ class SparqlQuery implements ISparqlQuery {
 		// TODO Auto-generated method stub
 		
 		if (prefixes == null)
-			prefixes = new Hashtable<String, PrefixElement>();
+			prefixes = new ArrayList<PrefixElement>();
 		
-		prefixes.put(prefix, new PrefixElement(prefix, uri));
+		prefixes.add(new PrefixElement(prefix, uri));
 		
 		return this;
 	}
 
 
 	@Override
-	public ISparqlQuery addBase(String prefix, String uri) {
+	public ISparqlQuery addBase(String uri) {
 		// TODO Auto-generated method stub
-		return null;
+		if (bases == null)
+			bases = new ArrayList<BaseElement>();
+		
+		bases.add(new BaseElement(uri));
+		
+		
+		return this;
 	}
 
 
 	@Override
 	public ISparqlQuery addSelectParamaters(String... args) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (selectElements == null)
+			selectElements = new ArrayList<String>();
+		
+		for (String arg : args)
+			selectElements.add(arg);
+		
+		return this;
 	}
 
 
@@ -69,6 +86,30 @@ class SparqlQuery implements ISparqlQuery {
 	public ISparqlQuery addOptionalPattern(String s, String p, String o) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public String buildQueryString() {
+		
+		for (PrefixElement prefixElement : prefixes)
+			queryString += prefixElement;
+		
+		if (bases != null)
+			for (BaseElement baseElement : bases)
+				queryString += baseElement;
+		
+		if (selectElements != null)
+			for (String selectElement : selectElements)
+			{
+				queryString += "SELECT ";
+				queryString += selectElement+" ";
+				queryString += "\n";
+			}
+	
+		
+		return queryString;
+		
 	}
 	
 

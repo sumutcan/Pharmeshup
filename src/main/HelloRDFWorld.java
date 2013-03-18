@@ -59,7 +59,10 @@ public class HelloRDFWorld {
 //		dataset.close();
 		
 		ISparqlQuery q = SparqlQueryManager.getInstance().createQuery();
-		q.addSelectParamaters("s", "o");
+		q.addPrefix("owl", "http://www.w3.org/2002/07/owl#");
+		q.addPrefix("ex", "http://example.org");
+		q.addBase("http://base.org").addSelectParamaters("*");
+		System.out.println(q.buildQueryString());
 	
 	}
 

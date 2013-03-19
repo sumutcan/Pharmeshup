@@ -100,14 +100,17 @@ class SparqlQuery implements ISparqlQuery {
 				queryString += baseElement;
 		
 		if (selectElements != null)
+			
+			queryString += "SELECT ";
+		
 			for (String selectElement : selectElements)
 			{
-				queryString += "SELECT ";
 				queryString += selectElement+" ";
-				queryString += "\n";
+				
 			}
 	
-		
+			queryString += "\n";
+			
 		return queryString;
 		
 	}

@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Map.Entry;
 
 import com.querymanager.elements.BaseElement;
+import com.querymanager.elements.FromElement;
 import com.querymanager.elements.PrefixElement;
 
 
@@ -14,6 +15,7 @@ class SparqlQuery implements ISparqlQuery {
 	private ArrayList<PrefixElement> prefixes;
 	private ArrayList<BaseElement> bases;
 	private ArrayList<String> selectElements;
+	private ArrayList<FromElement> fromElements;
 	
 	
 	SparqlQuery()
@@ -63,8 +65,14 @@ class SparqlQuery implements ISparqlQuery {
 
 	@Override
 	public ISparqlQuery addFROM(String uri) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (fromElements == null)
+			fromElements = new ArrayList<FromElement>();
+		
+		fromElements.add(new FromElement(uri));
+		
+		return this;
+		
 	}
 
 
@@ -108,9 +116,13 @@ class SparqlQuery implements ISparqlQuery {
 				queryString += selectElement+" ";
 				
 			}
-	
+			
 			queryString += "\n";
 			
+		if (fromElements != null)
+			for (FromElement fromElement : fromElements)
+				queryString += fromElement;
+				
 		return queryString;
 		
 	}

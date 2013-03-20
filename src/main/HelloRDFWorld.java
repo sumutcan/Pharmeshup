@@ -58,12 +58,13 @@ public class HelloRDFWorld {
 //		dataset.commit();
 //		dataset.close();
 		
-		ISparqlQuery q = SparqlQueryManager.getInstance().createQuery();
-		q.addPrefix("owl", "http://www.w3.org/2002/07/owl#");
-		q.addPrefix("ex", "http://example.org");
-		q.addBase("http://base.org").addSelectParamaters("?s", "?p", "?o");
-		q.addFROM("http://asdasd.com");
-		System.out.println(q.buildQueryString());
+//		ISparqlQuery q = SparqlQueryManager.getInstance().createQuery();
+//		q.addPrefix("owl", "http://www.w3.org/2002/07/owl#");
+//		q.addPrefix("ex", "http://example.org");
+//		q.addBase("http://base.org").addSelectParamaters("?s", "?p", "?o");
+//		q.addFROM("http://asdasd.com");
+//		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
+//		System.out.println(q.buildQueryString());
 	
 	}
 

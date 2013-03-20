@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import com.querymanager.elements.BaseElement;
 import com.querymanager.elements.FromElement;
 import com.querymanager.elements.PrefixElement;
+import com.querymanager.elements.TriplePattern;
 
 
 class SparqlQuery implements ISparqlQuery {
@@ -16,7 +17,8 @@ class SparqlQuery implements ISparqlQuery {
 	private ArrayList<BaseElement> bases;
 	private ArrayList<String> selectElements;
 	private ArrayList<FromElement> fromElements;
-	
+	private ArrayList<TriplePattern> tripplePatterns;
+	 
 	
 	SparqlQuery()
 	{
@@ -79,7 +81,13 @@ class SparqlQuery implements ISparqlQuery {
 	@Override
 	public ISparqlQuery addTriplePattern(String s, String p, String o) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		if (tripplePatterns == null)
+			tripplePatterns = new ArrayList<TriplePattern>();
+		
+		tripplePatterns.add(new TriplePattern(s, p, o));
+		
+		return this;
 	}
 
 
@@ -99,16 +107,16 @@ class SparqlQuery implements ISparqlQuery {
 
 	@Override
 	public String buildQueryString() {
-		
-		for (PrefixElement prefixElement : prefixes)
-			queryString += prefixElement;
+		if (prefixes != null)
+			for (PrefixElement prefixElement : prefixes)
+				queryString += prefixElement;
 		
 		if (bases != null)
 			for (BaseElement baseElement : bases)
 				queryString += baseElement;
 		
 		if (selectElements != null)
-			
+		{	
 			queryString += "SELECT ";
 		
 			for (String selectElement : selectElements)
@@ -118,11 +126,20 @@ class SparqlQuery implements ISparqlQuery {
 			}
 			
 			queryString += "\n";
-			
+		}
 		if (fromElements != null)
+		{
 			for (FromElement fromElement : fromElements)
 				queryString += fromElement;
+		
+		queryString += "WHERE\n{\n";
+		
+		if (tripplePatterns != null)
+			for (TriplePattern triplePattern : tripplePatterns)
+				queryString += triplePattern;
 				
+		queryString += "}";
+		}
 		return queryString;
 		
 	}

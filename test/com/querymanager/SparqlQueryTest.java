@@ -65,8 +65,18 @@ public class SparqlQueryTest {
 	}
 
 	@Test
-	public void testAddGraphPattern() {
-		fail("Not yet implemented");
+	public void testAddGroupGraphPattern() {
+		
+		q = SparqlQueryManager.getInstance().createQuery();
+		q.addFROM("http://asdasd.com");
+		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
+		q.addGroupGraphPattern("?name", "owl:sameAs","?o" );
+		assertEquals("FROM <http://asdasd.com>\n"+
+				 "WHERE\n"+
+				"{\n" +
+				"\t?name ?mbox \"hebele\" .\n" +
+				"\t{?name owl:sameAs ?o .}\n"+
+				"}", q.buildQueryString());
 	}
 
 	@Test

@@ -14,9 +14,14 @@ public class TriplePattern {
 	}
 	
 	
+	protected String trippleString()
+	{
+		return subject+" "+predicate+" "+object+" .";
+	}
+	
 	public String toString()
 	{
-		return "\t"+subject+" "+predicate+" "+object+" .\n";
+		return "\t"+trippleString()+"\n";
 	}
 
 }

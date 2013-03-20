@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import com.querymanager.elements.BaseElement;
 import com.querymanager.elements.FromElement;
+import com.querymanager.elements.GroupGraphPatternElement;
 import com.querymanager.elements.PrefixElement;
 import com.querymanager.elements.TriplePattern;
 
@@ -18,6 +19,7 @@ class SparqlQuery implements ISparqlQuery {
 	private ArrayList<String> selectElements;
 	private ArrayList<FromElement> fromElements;
 	private ArrayList<TriplePattern> tripplePatterns;
+
 	 
 	
 	SparqlQuery()
@@ -92,9 +94,14 @@ class SparqlQuery implements ISparqlQuery {
 
 
 	@Override
-	public ISparqlQuery addGraphPattern(String s, String p, String o) {
-		// TODO Auto-generated method stub
-		return null;
+	public ISparqlQuery addGroupGraphPattern(String s, String p, String o) {
+		
+		if (tripplePatterns == null)
+			tripplePatterns = new ArrayList<TriplePattern>();
+		
+		tripplePatterns.add(new GroupGraphPatternElement(s, p, o));
+		
+		return this;
 	}
 
 
@@ -138,6 +145,7 @@ class SparqlQuery implements ISparqlQuery {
 			for (TriplePattern triplePattern : tripplePatterns)
 				queryString += triplePattern;
 				
+		
 		queryString += "}";
 		}
 		return queryString;

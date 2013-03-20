@@ -55,10 +55,12 @@ public class SparqlQueryTest {
 		q = SparqlQueryManager.getInstance().createQuery();
 		q.addFROM("http://asdasd.com");
 		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
+		q.addTriplePattern("?name", "owl:sameAs","?o" );
 		assertEquals("FROM <http://asdasd.com>\n"+
 				 "WHERE\n"+
 				"{\n" +
 				"\t?name ?mbox \"hebele\" .\n" +
+				"\t?name owl:sameAs ?o .\n"+
 				"}", q.buildQueryString());
 	}
 

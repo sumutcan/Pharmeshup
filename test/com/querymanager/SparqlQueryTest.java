@@ -3,6 +3,7 @@ package com.querymanager;
 import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SparqlQueryTest {
@@ -37,7 +38,7 @@ public class SparqlQueryTest {
 	@Test
 	public void testAddSelectParamaters() {
 		q = SparqlQueryManager.getInstance().createQuery();
-		q.addSelectParamaters("?s", "?p", "?o");
+		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
 		assertEquals("SELECT ?s ?p ?o \n", q.buildQueryString());
 	}
 
@@ -79,12 +80,12 @@ public class SparqlQueryTest {
 				"}", q.buildQueryString());
 	}
 
-	@Test
+	@Test @Ignore
 	public void testAddOptionalPattern() {
 		fail("Not yet implemented");
 	}
 
-	@Test
+	@Test @Ignore
 	public void testBuildQueryString() {
 		fail("Not yet implemented");
 	}

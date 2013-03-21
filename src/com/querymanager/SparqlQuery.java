@@ -8,6 +8,7 @@ import com.querymanager.elements.BaseElement;
 import com.querymanager.elements.FromElement;
 import com.querymanager.elements.GroupGraphPatternElement;
 import com.querymanager.elements.PrefixElement;
+import com.querymanager.elements.SelectElement;
 import com.querymanager.elements.TriplePattern;
 
 
@@ -16,7 +17,7 @@ class SparqlQuery implements ISparqlQuery {
 	private String queryString = null;
 	private ArrayList<PrefixElement> prefixes;
 	private ArrayList<BaseElement> bases;
-	private ArrayList<String> selectElements;
+	private SelectElement selectElement;
 	private ArrayList<FromElement> fromElements;
 	private ArrayList<TriplePattern> tripplePatterns;
 
@@ -55,13 +56,9 @@ class SparqlQuery implements ISparqlQuery {
 
 
 	@Override
-	public ISparqlQuery addSelectParamaters(String... args) {
+	public ISparqlQuery addSelectParamaters(boolean distinct, String... args) {
 		
-		if (selectElements == null)
-			selectElements = new ArrayList<String>();
-		
-		for (String arg : args)
-			selectElements.add(arg);
+			selectElement = new SelectElement(args,distinct);
 		
 		return this;
 	}
@@ -122,18 +119,10 @@ class SparqlQuery implements ISparqlQuery {
 			for (BaseElement baseElement : bases)
 				queryString += baseElement;
 		
-		if (selectElements != null)
-		{	
-			queryString += "SELECT ";
-		
-			for (String selectElement : selectElements)
-			{
-				queryString += selectElement+" ";
+		if (selectElement != null)
+			queryString += selectElement;
 				
-			}
-			
-			queryString += "\n";
-		}
+		
 		if (fromElements != null)
 		{
 			for (FromElement fromElement : fromElements)

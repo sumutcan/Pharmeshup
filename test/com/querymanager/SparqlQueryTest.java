@@ -89,6 +89,7 @@ public class SparqlQueryTest {
 		q.addConstruct(new TriplePatternElement("?s", "?p", "?o"));
 		assertEquals("CONSTRUCT\n{\n\t?s ?p ?o .\n}\n"+
 		"WHERE\n{\n}", q.buildQueryString());
+		
 	}
 
 	@Test @Ignore

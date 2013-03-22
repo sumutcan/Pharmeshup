@@ -67,6 +67,8 @@ public class HelloRDFWorld {
 				.addSelectParamaters(ISparqlQuery.DISTINCT, "?p","?o")
 				.addTriplePattern("<Naproxen>", "?p", "?o")
 				.buildQueryString();
+		
+		
 			
 		Query query = QueryFactory.create(c);
 //		QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);

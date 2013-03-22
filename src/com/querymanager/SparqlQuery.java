@@ -8,6 +8,7 @@ import com.querymanager.elements.BaseElement;
 import com.querymanager.elements.ConstructElement;
 import com.querymanager.elements.FromElement;
 import com.querymanager.elements.GroupGraphPatternElement;
+import com.querymanager.elements.OptionalGraphPattern;
 import com.querymanager.elements.PrefixElement;
 import com.querymanager.elements.SelectElement;
 import com.querymanager.elements.TriplePatternElement;
@@ -105,8 +106,13 @@ class SparqlQuery implements ISparqlQuery {
 
 
 	@Override
-	public ISparqlQuery addOptionalPattern(String s, String p, String o) {
-		// TODO Auto-generated method stub
+	public ISparqlQuery addOptionalPattern(String s, String p, String o) throws Exception {
+		
+		if(tripplePatterns == null)
+			throw new Exception("WHERE clause must have at least one non-optional pattern.");
+		
+		tripplePatterns.add(new OptionalGraphPattern(s, p, o));
+		
 		return null;
 	}
 
@@ -145,7 +151,7 @@ class SparqlQuery implements ISparqlQuery {
 			if (tripplePatterns != null)
 				for (TriplePatternElement triplePattern : tripplePatterns)
 					queryString += triplePattern;
-
+			
 			queryString += "}";
 		}
 		return queryString;

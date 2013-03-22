@@ -92,9 +92,18 @@ public class SparqlQueryTest {
 		
 	}
 
-	@Test @Ignore
-	public void testAddOptionalPattern() {
-		fail("Not yet implemented");
+	@Test 
+	public void testAddOptionalPattern() throws Exception {
+		q = SparqlQueryManager.getInstance().createQuery();
+		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
+		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
+		q.addOptionalPattern("?name", "owl:sameAs","?o" );
+		assertEquals("SELECT ?s ?p ?o \n"+
+				 "WHERE\n"+
+				"{\n" +
+				"\t?name ?mbox \"hebele\" .\n" +
+				"\tOPTIONAL {?name owl:sameAs ?o .}\n"+
+				"}", q.buildQueryString());
 	}
 
 	@Test @Ignore

@@ -7,8 +7,13 @@ public class GroupGraphPatternElement extends TriplePatternElement {
 		// TODO Auto-generated constructor stub
 	}
 	
+	protected String groupPatternToString() {
+		
+		return "{"+super.trippleString()+"}";
+	} 
+	
 	public String toString()
 	{
-		return "\t{"+super.trippleString()+"}\n";
+		return "\t"+groupPatternToString()+"\n";
 	}
 }

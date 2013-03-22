@@ -14,7 +14,7 @@ public interface ISparqlQuery {
 	public ISparqlQuery addTriplePattern(String s, String p, String o);
 	public ISparqlQuery addGroupGraphPattern(String s, String p, String o);
 	public ISparqlQuery addConstruct(TriplePatternElement... args);
-	public ISparqlQuery addOptionalPattern(String s, String p, String o);
+	public ISparqlQuery addOptionalPattern(String s, String p, String o) throws Exception;
 	public String buildQueryString();
 	
 }

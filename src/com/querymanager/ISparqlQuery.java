@@ -1,5 +1,7 @@
 package com.querymanager;
 
+import com.querymanager.elements.TriplePatternElement;
+
 public interface ISparqlQuery {
 	
 	public static final boolean DISTINCT = true;
@@ -11,6 +13,7 @@ public interface ISparqlQuery {
 	public ISparqlQuery addFROM(String uri);
 	public ISparqlQuery addTriplePattern(String s, String p, String o);
 	public ISparqlQuery addGroupGraphPattern(String s, String p, String o);
+	public ISparqlQuery addConstruct(TriplePatternElement... args);
 	public ISparqlQuery addOptionalPattern(String s, String p, String o);
 	public String buildQueryString();
 	

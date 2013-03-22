@@ -1,12 +1,12 @@
 package com.querymanager.elements;
 
-public class TriplePattern {
+public class TriplePatternElement {
 
 	private String subject;
 	private String predicate;
 	private String object;
 	
-	public TriplePattern(String s, String p, String o)
+	public TriplePatternElement(String s, String p, String o)
 	{
 		this.subject = s;
 		this.predicate = p;

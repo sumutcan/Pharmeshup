@@ -1,6 +1,6 @@
 package com.querymanager.elements;
 
-public class GroupGraphPatternElement extends TriplePattern {
+public class GroupGraphPatternElement extends TriplePatternElement {
 
 	public GroupGraphPatternElement(String s, String p, String o) {
 		super(s, p, o);

@@ -6,6 +6,8 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.querymanager.elements.TriplePatternElement;
+
 public class SparqlQueryTest {
 
 	ISparqlQuery q;
@@ -39,25 +41,25 @@ public class SparqlQueryTest {
 	public void testAddSelectParamaters() {
 		q = SparqlQueryManager.getInstance().createQuery();
 		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
-		assertEquals("SELECT ?s ?p ?o \n", q.buildQueryString());
+		assertEquals("SELECT ?s ?p ?o \n"+
+		"WHERE\n{\n}", q.buildQueryString());
 	}
 
 	@Test
 	public void testAddFROM() {
 		q = SparqlQueryManager.getInstance().createQuery();
 		q.addFROM("http://asdasd.com");
-		assertEquals("FROM <http://asdasd.com>\n"+
-					 "WHERE\n{\n}", q.buildQueryString());
+		assertEquals("FROM <http://asdasd.com>\n", q.buildQueryString());
 	}
 
 	@Test
 	public void testAddTriplePattern() {
 		
 		q = SparqlQueryManager.getInstance().createQuery();
-		q.addFROM("http://asdasd.com");
+		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
 		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
 		q.addTriplePattern("?name", "owl:sameAs","?o" );
-		assertEquals("FROM <http://asdasd.com>\n"+
+		assertEquals("SELECT ?s ?p ?o \n"+
 				 "WHERE\n"+
 				"{\n" +
 				"\t?name ?mbox \"hebele\" .\n" +
@@ -69,15 +71,24 @@ public class SparqlQueryTest {
 	public void testAddGroupGraphPattern() {
 		
 		q = SparqlQueryManager.getInstance().createQuery();
-		q.addFROM("http://asdasd.com");
+		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
 		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
 		q.addGroupGraphPattern("?name", "owl:sameAs","?o" );
-		assertEquals("FROM <http://asdasd.com>\n"+
+		assertEquals("SELECT ?s ?p ?o \n"+
 				 "WHERE\n"+
 				"{\n" +
 				"\t?name ?mbox \"hebele\" .\n" +
 				"\t{?name owl:sameAs ?o .}\n"+
 				"}", q.buildQueryString());
+	}
+	
+	@Test 
+	public void testAddConstruct()
+	{
+		q = SparqlQueryManager.getInstance().createQuery();
+		q.addConstruct(new TriplePatternElement("?s", "?p", "?o"));
+		assertEquals("CONSTRUCT\n{\n\t?s ?p ?o .\n}\n"+
+		"WHERE\n{\n}", q.buildQueryString());
 	}
 
 	@Test @Ignore

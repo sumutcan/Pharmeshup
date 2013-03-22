@@ -5,11 +5,12 @@ import java.util.Hashtable;
 import java.util.Map.Entry;
 
 import com.querymanager.elements.BaseElement;
+import com.querymanager.elements.ConstructElement;
 import com.querymanager.elements.FromElement;
 import com.querymanager.elements.GroupGraphPatternElement;
 import com.querymanager.elements.PrefixElement;
 import com.querymanager.elements.SelectElement;
-import com.querymanager.elements.TriplePattern;
+import com.querymanager.elements.TriplePatternElement;
 
 
 class SparqlQuery implements ISparqlQuery {
@@ -19,7 +20,8 @@ class SparqlQuery implements ISparqlQuery {
 	private ArrayList<BaseElement> bases;
 	private SelectElement selectElement;
 	private ArrayList<FromElement> fromElements;
-	private ArrayList<TriplePattern> tripplePatterns;
+	private ArrayList<TriplePatternElement> tripplePatterns;
+	private ConstructElement constructElement;
 
 	 
 	
@@ -82,9 +84,9 @@ class SparqlQuery implements ISparqlQuery {
 		// TODO Auto-generated method stub
 		
 		if (tripplePatterns == null)
-			tripplePatterns = new ArrayList<TriplePattern>();
+			tripplePatterns = new ArrayList<TriplePatternElement>();
 		
-		tripplePatterns.add(new TriplePattern(s, p, o));
+		tripplePatterns.add(new TriplePatternElement(s, p, o));
 		
 		return this;
 	}
@@ -94,7 +96,7 @@ class SparqlQuery implements ISparqlQuery {
 	public ISparqlQuery addGroupGraphPattern(String s, String p, String o) {
 		
 		if (tripplePatterns == null)
-			tripplePatterns = new ArrayList<TriplePattern>();
+			tripplePatterns = new ArrayList<TriplePatternElement>();
 		
 		tripplePatterns.add(new GroupGraphPatternElement(s, p, o));
 		
@@ -108,6 +110,14 @@ class SparqlQuery implements ISparqlQuery {
 		return null;
 	}
 
+	@Override
+	public ISparqlQuery addConstruct(TriplePatternElement... args) {
+		
+		constructElement = new ConstructElement(args);
+
+
+		return this;
+	}
 
 	@Override
 	public String buildQueryString() {
@@ -121,25 +131,29 @@ class SparqlQuery implements ISparqlQuery {
 		
 		if (selectElement != null)
 			queryString += selectElement;
-				
-		
+		else if (constructElement != null)
+			queryString += constructElement;
+			
+	
 		if (fromElements != null)
-		{
 			for (FromElement fromElement : fromElements)
 				queryString += fromElement;
 		
-		queryString += "WHERE\n{\n";
-		
-		if (tripplePatterns != null)
-			for (TriplePattern triplePattern : tripplePatterns)
-				queryString += triplePattern;
-				
-		
-		queryString += "}";
+		if (selectElement != null || constructElement != null) {
+			queryString += "WHERE\n{\n";
+
+			if (tripplePatterns != null)
+				for (TriplePatternElement triplePattern : tripplePatterns)
+					queryString += triplePattern;
+
+			queryString += "}";
 		}
 		return queryString;
 		
 	}
+
+
+
 	
 
 }

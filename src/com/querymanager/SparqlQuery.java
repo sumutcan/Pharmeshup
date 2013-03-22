@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import com.querymanager.elements.BaseElement;
 import com.querymanager.elements.ConstructElement;
+import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.FromElement;
 import com.querymanager.elements.GroupGraphPatternElement;
 import com.querymanager.elements.OptionalGraphPattern;
@@ -125,6 +126,48 @@ class SparqlQuery implements ISparqlQuery {
 		return this;
 	}
 
+
+	@Override
+	public ISparqlQuery addFiltredTriplePattern(String s, String p, String o,
+			FilterElement filter) {
+		
+		if (tripplePatterns == null)
+			tripplePatterns = new ArrayList<TriplePatternElement>();
+		
+		tripplePatterns.add(new TriplePatternElement(s, p, o, filter));
+		
+		
+		return this;
+	}
+
+
+	@Override
+	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p,
+			String o, FilterElement filter) {
+		
+		if (tripplePatterns == null)
+			tripplePatterns = new ArrayList<TriplePatternElement>();
+		
+		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, filter));
+		
+		return this;
+		
+	}
+
+
+	@Override
+	public ISparqlQuery addFilteredOptionalPattern(String s, String p,
+			String o, FilterElement filter) throws Exception {
+		
+		if(tripplePatterns == null)
+			throw new Exception("WHERE clause must have at least one non-optional pattern.");
+		
+		tripplePatterns.add(new OptionalGraphPattern(s, p, o, filter));
+		
+		return this;
+	}
+
+	
 	@Override
 	public String buildQueryString() {
 		if (prefixes != null)
@@ -157,6 +200,7 @@ class SparqlQuery implements ISparqlQuery {
 		return queryString;
 		
 	}
+
 
 
 

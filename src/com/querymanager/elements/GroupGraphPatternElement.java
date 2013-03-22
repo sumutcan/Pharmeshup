@@ -4,9 +4,15 @@ public class GroupGraphPatternElement extends TriplePatternElement {
 
 	public GroupGraphPatternElement(String s, String p, String o) {
 		super(s, p, o);
-		// TODO Auto-generated constructor stub
+
 	}
 	
+	public GroupGraphPatternElement(String s, String p, String o,
+			FilterElement filter) {
+		
+		super(s, p, o, filter);
+	}
+
 	protected String groupPatternToString() {
 		
 		return "{"+super.trippleString()+"}";

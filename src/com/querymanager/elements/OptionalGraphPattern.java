@@ -7,6 +7,12 @@ public class OptionalGraphPattern extends GroupGraphPatternElement {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public OptionalGraphPattern(String s, String p, String o,
+			FilterElement filter) {
+		
+		super(s, p, o, filter);
+	}
+
 	public String toString()
 	{
 		return "\tOPTIONAL " + groupPatternToString() + "\n";

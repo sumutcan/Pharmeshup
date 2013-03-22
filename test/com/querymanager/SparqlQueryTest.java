@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.TriplePatternElement;
 
 public class SparqlQueryTest {
@@ -106,6 +107,50 @@ public class SparqlQueryTest {
 				"}", q.buildQueryString());
 	}
 
+	@Test
+	public void testAddFilteredTriplePattern() {
+		
+		q = SparqlQueryManager.getInstance().createQuery();
+		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
+		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
+		q.addFiltredTriplePattern("?name", "owl:sameAs","?o", new FilterElement("regex(\"?s\",\"hebele\",i)"));
+		assertEquals("SELECT ?s ?p ?o \n"+
+				 "WHERE\n"+
+				"{\n" +
+				"\t?name ?mbox \"hebele\" .\n" +
+				"\t?name owl:sameAs ?o . FILTER regex(\"?s\",\"hebele\",i)\n"+
+				"}", q.buildQueryString());
+	}
+
+	@Test
+	public void testAddFilteredGroupGraphPattern() {
+		
+		q = SparqlQueryManager.getInstance().createQuery();
+		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
+		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
+		q.addFilteredGroupGraphPattern("?name", "owl:sameAs","?o", new FilterElement("regex(\"?s\",\"hebele\",i)") );
+		assertEquals("SELECT ?s ?p ?o \n"+
+				 "WHERE\n"+
+				"{\n" +
+				"\t?name ?mbox \"hebele\" .\n" +
+				"\t{?name owl:sameAs ?o . FILTER regex(\"?s\",\"hebele\",i)}\n"+
+				"}", q.buildQueryString());
+	}
+	
+	@Test 
+	public void testAddFilteredOptionalPattern() throws Exception {
+		q = SparqlQueryManager.getInstance().createQuery();
+		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
+		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
+		q.addFilteredOptionalPattern("?name", "owl:sameAs","?o", new FilterElement("regex(\"?s\",\"hebele\",i)") );
+		assertEquals("SELECT ?s ?p ?o \n"+
+				 "WHERE\n"+
+				"{\n" +
+				"\t?name ?mbox \"hebele\" .\n" +
+				"\tOPTIONAL {?name owl:sameAs ?o . FILTER regex(\"?s\",\"hebele\",i)}\n"+
+				"}", q.buildQueryString());
+	}
+	
 	@Test @Ignore
 	public void testBuildQueryString() {
 		fail("Not yet implemented");

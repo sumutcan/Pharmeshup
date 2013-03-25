@@ -17,8 +17,11 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.JSeparator;
@@ -29,6 +32,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JTabbedPane;
+import javax.swing.ListSelectionModel;
 
 public class FrmMain extends JFrame {
 	private JTextField txtSearch;
@@ -41,7 +45,6 @@ public class FrmMain extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-					UIManager.put("Panel.background", Color.RED);
 					FrmMain frame = new FrmMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -84,18 +87,33 @@ public class FrmMain extends JFrame {
 		paneLeftBottom.setLeftComponent(scrollPane);
 		
 		JLabel lblResults = new JLabel("Results");
+		lblResults.setForeground(SystemColor.text);
+		lblResults.setBackground(UIManager.getColor("ArrowButton[Pressed].foreground"));
+		lblResults.setFont(new Font("Droid Sans", Font.BOLD, 15));
 		scrollPane.setColumnHeaderView(lblResults);
 		
 		JList listSearchResults = new JList();
+		listSearchResults.setFont(new Font("Ubuntu Light", Font.BOLD, 13));
+		listSearchResults.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listSearchResults.setVisibleRowCount(100);
+		listSearchResults.setBackground(SystemColor.window);
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		model.addElement("asdasd");
+		model.addElement("zcxcvxcv");
+		listSearchResults.setModel(model);
 		scrollPane.setViewportView(listSearchResults);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		paneLeftBottom.setRightComponent(scrollPane_1);
 		
 		JLabel lblRecentSearches = new JLabel("Recent Searches");
+		lblRecentSearches.setForeground(SystemColor.text);
+		lblRecentSearches.setBackground(SystemColor.activeCaption);
+		lblRecentSearches.setFont(new Font("Droid Sans", Font.BOLD, 15));
 		scrollPane_1.setColumnHeaderView(lblRecentSearches);
 		
 		JList listRecentSearches = new JList();
+		listRecentSearches.setBackground(SystemColor.window);
 		scrollPane_1.setViewportView(listRecentSearches);
 		paneLeftBottom.setDividerLocation(340);
 		
@@ -148,6 +166,8 @@ public class FrmMain extends JFrame {
 		paneRight.setRightComponent(scrollPane_2);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Droid Sans", Font.BOLD, 15));
+		tabbedPane.setBackground(SystemColor.window);
 		tabbedPane.addTab("General Info", null);
 		tabbedPane.addTab("Pharmacokinetics", null);
 		tabbedPane.addTab("Pharmacodynamics", null);
@@ -161,7 +181,6 @@ public class FrmMain extends JFrame {
 		
 		JLabel lblLbldrugname = new JLabel("lblDrugName");
 		lblLbldrugname.setForeground(SystemColor.activeCaption);
-		lblLbldrugname.setBackground(UIManager.getColor("MenuBar.borderColor"));
 		lblLbldrugname.setFont(new Font("Ubuntu Medium", Font.BOLD, 20));
 		panel.add(lblLbldrugname, BorderLayout.CENTER);
 		paneRight.setDividerLocation(40);

@@ -3,6 +3,7 @@ package main.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.MenuItem;
 import java.awt.Panel;
 
 import javax.swing.JFrame;
@@ -20,6 +21,9 @@ import com.jgoodies.forms.factories.FormFactory;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
@@ -31,6 +35,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.ObjectOutputStream.PutField;
+
 import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 
@@ -47,6 +53,7 @@ public class FrmMain extends JFrame {
 					UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
 					FrmMain frame = new FrmMain();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -63,6 +70,16 @@ public class FrmMain extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		getRootPane().putClientProperty("JRootPane.MenuInTitle", Boolean.TRUE);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setFont(new Font("Ubuntu Medium", Font.BOLD, 13));
+		JMenu aboutMenu = new JMenu("Help");
+		JMenuItem aboutItem = new JMenuItem("About");
+		aboutMenu.add(aboutItem);
+		
+		menuBar.add(aboutMenu);
+		setJMenuBar(menuBar);
 		
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setDividerSize(5);
@@ -139,7 +156,8 @@ public class FrmMain extends JFrame {
 		
 		txtSearch = new JTextField();
 		txtSearch.putClientProperty("JTextField.variant", "search");
-		txtSearch.putClientProperty("JTextField.Search.Prompt", "prompt");
+		txtSearch.putClientProperty("JTextField.Search.PlaceholderText", "Enter Drug Name Here");
+		 
 		txtSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

@@ -115,7 +115,7 @@ class SparqlQuery implements ISparqlQuery {
 		
 		tripplePatterns.add(new OptionalGraphPattern(s, p, o));
 		
-		return null;
+		return this;
 	}
 
 	@Override

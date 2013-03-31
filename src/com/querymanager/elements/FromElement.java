@@ -2,7 +2,7 @@ package com.querymanager.elements;
 
 public class FromElement {
 
-	private String uri;
+	protected String uri;
 	
 	public FromElement (String uri)
 	{

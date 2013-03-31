@@ -21,6 +21,9 @@ public interface ISparqlQuery {
 	public ISparqlQuery addConstruct(TriplePatternElement... args);
 	public ISparqlQuery addOptionalPattern(String s, String p, String o) throws Exception;
 	public ISparqlQuery addFilteredOptionalPattern(String s, String p, String o, FilterElement filter) throws Exception;
+	public ISparqlQuery addFROMNAMED(String uri);
+	public ISparqlQuery addGRAPH(String varOrIRIRef, TriplePatternElement... args) throws Exception;
+	public ISparqlQuery addUNION(String s, String p, String o);
 	public String buildQueryString();
 	
 }

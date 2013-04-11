@@ -2,6 +2,7 @@ package com.querymanager;
 
 import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.TriplePatternElement;
+import com.querymanager.elements.UnionElement;
 
 public interface ISparqlQuery {
 	
@@ -15,15 +16,16 @@ public interface ISparqlQuery {
 	public ISparqlQuery addSelectParamaters(boolean distinct, String... args);
 	public ISparqlQuery addFROM(String uri);
 	public ISparqlQuery addTriplePattern(String s, String p, String o);
-	public ISparqlQuery addFiltredTriplePattern(String s, String p, String o, FilterElement filter);
+	public ISparqlQuery addFiltredTriplePattern(String s, String p, String o, FilterElement... filters);
 	public ISparqlQuery addGroupGraphPattern(String s, String p, String o);
-	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p, String o, FilterElement filter);
+	public ISparqlQuery addGroupGraphPattern(String s, String p, String o, UnionElement union);
+	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p, String o, FilterElement... filters);
+	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p, String o, UnionElement union, FilterElement... filters);
 	public ISparqlQuery addConstruct(TriplePatternElement... args);
 	public ISparqlQuery addOptionalPattern(String s, String p, String o) throws Exception;
-	public ISparqlQuery addFilteredOptionalPattern(String s, String p, String o, FilterElement filter) throws Exception;
+	public ISparqlQuery addFilteredOptionalPattern(String s, String p, String o, FilterElement... filters) throws Exception;
 	public ISparqlQuery addFROMNAMED(String uri);
 	public ISparqlQuery addGRAPH(String varOrIRIRef, TriplePatternElement... args) throws Exception;
-	public ISparqlQuery addUNION(String s, String p, String o);
 	public String buildQueryString();
 	
 }

@@ -9,7 +9,7 @@ public class UnionElement extends GroupGraphPatternElement {
 	
 	public String toString()
 	{
-		return "\tUNION " + groupPatternToString() + "\n";
+		return "UNION " + groupPatternToString();
 	}
 
 }

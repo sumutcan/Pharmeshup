@@ -8,9 +8,9 @@ public class OptionalGraphPattern extends GroupGraphPatternElement {
 	}
 	
 	public OptionalGraphPattern(String s, String p, String o,
-			FilterElement filter) {
+			FilterElement[] filters) {
 		
-		super(s, p, o, filter);
+		super(s, p, o, filters);
 	}
 
 	public String toString()

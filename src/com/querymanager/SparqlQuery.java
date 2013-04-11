@@ -130,12 +130,12 @@ class SparqlQuery implements ISparqlQuery {
 
 	@Override
 	public ISparqlQuery addFiltredTriplePattern(String s, String p, String o,
-			FilterElement filter) {
+			FilterElement... filters) {
 		
 		if (tripplePatterns == null)
 			tripplePatterns = new ArrayList<TriplePatternElement>();
 		
-		tripplePatterns.add(new TriplePatternElement(s, p, o, filter));
+		tripplePatterns.add(new TriplePatternElement(s, p, o, filters));
 		
 		
 		return this;
@@ -144,24 +144,49 @@ class SparqlQuery implements ISparqlQuery {
 
 	@Override
 	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p,
-			String o, FilterElement filter) {
+			String o, FilterElement... filters) {
 		
 		if (tripplePatterns == null)
 			tripplePatterns = new ArrayList<TriplePatternElement>();
 		
-		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, filter));
+		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, filters));
 		
 		return this;
 		
 	}
 
+	@Override
+	public ISparqlQuery addGroupGraphPattern(String s, String p, String o,
+			UnionElement union) {
+		
+		if (tripplePatterns == null)
+			tripplePatterns = new ArrayList<TriplePatternElement>();
+		
+		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, union));
+		
+		return this;
+	}
+
+
+	@Override
+	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p,
+			String o, UnionElement union, FilterElement... filters) {
+		
+		if (tripplePatterns == null)
+			tripplePatterns = new ArrayList<TriplePatternElement>();
+		
+		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, union, filters));
+		
+		return this;
+	}
+
 
 	@Override
 	public ISparqlQuery addFilteredOptionalPattern(String s, String p,
-			String o, FilterElement filter) throws Exception {
+			String o, FilterElement... filters) throws Exception {
 		
 		
-		tripplePatterns.add(new OptionalGraphPattern(s, p, o, filter));
+		tripplePatterns.add(new OptionalGraphPattern(s, p, o, filters));
 		
 		return this;
 	}
@@ -173,13 +198,6 @@ class SparqlQuery implements ISparqlQuery {
 			fromNamedElements = new ArrayList<FromNamedElement>();
 		
 		fromNamedElements.add(new FromNamedElement(uri));
-		
-		return this;
-	}
-	@Override
-	public ISparqlQuery addUNION(String s, String p, String o) {
-		
-		tripplePatterns.add(new UnionElement(s, p, o));
 		
 		return this;
 	}
@@ -198,6 +216,7 @@ class SparqlQuery implements ISparqlQuery {
 	
 	@Override
 	public String buildQueryString() {
+		queryString = "";
 		if (prefixes != null)
 			for (PrefixElement prefixElement : prefixes)
 				queryString += prefixElement;
@@ -235,6 +254,8 @@ class SparqlQuery implements ISparqlQuery {
 		return queryString;
 		
 	}
+
+
 
 
 

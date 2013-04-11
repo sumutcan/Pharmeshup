@@ -1,11 +1,13 @@
 package com.querymanager.elements;
 
+import java.util.ArrayList;
+
 public class TriplePatternElement {
 
 	private String subject;
 	private String predicate;
 	private String object;
-	private FilterElement filter;
+	private FilterElement[] filters;
 	
 	public TriplePatternElement(String s, String p, String o)
 	{
@@ -16,19 +18,26 @@ public class TriplePatternElement {
 	
 	
 	public TriplePatternElement(String s, String p, String o,
-			FilterElement filter) {
+			FilterElement[] filters) {
 		
 		this.subject = s;
 		this.predicate = p;
 		this.object = o;
-		this.filter = filter;
+		this.filters = filters;
 	}
 
 
 	protected String trippleString()
 	{
-		if (filter != null)
-			return subject+" "+predicate+" "+object+" ."+" FILTER "+filter.getFilterString();
+		if (filters != null)
+		{
+			String temp = subject+" "+predicate+" "+object+" .";
+			
+			for (FilterElement f : filters)
+				temp += " FILTER "+f.getFilterString();
+			
+			return temp;
+		}
 		
 		return subject+" "+predicate+" "+object+" .";
 	}

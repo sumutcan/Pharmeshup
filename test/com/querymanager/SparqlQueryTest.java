@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.SelectElement;
 import com.querymanager.elements.TriplePatternElement;
+import com.querymanager.elements.UnionElement;
 
 public class SparqlQueryTest {
 
@@ -165,16 +166,15 @@ public class SparqlQueryTest {
 		q.addPrefix("dc10", "http://purl.org/dc/elements/1.0/");
 		q.addPrefix("dc11", "http://purl.org/dc/elements/1.1/");
 		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT, "?title");
-		q.addGroupGraphPattern("?book", "dc10:title", "?title");
-		q.addUNION("?book", "dc11:title", "?title");
+		q.addGroupGraphPattern("?book", "dc10:title", "?title", new UnionElement("?book", "dc11:title", "?title"));
+		
 		
 		String expected = "PREFIX dc10: <http://purl.org/dc/elements/1.0/>\n"+
 						  "PREFIX dc11: <http://purl.org/dc/elements/1.1/>\n"+
 						  "SELECT ?title \n"+
 						  "WHERE\n" +
 						  "{\n" +
-						  "\t{?book dc10:title ?title .}\n" +
-						  "\tUNION {?book dc11:title ?title .}\n" +
+						  "\t{?book dc10:title ?title .} UNION {?book dc11:title ?title .}\n" +					
 						  "}";	
 		assertEquals(expected, q.buildQueryString());
 		

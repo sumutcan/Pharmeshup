@@ -213,12 +213,13 @@ public class FrmMain extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Droid Sans", Font.BOLD, 15));
 		tabbedPane.setBackground(SystemColor.window);
-		tabbedPane.addTab("General Info", null);
+		tabbedPane.addTab("General Info", null, new pnlGeneral());
 		tabbedPane.addTab("Pharmacokinetics", null);
 		tabbedPane.addTab("Pharmacodynamics", null);
 		tabbedPane.addTab("Clinical Trials", null);
 		scrollPane_2.setViewportView(tabbedPane);
-
+		
+		
 		JPanel panel = new JPanel();
 		paneRight.setLeftComponent(panel);
 		panel.setLayout(new BorderLayout(0, 0));

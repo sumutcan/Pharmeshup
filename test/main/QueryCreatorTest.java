@@ -16,9 +16,9 @@ public class QueryCreatorTest {
 	public void testSearchInIndexFile() throws Exception {
 		
 		QueryCreator qc = QueryCreator.getInstance();
-		assertEquals(true, qc.searchInIndexFile("nap").contains("Naproxen@en")); 
+		assertEquals(2, qc.searchInIndexFile("naprox").size()); 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		assertEquals(sdf.parse("11-04-2013"), Config.getInstance().getLastUpdateDate());
+		assertEquals(sdf.parse("12-04-2013"), Config.getInstance().getLastUpdateDate());
 	
 	}
 	

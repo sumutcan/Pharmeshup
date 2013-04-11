@@ -15,8 +15,8 @@ public class SearchResult {
 			String label = temp[0];
 			this.drugName = label;
 		}
-		
-		this.drugName = drugName;
+		else
+			this.drugName = drugName;
 	}
 	public String getDrugbankID() {
 		return drugbankID;

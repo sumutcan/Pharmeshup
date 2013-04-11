@@ -5,10 +5,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -23,8 +26,8 @@ import com.querymanager.elements.UnionElement;
 public class QueryCreator {
 
 	private static QueryCreator instance = null;
-	private String idxPath = System.getProperty("user.dir") + "/config/pharmashup.idx";
-	private ArrayList<String> allIndexedLabels = new ArrayList<String>();
+	private String idxPath = System.getProperty("user.dir") + "/config/idx.json";
+	private ArrayList<SearchResult> allIndexedResults = new ArrayList<SearchResult>();
 
 	public static synchronized QueryCreator getInstance() {
 		if (instance == null)
@@ -36,7 +39,7 @@ public class QueryCreator {
 	private QueryCreator() {
 	}
 
-	public ArrayList<String> searchInIndexFile(String searchTerm)
+	public ArrayList<SearchResult> searchInIndexFile(String searchTerm)
 			throws Exception {
 
 		Date lastUpdateDate = Config.getInstance().getLastUpdateDate();
@@ -46,30 +49,29 @@ public class QueryCreator {
 				- lastUpdateDate.getTime() / (1000 * 60 * 60 * 24) > 1) {
 			createIndexFile();
 			Config.getInstance().setLastUpdateDate(currentDate);
-			allIndexedLabels.clear();
+			allIndexedResults.clear();
 		}
 
-		if (allIndexedLabels.isEmpty()) {
+		if (allIndexedResults.isEmpty()) {
 			
 			BufferedReader bfr = new BufferedReader(new FileReader(idxPath));
-
-			while (bfr.ready())
-				allIndexedLabels.add(bfr.readLine());
+			
+			Type listOfSearchResults = new TypeToken<ArrayList<SearchResult>>(){}.getType();
+			allIndexedResults = new Gson().fromJson(bfr, listOfSearchResults);
 			
 			bfr.close();
 		}
 		
-		ArrayList<String> foundLabels = new ArrayList<String>();
+		ArrayList<SearchResult> foundResults = new ArrayList<SearchResult>();
 		
-		for (String s : allIndexedLabels)
-			if (s.toLowerCase().contains(searchTerm.toLowerCase()))
+		for (SearchResult s : allIndexedResults)
+			if (s.getDrugName().toLowerCase().contains(searchTerm.toLowerCase()))
 			{
-				String[] temp = s.split("@");
-				String label = temp[0];
-				foundLabels.add(label);
+				
+				foundResults.add(s);
 			}
 
-		return foundLabels;
+		return foundResults;
 	}
 
 	private void createIndexFile() throws Exception {
@@ -80,7 +82,7 @@ public class QueryCreator {
 				.addPrefix("foaf", "http://xmlns.com/foaf/0.1/")
 				.addPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
 				.addPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-				.addSelectParamaters(true,"?s", "?label")
+				.addSelectParamaters(true,"?s", "?label", "?drugbankID")
 				.addFiltredTriplePattern("?s", "rdfs:label", "?label",
 						new FilterElement("langMatches(lang(?label), \"en\")"))
 				.addGroupGraphPattern(
@@ -88,7 +90,9 @@ public class QueryCreator {
 						"rdf:type",
 						"dbpedia-owl:Drug",
 						new UnionElement("?s", "rdf:type",
-								"dbpedia-owl:ChemicalCompound"));
+								"dbpedia-owl:ChemicalCompound"))
+				.addOptionalPattern("?s", "dbpprop:drugbank", "?drugbankID");
+		
 
 		Query q = QueryFactory.create(query.buildQueryString());
 
@@ -98,16 +102,32 @@ public class QueryCreator {
 		ResultSet results = qexec.execSelect();
 
 		File f = new File(idxPath);
+		
+		if (!f.exists())
+			f.createNewFile();
+		
 		FileWriter fw = new FileWriter(f, false);
-
-		BufferedWriter bfw = new BufferedWriter(fw);
-
+		
+		ArrayList<SearchResult> searchResults = new ArrayList<SearchResult>();
 		while (results.hasNext()) {
-			QuerySolution qSol = results.next();
-			bfw.write(qSol.getLiteral("?label").toString() + "\n");
-		}
+			QuerySolution row = results.next();
+			
+			SearchResult searchResult = new SearchResult();
+			searchResult.setDrugbankID(row.getLiteral("drugbankID"));
+			searchResult.setDrugName(row.getLiteral("label").toString());
+			searchResult.setDrugSubject(row.getResource("s").toString());
 
-		bfw.close();
+			searchResults.add(searchResult);
+				
+		}
+		
+		Gson gson = new Gson();
+		Type listOfSearchResults = new TypeToken<ArrayList<SearchResult>>(){}.getType();
+		String json = gson.toJson(searchResults, listOfSearchResults);
+
+		fw.write(json);
+		
+		fw.close();
 
 	}
 

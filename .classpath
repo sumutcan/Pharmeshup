@@ -6,6 +6,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JenaLibs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jericho"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gson"/>
 	<classpathentry kind="lib" path="forms-1.3.0.jar" sourcepath="forms-1.3.0-src.zip"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Seaglass"/>
 	<classpathentry kind="output" path="bin"/>

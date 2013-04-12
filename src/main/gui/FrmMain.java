@@ -129,7 +129,7 @@ public class FrmMain extends JFrame {
 			
 				if (listSearchResults.getSelectedValuesList().size() > 0)
 				{
-					if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					if (e.getKeyCode() == KeyEvent.VK_ENTER && listSearchResults.getSelectedValue() instanceof SearchResult)
 					{
 						DrugSearchController controller = new DrugSearchController();
 						DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
@@ -144,7 +144,7 @@ public class FrmMain extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			
-				if (e.getClickCount() == 2)
+				if (e.getClickCount() == 2 && listSearchResults.getSelectedValue() instanceof SearchResult)
 				{
 					DrugSearchController controller = new DrugSearchController();
 					DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());

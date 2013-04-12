@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Properties;
 
 
@@ -75,6 +77,35 @@ public class Config {
 			throw new Exception("Error occured when reading endpoint file: "+ e.getMessage());
 		}
 		
+		
+	}
+
+	public Hashtable<String, String> getAllPrefixes() throws Exception {
+		
+		Hashtable<String, String> prefixes = new Hashtable<String, String>();
+		
+		try {
+			props.load(new FileInputStream(new File(configSource+"/prefixes.properties")));
+			
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				throw new Exception("Config file cannot be found: "+ e.getMessage());
+		
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				throw new Exception("Error occured when reading prefixes file: "+ e.getMessage());
+			}
+		
+		@SuppressWarnings("rawtypes")
+		Enumeration keysEnum = props.propertyNames();
+		
+		while (keysEnum.hasMoreElements())
+		{
+			String key = (String) keysEnum.nextElement();
+			prefixes.put(key, props.getProperty(key));
+		}
+		
+		return prefixes;
 		
 	}
 }

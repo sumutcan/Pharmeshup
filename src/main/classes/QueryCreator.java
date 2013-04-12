@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -131,6 +132,20 @@ public class QueryCreator {
 
 		fw.close();
 
+	}
+	
+	public ISparqlQuery getCommonPrefixes(ISparqlQuery q) throws Exception
+	{
+		Enumeration<String> keysEnum = Config.getInstance().getAllPrefixes().keys();
+		
+		while (keysEnum.hasMoreElements())
+		{
+			String prefix = keysEnum.nextElement();
+			q.addPrefix(prefix, Config.getInstance().getAllPrefixes().get(prefix));
+		}
+		
+		return q;
+		
 	}
 
 }

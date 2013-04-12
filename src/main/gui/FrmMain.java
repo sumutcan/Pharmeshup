@@ -122,6 +122,18 @@ public class FrmMain extends JFrame {
 		scrollPane.setColumnHeaderView(lblResults);
 
 		final JList listSearchResults = new JList();
+		listSearchResults.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			
+				if (e.getClickCount() == 2)
+				{
+					DrugSearchController controller = new DrugSearchController();
+					DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
+				}
+			
+			}
+		});
 		listSearchResults.setFont(new Font("Ubuntu Light", Font.BOLD, 13));
 		listSearchResults.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listSearchResults.setVisibleRowCount(100);
@@ -168,7 +180,6 @@ public class FrmMain extends JFrame {
 						ArrayList<SearchResult> resultList = controller
 								.searchDrug(txtSearch.getText());
 
-						
 					    
 						if (resultList.isEmpty())
 						{

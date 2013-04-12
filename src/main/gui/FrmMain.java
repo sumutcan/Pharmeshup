@@ -123,6 +123,23 @@ public class FrmMain extends JFrame {
 		scrollPane.setColumnHeaderView(lblResults);
 
 		final JList listSearchResults = new JList();
+		listSearchResults.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+			
+				if (listSearchResults.getSelectedValuesList().size() > 0)
+				{
+					if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					{
+						DrugSearchController controller = new DrugSearchController();
+						DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
+					}
+						
+				}
+					
+				
+			}
+		});
 		listSearchResults.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

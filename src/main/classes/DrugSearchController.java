@@ -24,6 +24,6 @@ public class DrugSearchController {
 		
 		DrugData drugData = new DrugData(selectedValue); 
 		
-		return null;
+		return drugData;
 	}
 }

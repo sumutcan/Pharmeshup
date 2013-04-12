@@ -19,4 +19,11 @@ public class DrugSearchController {
 		
 		return searchTerm.search();
 	}
+
+	public DrugData getDrugData(SearchResult selectedValue) {
+		
+		DrugData drugData = new DrugData(selectedValue); 
+		
+		return null;
+	}
 }

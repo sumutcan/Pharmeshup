@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 
+import main.classes.DrugData;
 import main.classes.DrugSearchController;
 import main.classes.RemoteDataAccess;
 import main.classes.SearchResult;

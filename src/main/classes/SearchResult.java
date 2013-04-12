@@ -44,6 +44,7 @@ public class SearchResult {
 	private String drugSubject;
 	private String drugName;
 	private String drugbankID;
+	@SuppressWarnings("unused")
 	private ILinkedDataAccess linkedDataAccess;
 	
 

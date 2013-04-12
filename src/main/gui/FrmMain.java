@@ -168,14 +168,25 @@ public class FrmMain extends JFrame {
 						ArrayList<SearchResult> resultList = controller
 								.searchDrug(txtSearch.getText());
 
-						DefaultListModel<SearchResult> model = new DefaultListModel<SearchResult>();
-					    
 						
-						for (SearchResult s : resultList)
-							model.addElement(s);
+					    
+						if (resultList.isEmpty())
+						{
+							DefaultListModel<String> model = new DefaultListModel<String>();
+							model.addElement("No result found");
+							listSearchResults.setModel(model);
 							
-						listSearchResults.setModel(model);
-
+						}
+						else
+						{
+							DefaultListModel<SearchResult> model = new DefaultListModel<SearchResult>();
+							for (SearchResult s : resultList)
+								model.addElement(s);
+							
+							listSearchResults.setModel(model);
+							
+						}
+						
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}

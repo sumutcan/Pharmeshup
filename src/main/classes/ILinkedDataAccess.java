@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface ILinkedDataAccess {
 
-		public ArrayList<SearchResult> getData(String searchTerm) throws Exception;
+		public ArrayList<SearchResult> search(String searchTerm) throws Exception;
 		
 
 }

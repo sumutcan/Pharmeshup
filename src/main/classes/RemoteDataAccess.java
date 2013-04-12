@@ -16,7 +16,7 @@ import com.querymanager.elements.UnionElement;
 public class RemoteDataAccess implements ILinkedDataAccess {
 
 	@Override
-	public ArrayList<SearchResult> getData(String searchTerm) throws Exception {
+	public ArrayList<SearchResult> search(String searchTerm) throws Exception {
 
 		
 	return QueryCreator.getInstance().searchInIndexFile(searchTerm);

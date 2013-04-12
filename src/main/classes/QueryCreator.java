@@ -98,7 +98,7 @@ public class QueryCreator {
 		Query q = QueryFactory.create(query.buildQueryString());
 
 		QueryExecution qexec = QueryExecutionFactory.sparqlService(
-				"http://dbpedia.org/sparql", q);
+				Config.getInstance().getEndpoint("dbpedia"), q);
 
 		ResultSet results = qexec.execSelect();
 

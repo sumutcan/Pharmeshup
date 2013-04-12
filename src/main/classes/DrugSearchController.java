@@ -5,19 +5,18 @@ import java.util.ArrayList;
 
 public class DrugSearchController {
 
-	ILinkedDataAccess linkedDataAccess; 
 	
-	public DrugSearchController(ILinkedDataAccess remoteDataAccess) {
+	public DrugSearchController() {
 		
-		linkedDataAccess = remoteDataAccess;
+		
 	}
 
-	public ArrayList<SearchResult> searchDrug(String searchTerm) throws Exception
+	public ArrayList<SearchResult> searchDrug(String searchString) throws Exception
 	{
-		ArrayList<SearchResult> searchResults = new ArrayList<SearchResult>();
+		SearchTerm searchTerm = new SearchTerm(LinkedDataAccessFactory.createLinkedDataAccess());
 		
-		searchResults = linkedDataAccess.getData(searchTerm);
+		searchTerm.setSearchString(searchString);
 		
-		return searchResults;
+		return searchTerm.search();
 	}
 }

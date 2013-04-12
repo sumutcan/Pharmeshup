@@ -39,8 +39,6 @@ public class Config {
 
 	public Date getLastUpdateDate() throws Exception {
 		
-		
-		
 		try {
 			
 			props.load(new FileInputStream(new File(configSource+"/config.properties")));
@@ -67,6 +65,24 @@ public class Config {
 			
 			throw new Exception("Config file cannot be found: "+ e.getMessage());
 		}
+		
+	}
+
+	public String getEndpoint(String name) throws Exception {
+		
+		try {
+			props.load(new FileInputStream(new File(configSource+"/endpoints.properties")));
+			return props.getProperty(name);
+		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			throw new Exception("Config file cannot be found: "+ e.getMessage());
+	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new Exception("Error occured when reading endpoint file: "+ e.getMessage());
+		}
+		
 		
 	}
 }

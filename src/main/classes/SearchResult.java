@@ -40,9 +40,11 @@ public class SearchResult {
 		return drugName;
 	}
 	
+	
 	private String drugSubject;
 	private String drugName;
 	private String drugbankID;
+	private ILinkedDataAccess linkedDataAccess;
 	
 
 }

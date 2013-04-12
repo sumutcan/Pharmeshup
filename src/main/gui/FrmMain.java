@@ -164,8 +164,7 @@ public class FrmMain extends JFrame {
 
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
-						DrugSearchController controller = new DrugSearchController(
-								new RemoteDataAccess());
+						DrugSearchController controller = new DrugSearchController();
 						ArrayList<SearchResult> resultList = controller
 								.searchDrug(txtSearch.getText());
 

@@ -109,6 +109,29 @@ public class pnlGeneral extends JPanel {
 		splitPane_5.setRightComponent(list);
 		splitPane_5.setDividerLocation(20);
 		splitPane_3.setDividerLocation(380);
+		
+		JSplitPane splitPane_6 = new JSplitPane();
+		splitPane_6.setDividerSize(5);
+		splitPane_6.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_2.setRightComponent(splitPane_6);
+		
+		JSplitPane splitPane_7 = new JSplitPane();
+		splitPane_7.setDividerSize(5);
+		splitPane_6.setRightComponent(splitPane_7);
+		
+		JList list_1 = new JList();
+		splitPane_7.setLeftComponent(list_1);
+		splitPane_7.setDividerLocation(200);
+		
+		JPanel panel_4 = new JPanel();
+		splitPane_6.setLeftComponent(panel_4);
+		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.X_AXIS));
+		
+		JLabel lblFdaProuductLabel = new JLabel("FDA Prouduct Label Data");
+		lblFdaProuductLabel.setFont(new Font("Ubuntu Medium", Font.BOLD, 15));
+		lblFdaProuductLabel.setForeground(UIManager.getColor("OptionPane.warningDialog.titlePane.foreground"));
+		panel_4.add(lblFdaProuductLabel);
+		splitPane_6.setDividerLocation(30);
 		splitPane_2.setDividerLocation(90);
 		splitPane.setDividerLocation(200);
 	}

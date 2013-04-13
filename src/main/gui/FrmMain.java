@@ -27,6 +27,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
+import javax.swing.ProgressMonitor;
 import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.JSeparator;
@@ -52,7 +53,8 @@ import java.awt.event.KeyEvent;
 
 public class FrmMain extends JFrame {
 	private JTextField txtSearch;
-
+	final JLabel lblDrugname;
+	private pnlGeneral pnlGeneral;
 	/**
 	 * Launch the application.
 	 */
@@ -132,7 +134,16 @@ public class FrmMain extends JFrame {
 					if (e.getKeyCode() == KeyEvent.VK_ENTER && listSearchResults.getSelectedValue() instanceof SearchResult)
 					{
 						DrugSearchController controller = new DrugSearchController();
-						DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
+						
+						try {
+							DrugData resultData =  controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
+							lblDrugname.setText(resultData.getSearchResult().getDrugName());
+							pnlGeneral.setTxtPaneDBPedia(resultData.getDbpediaData().getDescription());
+						} catch (Exception ex) {
+							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(null, ex.getMessage());
+						}
+						
 					}
 						
 				}
@@ -147,7 +158,12 @@ public class FrmMain extends JFrame {
 				if (e.getClickCount() == 2 && listSearchResults.getSelectedValue() instanceof SearchResult)
 				{
 					DrugSearchController controller = new DrugSearchController();
-					DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
+					try {
+						DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
+					} catch (Exception ex) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
 				}
 			
 			}
@@ -195,6 +211,7 @@ public class FrmMain extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
 						DrugSearchController controller = new DrugSearchController();
+						
 						ArrayList<SearchResult> resultList = controller
 								.searchDrug(txtSearch.getText());
 
@@ -252,7 +269,8 @@ public class FrmMain extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Droid Sans", Font.BOLD, 15));
 		tabbedPane.setBackground(SystemColor.window);
-		tabbedPane.addTab("General Info", null, new pnlGeneral());
+		pnlGeneral = new pnlGeneral();
+		tabbedPane.addTab("General Info", null, pnlGeneral);
 		tabbedPane.addTab("Pharmacokinetics", null);
 		tabbedPane.addTab("Pharmacodynamics", null);
 		tabbedPane.addTab("Clinical Trials", null);
@@ -263,10 +281,10 @@ public class FrmMain extends JFrame {
 		paneRight.setLeftComponent(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblLbldrugname = new JLabel("lblDrugName");
-		lblLbldrugname.setForeground(SystemColor.activeCaption);
-		lblLbldrugname.setFont(new Font("Ubuntu Medium", Font.BOLD, 20));
-		panel.add(lblLbldrugname, BorderLayout.CENTER);
+		lblDrugname = new JLabel("lblDrugName");
+		lblDrugname.setForeground(SystemColor.activeCaption);
+		lblDrugname.setFont(new Font("Ubuntu Medium", Font.BOLD, 20));
+		panel.add(lblDrugname, BorderLayout.CENTER);
 		paneRight.setDividerLocation(40);
 		// setBounds(100, 100, 682, 537);
 	}

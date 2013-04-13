@@ -20,10 +20,15 @@ public class DrugSearchController {
 		return searchTerm.search();
 	}
 
-	public DrugData getDrugData(SearchResult selectedValue) {
+	public DrugData getDrugData(SearchResult selectedValue) throws Exception {
 		
 		DrugData drugData = new DrugData(selectedValue); 
-		
+		try {
+			drugData.retrieve();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new Exception("Error occured while retrieving drug data: " + e.getMessage());
+		}
 		return drugData;
 	}
 }

@@ -2,13 +2,34 @@ package main.classes;
 
 public class DrugData {
 
+	private String casNumber;
+	private SearchResult searchResult;
+	
+	public SearchResult getSearchResult() {
+		return searchResult;
+	}
+	public String getCasNumber() {
+		return casNumber;
+	}
+	public void setCasNumber(String casNumber) {
+		this.casNumber = casNumber;
+	}
 	public DrugData(SearchResult selectedValue) {
 		
-		this.dbpediaData = new DBPedia();
-		this.drugBankdata = new Drugbank();
-		this.dailymedData = new DailyMed();
+		this.searchResult = selectedValue;
+		this.dbpediaData = new DBPedia(LinkedDataAccessFactory.createLinkedDataAccess());
+		this.drugBankdata = new Drugbank(LinkedDataAccessFactory.createLinkedDataAccess());
+		this.dailymedData = new DailyMed(LinkedDataAccessFactory.createLinkedDataAccess());
 		
 	}
+	
+	public void retrieve() throws Exception
+	{
+		dbpediaData.setDrugName(searchResult.getDrugName());
+		dbpediaData.getData();
+		
+	}
+	
 	public Drugbank getDrugBankdata() {
 		return drugBankdata;
 	}

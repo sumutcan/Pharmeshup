@@ -7,6 +7,7 @@ public class SearchResult {
 	public String getDrugName() {
 		return drugName;
 	}
+	
 	public void setDrugName(String drugName) {
 		
 		if (drugName.contains("@")) 
@@ -18,12 +19,16 @@ public class SearchResult {
 		else
 			this.drugName = drugName;
 	}
+	
 	public String getDrugbankID() {
 		return drugbankID;
 	}
-	public void setDrugbankID(Literal literal) {
+	
+	public void setDrugbankID(Literal literal, Literal alt) {
 		if (literal != null)
 			this.drugbankID = literal.getString();
+		else if (alt != null) 
+			this.drugbankID = alt.getString();
 		else
 			literal = null;
 	}
@@ -31,6 +36,7 @@ public class SearchResult {
 	public String getDrugSubject() {
 		return drugSubject;
 	}
+	
 	public void setDrugSubject(String drugSubject) {
 		this.drugSubject = drugSubject;
 	}

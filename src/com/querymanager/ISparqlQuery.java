@@ -10,6 +10,7 @@ public interface ISparqlQuery {
 	public static final boolean NOT_DISTINCT = false;
 	public static final int ORDER_BY_ASC = 0;
 	public static final int ORDER_BY_DESC = 1;
+	public static final String LANG_EN = "en";
 	
 	public ISparqlQuery addPrefix(String prefix, String uri);
 	public ISparqlQuery addBase(String uri);

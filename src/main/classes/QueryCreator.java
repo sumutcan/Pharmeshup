@@ -79,29 +79,10 @@ public class QueryCreator {
 
 	private void createIndexFile() throws Exception {
 
-		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
-		query.addPrefix("dbpedia-owl", "http://dbpedia.org/ontology/")
-				.addPrefix("dbpprop", "http://dbpedia.org/property/")
-				.addPrefix("foaf", "http://xmlns.com/foaf/0.1/")
-				.addPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
-				.addPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-				.addSelectParamaters(true, "?s", "?label", "?drugbankID")
-				.addFiltredTriplePattern("?s", "rdfs:label", "?label",
-						new FilterElement("langMatches(lang(?label), \"en\")"))
-				.addGroupGraphPattern(
-						"?s",
-						"rdf:type",
-						"dbpedia-owl:Drug",
-						new UnionElement("?s", "rdf:type",
-								"dbpedia-owl:ChemicalCompound"))
-				.addOptionalPattern("?s", "dbpprop:drugbank", "?drugbankID");
 
-		Query q = QueryFactory.create(query.buildQueryString());
+		Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getCreateIndexFileQuery());
 
-		QueryExecution qexec = QueryExecutionFactory.sparqlService(
-				Config.getInstance().getEndpoint("dbpedia"), q);
-
-		ResultSet results = qexec.execSelect();
+		ResultSet results = executeRemoteSelect("dbpedia", q);
 
 		File f = new File(idxPath);
 
@@ -115,7 +96,7 @@ public class QueryCreator {
 			QuerySolution row = results.next();
 
 			SearchResult searchResult = new SearchResult();
-			searchResult.setDrugbankID(row.getLiteral("drugbankID"));
+			searchResult.setDrugbankID(row.getLiteral("drugbankID"), row.getLiteral("?drugbankIDAlt"));
 			searchResult.setDrugName(row.getLiteral("label").toString());
 			searchResult.setDrugSubject(row.getResource("s").toString());
 
@@ -131,6 +112,15 @@ public class QueryCreator {
 		fw.write(json);
 
 		fw.close();
+
+	}
+	
+	public ResultSet executeRemoteSelect(String endpoint, Query q) throws Exception
+	{
+		QueryExecution qexec = QueryExecutionFactory.sparqlService(
+				Config.getInstance().getEndpoint(endpoint), q);
+		
+		return qexec.execSelect();
 
 	}
 	

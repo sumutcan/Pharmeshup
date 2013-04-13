@@ -17,10 +17,9 @@ import javax.swing.JEditorPane;
 import javax.swing.JList;
 
 public class pnlGeneral extends JPanel {
-
-	/**
-	 * Create the panel.
-	 */
+	
+	JTextPane txtPaneDBPedia;
+	
 	public pnlGeneral() {
 		setSize(new Dimension(770,760));
 		setLayout(new BorderLayout(0, 0));
@@ -47,17 +46,20 @@ public class pnlGeneral extends JPanel {
 		splitPane_1.setRightComponent(panel_1);
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
-		JTextPane txtPaneDBPedia = new JTextPane();
-		txtPaneDBPedia.setEditable(false);
-		panel_1.add(txtPaneDBPedia);
+		JSplitPane splitPane_8 = new JSplitPane();
+		splitPane_8.setDividerSize(3);
+		panel_1.add(splitPane_8);
+		
+	    txtPaneDBPedia = new JTextPane();
+		splitPane_8.setLeftComponent(txtPaneDBPedia);
+		
+		JTextPane txtPaneDrugbank = new JTextPane();
+		splitPane_8.setRightComponent(txtPaneDrugbank);
+		splitPane_8.setDividerLocation(380);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
 		panel_1.add(separator);
-		
-		JTextPane textPaneDrugBank = new JTextPane();
-		textPaneDrugBank.setEditable(false);
-		panel_1.add(textPaneDrugBank);
 		splitPane_1.setDividerLocation(30);
 		
 		JSplitPane splitPane_2 = new JSplitPane();
@@ -134,6 +136,11 @@ public class pnlGeneral extends JPanel {
 		splitPane_6.setDividerLocation(30);
 		splitPane_2.setDividerLocation(90);
 		splitPane.setDividerLocation(200);
+	}
+	
+	public void setTxtPaneDBPedia(String text)
+	{
+		txtPaneDBPedia.setText(text);
 	}
 
 }

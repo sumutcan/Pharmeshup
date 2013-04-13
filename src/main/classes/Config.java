@@ -51,6 +51,7 @@ public class Config {
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		
 		try {
+			props.clear();
 			props.load(new FileInputStream(new File(configSource+"/config.properties")));
 			props.setProperty("lastAccessDate", df.format(currentDate)); 
 			props.store(new FileOutputStream(configSource+"/config.properties"), null);

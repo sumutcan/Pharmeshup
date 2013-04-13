@@ -45,11 +45,13 @@ import javax.swing.ListSelectionModel;
 
 import main.classes.DrugData;
 import main.classes.DrugSearchController;
+import main.classes.Link;
 import main.classes.RemoteDataAccess;
 import main.classes.SearchResult;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class FrmMain extends JFrame {
 	private JTextField txtSearch;
@@ -138,7 +140,14 @@ public class FrmMain extends JFrame {
 						try {
 							DrugData resultData =  controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
 							lblDrugname.setText(resultData.getSearchResult().getDrugName());
+							
 							pnlGeneral.setTxtPaneDBPedia(resultData.getDbpediaData().getDescription());
+							
+							DefaultListModel<Link> relatedModel = new DefaultListModel<Link>();
+							relatedModel.addElement(resultData.getDbpediaData().getWikiPage());
+							pnlGeneral.listRelatedPages.setModel(relatedModel);
+							
+							
 						} catch (Exception ex) {
 							// TODO Auto-generated catch block
 							JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -185,6 +194,7 @@ public class FrmMain extends JFrame {
 		scrollPane_1.setColumnHeaderView(lblRecentSearches);
 
 		JList listRecentSearches = new JList();
+		listRecentSearches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listRecentSearches.setBackground(SystemColor.window);
 		scrollPane_1.setViewportView(listRecentSearches);
 		paneLeftBottom.setDividerLocation(340);
@@ -263,6 +273,7 @@ public class FrmMain extends JFrame {
 		splitPane.setRightComponent(paneRight);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane_2.setBackground(UIManager.getColor("Separator.shadow"));
 		paneRight.setRightComponent(scrollPane_2);
 

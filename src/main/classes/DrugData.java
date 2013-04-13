@@ -2,18 +2,12 @@ package main.classes;
 
 public class DrugData {
 
-	private String casNumber;
 	private SearchResult searchResult;
 	
 	public SearchResult getSearchResult() {
 		return searchResult;
 	}
-	public String getCasNumber() {
-		return casNumber;
-	}
-	public void setCasNumber(String casNumber) {
-		this.casNumber = casNumber;
-	}
+
 	public DrugData(SearchResult selectedValue) {
 		
 		this.searchResult = selectedValue;

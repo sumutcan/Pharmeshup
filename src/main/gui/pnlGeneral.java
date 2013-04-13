@@ -15,11 +15,14 @@ import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 import javax.swing.JEditorPane;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.ListSelectionModel;
 
 public class pnlGeneral extends JPanel {
 	
 	JTextPane txtPaneDBPedia;
-	
+	JList listRelatedPages;
 	public pnlGeneral() {
 		setSize(new Dimension(770,760));
 		setLayout(new BorderLayout(0, 0));
@@ -50,11 +53,29 @@ public class pnlGeneral extends JPanel {
 		splitPane_8.setDividerSize(3);
 		panel_1.add(splitPane_8);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		splitPane_8.setLeftComponent(scrollPane);
+		
 	    txtPaneDBPedia = new JTextPane();
-		splitPane_8.setLeftComponent(txtPaneDBPedia);
+	    txtPaneDBPedia.setEditable(false);
+		scrollPane.setViewportView(txtPaneDBPedia);
+		
+		JLabel lblDbpedia = new JLabel("DBPedia");
+		lblDbpedia.setForeground(UIManager.getColor("OptionPane.warningDialog.titlePane.foreground"));
+		lblDbpedia.setFont(new Font("Ubuntu", Font.BOLD, 13));
+		scrollPane.setColumnHeaderView(lblDbpedia);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		splitPane_8.setRightComponent(scrollPane_1);
 		
 		JTextPane txtPaneDrugbank = new JTextPane();
-		splitPane_8.setRightComponent(txtPaneDrugbank);
+		txtPaneDrugbank.setEditable(false);
+		scrollPane_1.setViewportView(txtPaneDrugbank);
+		
+		JLabel lblDrugbank = new JLabel("Drugbank");
+		lblDrugbank.setForeground(UIManager.getColor("OptionPane.warningDialog.titlePane.foreground"));
+		lblDrugbank.setFont(new Font("Ubuntu", Font.BOLD, 13));
+		scrollPane_1.setColumnHeaderView(lblDrugbank);
 		splitPane_8.setDividerLocation(380);
 		
 		JSeparator separator = new JSeparator();
@@ -85,11 +106,9 @@ public class pnlGeneral extends JPanel {
 		lblRelatedPages.setForeground(UIManager.getColor("OptionPane.warningDialog.titlePane.foreground"));
 		panel_2.add(lblRelatedPages, BorderLayout.WEST);
 		
-		JEditorPane paneRelatedPages = new JEditorPane();
-		paneRelatedPages.setEditable(false);
-		paneRelatedPages.setContentType("text/html");
-		paneRelatedPages.setText("<a href=\"google.com\">Google</a>");
-		splitPane_4.setRightComponent(paneRelatedPages);
+	    listRelatedPages = new JList();
+		listRelatedPages.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		splitPane_4.setRightComponent(listRelatedPages);
 		splitPane_4.setDividerLocation(20);
 		
 		JSplitPane splitPane_5 = new JSplitPane();
@@ -123,6 +142,9 @@ public class pnlGeneral extends JPanel {
 		
 		JList list_1 = new JList();
 		splitPane_7.setLeftComponent(list_1);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		splitPane_7.setRightComponent(scrollPane_2);
 		splitPane_7.setDividerLocation(200);
 		
 		JPanel panel_4 = new JPanel();

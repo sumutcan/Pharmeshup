@@ -4,6 +4,7 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.tdb.solver.SolverLib;
 import com.querymanager.ISparqlQuery;
 
@@ -12,6 +13,7 @@ public class DBPedia extends ADataSet {
 	private Link wikiPage;
 	private String description;
 	private String drugName;
+	private String casNumber;
 	
 	public String getDrugName() {
 		return drugName;
@@ -40,7 +42,16 @@ public class DBPedia extends ADataSet {
 		this.description = description;
 	}
 
-
+	public String getCasNumber() {
+		return casNumber;
+	}
+	public void setCasNumber(Literal literal) {
+		
+		if (literal == null)
+			this.casNumber = null;
+		else
+			this.casNumber = literal.getString();
+	}
 
 	@Override
 	public void getData() throws Exception {
@@ -53,6 +64,8 @@ public class DBPedia extends ADataSet {
 			{
 				QuerySolution row = results.next();
 				setDescription(row.getLiteral("abstract").getString());
+				setCasNumber(row.getLiteral("casNumber"));
+				setWikiPage(new Link(getDrugName()+ " at Wikipedia", row.getResource("wikiPage").toString()));
 			}
 			
 		} catch (Exception e) {

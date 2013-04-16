@@ -1,5 +1,8 @@
 package main.classes;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import com.hp.hpl.jena.rdf.model.Resource;
 
 public class Link {
@@ -18,5 +21,16 @@ public class Link {
 	public String toString()
 	{
 		return name;
+	}
+
+
+	public URI getURL() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return new URI(url);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			throw new Exception(url+" is not a valid URI");
+		}
 	}
 }

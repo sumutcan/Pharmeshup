@@ -2,7 +2,6 @@ package main.classes;
 
 import com.querymanager.ISparqlQuery;
 import com.querymanager.SparqlQueryManager;
-import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.LangFilterElement;
 import com.querymanager.elements.UnionElement;
 
@@ -30,7 +29,7 @@ public class SparqlQueryRepo {
 				.addPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 				.addSelectParamaters(true, "?s", "?label", "?drugbankID","?drugbankIDAlt")
 				.addFiltredTriplePattern("?s", "rdfs:label", "?label",
-						new FilterElement(ISparqlQuery.LANG_EN))
+						new LangFilterElement("?label",ISparqlQuery.LANG_EN))
 				.addGroupGraphPattern(
 						"?s",
 						"rdf:type",

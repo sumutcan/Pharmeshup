@@ -1,5 +1,6 @@
 package main.gui;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -10,6 +11,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextPane;
 import java.awt.TextArea;
+
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
@@ -18,6 +21,11 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ListSelectionModel;
+
+import main.classes.Link;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class pnlGeneral extends JPanel {
 	
@@ -107,6 +115,23 @@ public class pnlGeneral extends JPanel {
 		panel_2.add(lblRelatedPages, BorderLayout.WEST);
 		
 	    listRelatedPages = new JList();
+	    listRelatedPages.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseClicked(MouseEvent e) {
+	    	
+				if (e.getClickCount() == 2)
+				{
+					
+					try {
+						Desktop.getDesktop().browse(((Link)listRelatedPages.getSelectedValue()).getURL());
+					} catch (Exception ex) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
+				}
+	    	
+	    	}
+	    });
 		listRelatedPages.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		splitPane_4.setRightComponent(listRelatedPages);
 		splitPane_4.setDividerLocation(20);

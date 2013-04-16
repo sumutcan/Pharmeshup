@@ -1,9 +1,12 @@
 package main.classes;
 
-public class DailyMed extends ADataSet {
+public class DailyMed implements ADataSet {
+
+	private ILinkedDataAccess linkedDataAccess;
 
 	public DailyMed(ILinkedDataAccess linkedDataAccess) {
-		super(linkedDataAccess);
+		
+		this.linkedDataAccess = linkedDataAccess;
 		// TODO Auto-generated constructor stub
 	}
 

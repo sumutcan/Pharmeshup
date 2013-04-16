@@ -8,12 +8,13 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.tdb.solver.SolverLib;
 import com.querymanager.ISparqlQuery;
 
-public class DBPedia extends ADataSet {
+public class DBPedia implements ADataSet {
 
 	private Link wikiPage;
 	private String description;
 	private String drugName;
 	private String casNumber;
+	private ILinkedDataAccess linkedDataAccess;
 	
 	public String getDrugName() {
 		return drugName;
@@ -25,7 +26,7 @@ public class DBPedia extends ADataSet {
 
 	public DBPedia(ILinkedDataAccess linkedDataAccess) {
 		
-		super(linkedDataAccess);
+		this.linkedDataAccess = linkedDataAccess;
 		
 	}
 	

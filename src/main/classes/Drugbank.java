@@ -1,10 +1,13 @@
 package main.classes;
 
-public class Drugbank extends ADataSet {
+public class Drugbank implements ADataSet {
 
+	private ILinkedDataAccess linkedDataAccess;
+	
 	public Drugbank(ILinkedDataAccess linkedDataAccess) {
-		super(linkedDataAccess);
-		// TODO Auto-generated constructor stub
+		
+		this.linkedDataAccess = linkedDataAccess;
+		
 	}
 
 	@Override

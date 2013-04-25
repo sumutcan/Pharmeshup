@@ -1,14 +1,17 @@
-package main.classes;
+package main.classes.datasets;
+
+import main.classes.Link;
+import main.classes.QueryUtil;
+import main.classes.SparqlQueryRepo;
+import main.classes.dataaccess.ILinkedDataAccess;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.tdb.solver.SolverLib;
-import com.querymanager.ISparqlQuery;
 
-public class DBPedia implements ADataSet {
+public class DBPedia implements IDataSet {
 
 	private Link wikiPage;
 	private String description;

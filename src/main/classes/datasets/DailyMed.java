@@ -1,6 +1,8 @@
-package main.classes;
+package main.classes.datasets;
 
-public class DailyMed implements ADataSet {
+import main.classes.dataaccess.ILinkedDataAccess;
+
+public class DailyMed implements IDataSet {
 
 	private ILinkedDataAccess linkedDataAccess;
 

@@ -1,5 +1,10 @@
 package main.classes;
 
+import main.classes.datasets.DBPedia;
+import main.classes.datasets.DailyMed;
+import main.classes.datasets.Datasets;
+import main.classes.datasets.Drugbank;
+
 public class DrugData {
 
 	private SearchResult searchResult;

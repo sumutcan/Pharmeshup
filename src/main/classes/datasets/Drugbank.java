@@ -1,6 +1,9 @@
-package main.classes;
+package main.classes.datasets;
 
-public class Drugbank implements ADataSet {
+import main.classes.dataaccess.ILinkedDataAccess;
+
+
+public class Drugbank implements IDataSet {
 
 	private ILinkedDataAccess linkedDataAccess;
 	

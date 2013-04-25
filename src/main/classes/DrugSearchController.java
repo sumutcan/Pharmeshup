@@ -13,7 +13,7 @@ public class DrugSearchController {
 
 	public ArrayList<SearchResult> searchDrug(String searchString) throws Exception
 	{
-		SearchTerm searchTerm = new SearchTerm(LinkedDataAccessFactory.createLinkedDataAccess());
+		SearchTerm searchTerm = new SearchTerm();
 		
 		searchTerm.setSearchString(searchString);
 		

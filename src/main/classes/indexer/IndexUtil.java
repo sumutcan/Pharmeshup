@@ -1,46 +1,44 @@
-package main.classes;
+package main.classes.indexer;
 
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
+
+import main.classes.Config;
+
+import main.classes.QueryUtil;
+import main.classes.SearchResult;
+import main.classes.SparqlQueryRepo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.querymanager.ISparqlQuery;
-import com.querymanager.SparqlQueryManager;
-import com.querymanager.elements.FilterElement;
-import com.querymanager.elements.UnionElement;
 
-public class QueryCreator {
+public class IndexUtil {
 
-	private static QueryCreator instance = null;
 	private String idxPath = System.getProperty("user.dir")
 			+ "/config/idx.json";
 	private ArrayList<SearchResult> allIndexedResults = new ArrayList<SearchResult>();
+	
+	private static IndexUtil instance = null;
 
-	public static synchronized QueryCreator getInstance() {
+
+	public static synchronized IndexUtil getInstance() {
 		if (instance == null)
-			instance = new QueryCreator();
+			instance = new IndexUtil();
 
 		return instance;
 	}
-
-	private QueryCreator() {
-	}
-
+	
+	private IndexUtil() {}
+	
 	public ArrayList<SearchResult> searchInIndexFile(String searchTerm)
 			throws Exception {
 
@@ -82,7 +80,7 @@ public class QueryCreator {
 
 		Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getCreateIndexFileQuery());
 
-		ResultSet results = executeRemoteSelect("dbpedia", q);
+		ResultSet results = QueryUtil.getInstance().executeRemoteSelect("dbpedia", q);
 
 		File f = new File(idxPath);
 
@@ -115,27 +113,4 @@ public class QueryCreator {
 
 	}
 	
-	public ResultSet executeRemoteSelect(String endpoint, Query q) throws Exception
-	{
-		QueryExecution qexec = QueryExecutionFactory.sparqlService(
-				Config.getInstance().getEndpoint(endpoint), q);
-		
-		return qexec.execSelect();
-
-	}
-	
-	public ISparqlQuery getCommonPrefixes(ISparqlQuery q) throws Exception
-	{
-		Enumeration<String> keysEnum = Config.getInstance().getAllPrefixes().keys();
-		
-		while (keysEnum.hasMoreElements())
-		{
-			String prefix = keysEnum.nextElement();
-			q.addPrefix(prefix, Config.getInstance().getAllPrefixes().get(prefix));
-		}
-		
-		return q;
-		
-	}
-
 }

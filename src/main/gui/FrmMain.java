@@ -46,7 +46,7 @@ import javax.swing.ListSelectionModel;
 import main.classes.DrugData;
 import main.classes.DrugSearchController;
 import main.classes.Link;
-import main.classes.RemoteDataAccess;
+
 import main.classes.SearchResult;
 
 import java.awt.event.KeyAdapter;

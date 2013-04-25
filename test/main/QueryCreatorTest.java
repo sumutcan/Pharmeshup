@@ -6,7 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import main.classes.Config;
-import main.classes.QueryCreator;
+import main.classes.QueryUtil;
+import main.classes.indexer.IndexUtil;
 
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class QueryCreatorTest {
 	@Test
 	public void testSearchInIndexFile() throws Exception {
 		
-		QueryCreator qc = QueryCreator.getInstance();
+		IndexUtil qc = IndexUtil.getInstance();
 		assertEquals(2, qc.searchInIndexFile("naprox").size()); 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		//assertEquals(sdf.parse("12-04-2013"), Config.getInstance().getLastUpdateDate());
@@ -28,7 +29,7 @@ public class QueryCreatorTest {
 	@Test
 	public void testGetCommonPrefixes() throws Exception
 	{
-		QueryCreator qc = QueryCreator.getInstance();
+		QueryUtil qc = QueryUtil.getInstance();
 		
 		ISparqlQuery expected = SparqlQueryManager.getInstance().createQuery();
 		expected.addPrefix("foaf", "http://xmlns.com/foaf/0.1/")

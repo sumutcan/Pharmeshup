@@ -66,6 +66,7 @@ public class Config {
 	public String getEndpoint(String name) throws Exception {
 		
 		try {
+			props.clear();
 			props.load(new FileInputStream(new File(configSource+"/endpoints.properties")));
 			return props.getProperty(name);
 		
@@ -86,6 +87,7 @@ public class Config {
 		Hashtable<String, String> prefixes = new Hashtable<String, String>();
 		
 		try {
+			props.clear();
 			props.load(new FileInputStream(new File(configSource+"/prefixes.properties")));
 			
 			} catch (FileNotFoundException e) {

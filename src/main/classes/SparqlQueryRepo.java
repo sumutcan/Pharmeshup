@@ -46,7 +46,7 @@ public class SparqlQueryRepo {
 	{
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
 		
-		QueryCreator.getInstance().getCommonPrefixes(query)
+		QueryUtil.getInstance().getCommonPrefixes(query)
 				.addSelectParamaters(true, "?abstract", "?casNumber", "?wikiPage")
 				.addTriplePattern("?s", "rdfs:label", "\""+drugName+"\"@en")
 				.addFiltredTriplePattern("?s", "dbpedia-owl:abstract", "?abstract",new LangFilterElement("?abstract",ISparqlQuery.LANG_EN))

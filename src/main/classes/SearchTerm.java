@@ -2,9 +2,11 @@ package main.classes;
 
 import java.util.ArrayList;
 
+import main.classes.indexer.IndexUtil;
+
 public class SearchTerm {
 
-	private ILinkedDataAccess linkedDataAccess;
+	
 	private String searchString;
 	private ArrayList<SearchResult> searchResults;
 	
@@ -18,16 +20,16 @@ public class SearchTerm {
 	}
 
 
-	public SearchTerm (ILinkedDataAccess linkedDataAccess)
+	public SearchTerm ()
 	{
-		this.linkedDataAccess = linkedDataAccess;
+		
 		this.searchResults = new ArrayList<SearchResult>();
 	}
 
 
 	public ArrayList<SearchResult> search() throws Exception {
 		
-		searchResults = linkedDataAccess.search(searchString);
+		searchResults = IndexUtil.getInstance().searchInIndexFile(getSearchString());
 		
 		return searchResults;
 	}

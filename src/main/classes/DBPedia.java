@@ -59,7 +59,7 @@ public class DBPedia implements ADataSet {
 		
 		try {
 			Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getDBPediaDataQuery(drugName));
-			ResultSet results = QueryCreator.getInstance().executeRemoteSelect("dbpedia", q);
+			ResultSet results = QueryUtil.getInstance().executeRemoteSelect("dbpedia", q);
 			
 			while (results.hasNext())
 			{

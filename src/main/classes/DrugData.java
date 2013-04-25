@@ -26,6 +26,7 @@ public class DrugData {
 	{
 		dbpediaData.setDrugName(searchResult.getDrugName());
 		dbpediaData.getData();
+		drugBankdata.getData();
 		
 	}
 	

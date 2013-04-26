@@ -12,4 +12,11 @@ public class LocalDataAccess implements ILinkedDataAccess {
 		return null;
 	}
 
+	@Override
+	public ResultSet getDrugBankData() {
+		
+		return null;
+		
+	}
+
 }

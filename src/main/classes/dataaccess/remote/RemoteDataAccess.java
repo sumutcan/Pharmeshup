@@ -19,4 +19,11 @@ public class RemoteDataAccess implements ILinkedDataAccess{
 		
 	}
 
+	@Override
+	public ResultSet getDrugBankData() {
+		
+		return null;
+		
+	}
+
 }

@@ -6,4 +6,6 @@ public interface ILinkedDataAccess {
 
 	ResultSet getDBPediaData(String drugName) throws Exception;
 
+	ResultSet getDrugBankData();
+
 }

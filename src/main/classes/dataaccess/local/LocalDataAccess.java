@@ -3,19 +3,21 @@ package main.classes.dataaccess.local;
 import com.hp.hpl.jena.query.ResultSet;
 
 import main.classes.dataaccess.ILinkedDataAccess;
+import main.classes.datasets.DBPedia;
+import main.classes.datasets.Drugbank;
 
 public class LocalDataAccess implements ILinkedDataAccess {
 
 	@Override
-	public ResultSet getDBPediaData(String drugName)  throws Exception {
+	public void getDBPediaData(DBPedia dbPedia)  throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public ResultSet getDrugBankData() {
+	public void getDrugBankData(Drugbank drugbank) throws Exception {
 		
-		return null;
+		
 		
 	}
 

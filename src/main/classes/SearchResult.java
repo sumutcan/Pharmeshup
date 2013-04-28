@@ -24,11 +24,9 @@ public class SearchResult {
 		return drugbankID;
 	}
 	
-	public void setDrugbankID(Literal literal, Literal alt) {
+	public void setDrugbankID(Literal literal) {
 		if (literal != null)
 			this.drugbankID = literal.getString();
-		else if (alt != null) 
-			this.drugbankID = alt.getString();
 		else
 			literal = null;
 	}

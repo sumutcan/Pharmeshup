@@ -12,6 +12,7 @@ public class Drugbank implements IDataSet {
 	private String drugbankID;
 	private ArrayList<String> synonyms;
 	private String casNumber;
+	private String description;
 	private Link drugbankPage;
 	private String clearence;
 	private String halfTime;
@@ -30,9 +31,13 @@ public class Drugbank implements IDataSet {
 	}
 	
 	@Override
-	public void getData() {
+	public void getData() throws Exception {
 		
-		linkedDataAccess.getDrugBankData();
+		try {
+			linkedDataAccess.getDrugBankData(this);
+		} catch (Exception e) {
+			throw new Exception("An error occured while retrieving Drugbank data: "+ e.getMessage());
+		}
 		
 	}
 	
@@ -131,6 +136,14 @@ public class Drugbank implements IDataSet {
 
 	public void setAbsorption(String absorption) {
 		this.absorption = absorption;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	private ILinkedDataAccess linkedDataAccess;

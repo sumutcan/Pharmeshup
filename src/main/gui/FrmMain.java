@@ -142,6 +142,8 @@ public class FrmMain extends JFrame {
 							lblDrugname.setText(resultData.getSearchResult().getDrugName());
 							
 							pnlGeneral.setTxtPaneDBPedia(resultData.getDbpediaData().getDescription());
+							pnlGeneral.txtPaneDrugbank.setText(resultData.getDrugBankdata().getDescription());
+							
 							
 							DefaultListModel<Link> relatedModel = new DefaultListModel<Link>();
 							relatedModel.addElement(resultData.getDbpediaData().getWikiPage());
@@ -273,7 +275,6 @@ public class FrmMain extends JFrame {
 		splitPane.setRightComponent(paneRight);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane_2.setBackground(UIManager.getColor("Separator.shadow"));
 		paneRight.setRightComponent(scrollPane_2);
 

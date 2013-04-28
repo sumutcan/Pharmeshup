@@ -7,6 +7,7 @@ import java.util.Date;
 
 import main.classes.Config;
 import main.classes.QueryUtil;
+import main.classes.SparqlQueryRepo;
 import main.classes.indexer.IndexUtil;
 
 import org.junit.Test;
@@ -43,6 +44,7 @@ public class QueryCreatorTest {
 		
 		assertEquals(expected.buildQueryString(), qc.getCommonPrefixes(q).buildQueryString());
 	}
+
 	
 
 }

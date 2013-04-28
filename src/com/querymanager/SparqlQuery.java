@@ -112,7 +112,8 @@ class SparqlQuery implements ISparqlQuery {
 	@Override
 	public ISparqlQuery addOptionalPattern(String s, String p, String o) throws Exception {
 		
-		
+		if (tripplePatterns == null)
+			tripplePatterns = new ArrayList<TriplePatternElement>();
 		tripplePatterns.add(new OptionalGraphPattern(s, p, o));
 		
 		return this;

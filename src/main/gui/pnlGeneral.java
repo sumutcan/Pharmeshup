@@ -31,6 +31,7 @@ public class pnlGeneral extends JPanel {
 	
 	JTextPane txtPaneDBPedia;
 	JList listRelatedPages;
+	JTextPane txtPaneDrugbank;
 	public pnlGeneral() {
 		setSize(new Dimension(770,760));
 		setLayout(new BorderLayout(0, 0));
@@ -62,6 +63,7 @@ public class pnlGeneral extends JPanel {
 		panel_1.add(splitPane_8);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		splitPane_8.setLeftComponent(scrollPane);
 		
 	    txtPaneDBPedia = new JTextPane();
@@ -74,9 +76,10 @@ public class pnlGeneral extends JPanel {
 		scrollPane.setColumnHeaderView(lblDbpedia);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		splitPane_8.setRightComponent(scrollPane_1);
 		
-		JTextPane txtPaneDrugbank = new JTextPane();
+		txtPaneDrugbank = new JTextPane();
 		txtPaneDrugbank.setEditable(false);
 		scrollPane_1.setViewportView(txtPaneDrugbank);
 		

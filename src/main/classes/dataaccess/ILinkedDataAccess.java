@@ -1,11 +1,14 @@
 package main.classes.dataaccess;
 
+import main.classes.datasets.DBPedia;
+import main.classes.datasets.Drugbank;
+
 import com.hp.hpl.jena.query.ResultSet;
 
 public interface ILinkedDataAccess {
 
-	ResultSet getDBPediaData(String drugName) throws Exception;
+	void getDBPediaData(DBPedia dbPedia) throws Exception;
 
-	ResultSet getDrugBankData();
+	void getDrugBankData(Drugbank drugbank) throws Exception;
 
 }

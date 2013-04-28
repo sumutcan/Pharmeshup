@@ -13,6 +13,7 @@ public class DBPedia implements IDataSet {
 	private String description;
 	private String drugName;
 	private String casNumber;
+	private String drugbankID;
 	private ILinkedDataAccess linkedDataAccess;
 	
 	public String getDrugName() {
@@ -53,25 +54,33 @@ public class DBPedia implements IDataSet {
 			this.casNumber = literal.getString();
 	}
 
+	public String getDrugbankID() {
+		return drugbankID;
+	}
+
+
+
+
 	@Override
 	public void getData() throws Exception {
 		
 		try {
 
-			ResultSet results = linkedDataAccess.getDBPediaData(drugName);
+			linkedDataAccess.getDBPediaData(this);
 			
-			while (results.hasNext())
-			{
-				QuerySolution row = results.next();
-				setDescription(row.getLiteral("abstract").getString());
-				setCasNumber(row.getLiteral("casNumber"));
-				setWikiPage(new Link(getDrugName()+ " at Wikipedia", row.getResource("wikiPage").toString()));
-			}
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new Exception("An error occured while retrieving DBPedia data: "+ e.getMessage());
 		}
+		
+	}
+
+	public void setDrugbankID(String drugbankID) {
+		
+		if (this.drugbankID == null)
+			this.drugbankID = drugbankID;
+		
 		
 	}
 

@@ -94,10 +94,10 @@ public class IndexUtil {
 			QuerySolution row = results.next();
 
 			SearchResult searchResult = new SearchResult();
-			searchResult.setDrugbankID(row.getLiteral("drugbankID"), row.getLiteral("?drugbankIDAlt"));
+			searchResult.setDrugbankID(row.getLiteral("drugbankID"));
 			searchResult.setDrugName(row.getLiteral("label").toString());
 			searchResult.setDrugSubject(row.getResource("s").toString());
-
+			
 			searchResults.add(searchResult);
 
 		}

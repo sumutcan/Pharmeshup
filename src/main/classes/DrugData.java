@@ -25,9 +25,10 @@ public class DrugData {
 	public void retrieve() throws Exception
 	{
 		dbpediaData.setDrugName(searchResult.getDrugName());
+		dbpediaData.setDrugbankID(searchResult.getDrugbankID());
 		dbpediaData.getData();
 		drugBankdata.setCasNumber(dbpediaData.getCasNumber());
-		drugBankdata.setDrugbankID(searchResult.getDrugbankID());
+		drugBankdata.setDrugbankID(dbpediaData.getDrugbankID());
 		drugBankdata.getData();
 		
 	}

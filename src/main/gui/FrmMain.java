@@ -48,6 +48,7 @@ import main.classes.DrugSearchController;
 import main.classes.Link;
 
 import main.classes.SearchResult;
+import main.classes.threads.ThreadHandler;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -56,6 +57,7 @@ import javax.swing.ScrollPaneConstants;
 public class FrmMain extends JFrame {
 	private JTextField txtSearch;
 	final JLabel lblDrugname;
+	final JList listSearchResults; 
 	private pnlGeneral pnlGeneral;
 	/**
 	 * Launch the application.
@@ -68,7 +70,7 @@ public class FrmMain extends JFrame {
 							.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
 					FrmMain frame = new FrmMain();
 					frame.setVisible(true);
-
+					ThreadHandler.getInstance().startThreads();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -126,7 +128,7 @@ public class FrmMain extends JFrame {
 		lblResults.setFont(new Font("Droid Sans", Font.BOLD, 15));
 		scrollPane.setColumnHeaderView(lblResults);
 
-		final JList listSearchResults = new JList();
+		listSearchResults = new JList();
 		listSearchResults.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -135,25 +137,7 @@ public class FrmMain extends JFrame {
 				{
 					if (e.getKeyCode() == KeyEvent.VK_ENTER && listSearchResults.getSelectedValue() instanceof SearchResult)
 					{
-						DrugSearchController controller = new DrugSearchController();
-						
-						try {
-							DrugData resultData =  controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
-							lblDrugname.setText(resultData.getSearchResult().getDrugName());
-							
-							pnlGeneral.setTxtPaneDBPedia(resultData.getDbpediaData().getDescription());
-							pnlGeneral.txtPaneDrugbank.setText(resultData.getDrugBankdata().getDescription());
-							
-							
-							DefaultListModel<Link> relatedModel = new DefaultListModel<Link>();
-							relatedModel.addElement(resultData.getDbpediaData().getWikiPage());
-							pnlGeneral.listRelatedPages.setModel(relatedModel);
-							
-							
-						} catch (Exception ex) {
-							// TODO Auto-generated catch block
-							JOptionPane.showMessageDialog(null, ex.getMessage());
-						}
+						searchDrugData();
 						
 					}
 						
@@ -168,13 +152,7 @@ public class FrmMain extends JFrame {
 			
 				if (e.getClickCount() == 2 && listSearchResults.getSelectedValue() instanceof SearchResult)
 				{
-					DrugSearchController controller = new DrugSearchController();
-					try {
-						DrugData resultData = controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
-					} catch (Exception ex) {
-						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, ex.getMessage());
-					}
+					searchDrugData();
 				}
 			
 			}
@@ -300,5 +278,30 @@ public class FrmMain extends JFrame {
 		paneRight.setDividerLocation(40);
 		// setBounds(100, 100, 682, 537);
 	}
+	
+    public void searchDrugData()
+    {
+		DrugSearchController controller = new DrugSearchController();
+//		pnlGeneral.setTxtPaneDBPedia("Retrieving data...");
+//		pnlGeneral.txtPaneDrugbank.setText("Retrieving data...");
+		
+		try {
+			DrugData resultData =  controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
+			lblDrugname.setText(resultData.getSearchResult().getDrugName());
+			
+			pnlGeneral.setTxtPaneDBPedia(resultData.getDbpediaData().getDescription());
+			pnlGeneral.txtPaneDrugbank.setText(resultData.getDrugBankdata().getDescription());
+			
+			
+			DefaultListModel<Link> relatedModel = new DefaultListModel<Link>();
+			relatedModel.addElement(resultData.getDbpediaData().getWikiPage());
+			pnlGeneral.listRelatedPages.setModel(relatedModel);
+			
+			
+		} catch (Exception ex) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
+    }
 
 }

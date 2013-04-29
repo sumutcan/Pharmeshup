@@ -2,17 +2,20 @@ package main.classes;
 
 import java.util.ArrayList;
 
+import main.classes.threads.ThreadHandler;
+
 
 public class DrugSearchController {
 
 	
 	public DrugSearchController() {
 		
-		
+
 	}
 
 	public ArrayList<SearchResult> searchDrug(String searchString) throws Exception
 	{
+		ThreadHandler.getInstance().startThreads();
 		SearchTerm searchTerm = new SearchTerm();
 		
 		searchTerm.setSearchString(searchString);

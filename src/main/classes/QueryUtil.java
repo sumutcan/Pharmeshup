@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Timer;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,6 +62,19 @@ public class QueryUtil {
 		
 		return q;
 		
+	}
+	public boolean pingEndpoint(String endpointName)
+	{
+		try
+		{
+			
+			return Config.getInstance().checkAvailableEndpoints(endpointName);
+			
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 
 }

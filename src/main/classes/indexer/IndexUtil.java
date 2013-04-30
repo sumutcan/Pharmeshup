@@ -13,6 +13,7 @@ import java.util.Date;
 import main.classes.dataaccess.remote.SparqlQueryRepo;
 import main.classes.entities.SearchResult;
 import main.classes.threads.IndexFileCreatorThread;
+import main.classes.threads.ThreadHandler;
 import main.classes.utils.Config;
 import main.classes.utils.QueryUtil;
 
@@ -97,7 +98,7 @@ public class IndexUtil {
 		if (!f.exists())
 			f.createNewFile();
 
-
+		ThreadHandler.getInstance().createIndexFile(f, currentDate);
 		
 
 	}

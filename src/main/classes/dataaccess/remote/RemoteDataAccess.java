@@ -1,6 +1,5 @@
 package main.classes.dataaccess.remote;
 
-import utils.QueryUtil;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
@@ -11,6 +10,7 @@ import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.datasets.DBPedia;
 import main.classes.datasets.Drugbank;
 import main.classes.entities.Link;
+import main.classes.utils.QueryUtil;
 
 public class RemoteDataAccess implements ILinkedDataAccess {
 

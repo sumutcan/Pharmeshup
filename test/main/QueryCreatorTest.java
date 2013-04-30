@@ -7,11 +7,11 @@ import java.util.Date;
 
 import main.classes.dataaccess.remote.SparqlQueryRepo;
 import main.classes.indexer.IndexUtil;
+import main.classes.utils.Config;
+import main.classes.utils.QueryUtil;
 
 import org.junit.Test;
 
-import utils.Config;
-import utils.QueryUtil;
 
 import com.querymanager.ISparqlQuery;
 import com.querymanager.SparqlQueryManager;

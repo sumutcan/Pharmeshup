@@ -7,12 +7,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
-import utils.Config;
-import utils.QueryUtil;
 
 import main.classes.dataaccess.remote.SparqlQueryRepo;
 import main.classes.entities.SearchResult;
 import main.classes.indexer.IndexUtil;
+import main.classes.utils.Config;
+import main.classes.utils.QueryUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

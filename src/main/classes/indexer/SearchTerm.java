@@ -1,8 +1,7 @@
-package main.classes.entities;
+package main.classes.indexer;
 
 import java.util.ArrayList;
 
-import main.classes.indexer.IndexUtil;
 
 public class SearchTerm {
 

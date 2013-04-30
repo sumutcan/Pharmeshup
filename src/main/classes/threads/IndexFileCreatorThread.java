@@ -9,8 +9,8 @@ import java.util.Date;
 
 
 import main.classes.dataaccess.remote.SparqlQueryRepo;
-import main.classes.entities.SearchResult;
 import main.classes.indexer.IndexUtil;
+import main.classes.indexer.SearchResult;
 import main.classes.utils.Config;
 import main.classes.utils.QueryUtil;
 

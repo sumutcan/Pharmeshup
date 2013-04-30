@@ -1,4 +1,4 @@
-package main.classes.entities;
+package main.classes.indexer;
 
 import com.hp.hpl.jena.rdf.model.Literal;
 

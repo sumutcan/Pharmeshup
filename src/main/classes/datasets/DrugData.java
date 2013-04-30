@@ -1,10 +1,7 @@
-package main.classes.entities;
+package main.classes.datasets;
 
 import main.classes.dataaccess.LinkedDataAccessFactory;
-import main.classes.datasets.DBPedia;
-import main.classes.datasets.DailyMed;
-import main.classes.datasets.Datasets;
-import main.classes.datasets.Drugbank;
+import main.classes.indexer.SearchResult;
 
 public class DrugData {
 

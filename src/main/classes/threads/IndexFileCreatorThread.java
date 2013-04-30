@@ -7,10 +7,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
-import main.classes.Config;
-import main.classes.QueryUtil;
-import main.classes.SearchResult;
-import main.classes.SparqlQueryRepo;
+import utils.Config;
+import utils.QueryUtil;
+
+import main.classes.dataaccess.remote.SparqlQueryRepo;
+import main.classes.entities.SearchResult;
 import main.classes.indexer.IndexUtil;
 
 import com.google.gson.Gson;

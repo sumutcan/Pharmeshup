@@ -2,6 +2,9 @@ package main.classes;
 
 import java.util.ArrayList;
 
+import main.classes.entities.DrugData;
+import main.classes.entities.SearchResult;
+import main.classes.entities.SearchTerm;
 import main.classes.threads.ThreadHandler;
 
 

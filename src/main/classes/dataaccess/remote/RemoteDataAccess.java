@@ -1,16 +1,16 @@
 package main.classes.dataaccess.remote;
 
+import utils.QueryUtil;
+
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 
-import main.classes.Link;
-import main.classes.QueryUtil;
-import main.classes.SparqlQueryRepo;
 import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.datasets.DBPedia;
 import main.classes.datasets.Drugbank;
+import main.classes.entities.Link;
 
 public class RemoteDataAccess implements ILinkedDataAccess {
 

@@ -5,12 +5,13 @@ import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import main.classes.Config;
-import main.classes.QueryUtil;
-import main.classes.SparqlQueryRepo;
+import main.classes.dataaccess.remote.SparqlQueryRepo;
 import main.classes.indexer.IndexUtil;
 
 import org.junit.Test;
+
+import utils.Config;
+import utils.QueryUtil;
 
 import com.querymanager.ISparqlQuery;
 import com.querymanager.SparqlQueryManager;

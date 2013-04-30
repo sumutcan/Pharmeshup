@@ -1,4 +1,4 @@
-package main.classes;
+package utils;
 
 import java.io.BufferedReader;
 

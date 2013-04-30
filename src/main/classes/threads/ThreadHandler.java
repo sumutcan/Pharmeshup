@@ -1,5 +1,8 @@
 package main.classes.threads;
 
+import java.io.File;
+import java.util.Date;
+
 
 public class ThreadHandler {
 
@@ -21,6 +24,11 @@ public class ThreadHandler {
 		if (!ping.isAlive())
 			ping.start();
 		
+	}
+	public void createIndexFile(File f, Date currentDate)
+	{
+		Thread t = new Thread(new IndexFileCreatorThread(f, currentDate));
+		t.start();
 	}
 
 

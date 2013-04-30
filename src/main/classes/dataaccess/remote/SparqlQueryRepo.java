@@ -1,5 +1,6 @@
-package main.classes;
+package main.classes.dataaccess.remote;
 
+import utils.QueryUtil;
 import main.classes.datasets.Drugbank;
 
 import com.querymanager.ISparqlQuery;

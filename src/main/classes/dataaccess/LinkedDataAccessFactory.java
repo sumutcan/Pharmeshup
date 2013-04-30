@@ -1,7 +1,6 @@
-package main.classes;
+package main.classes.dataaccess;
 
 
-import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.dataaccess.remote.RemoteDataAccess;
 import main.classes.datasets.Datasets;
 

@@ -1,5 +1,6 @@
-package main.classes;
+package main.classes.entities;
 
+import main.classes.dataaccess.LinkedDataAccessFactory;
 import main.classes.datasets.DBPedia;
 import main.classes.datasets.DailyMed;
 import main.classes.datasets.Datasets;

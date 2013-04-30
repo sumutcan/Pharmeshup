@@ -9,7 +9,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import main.classes.Config;
+import utils.Config;
+
 
 public class PingEndpointsBackground implements Runnable {
 

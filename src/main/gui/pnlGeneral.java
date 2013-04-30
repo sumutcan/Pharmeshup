@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ListSelectionModel;
 
-import main.classes.Link;
+import main.classes.entities.Link;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

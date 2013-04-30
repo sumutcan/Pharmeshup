@@ -2,9 +2,9 @@ package main.classes.datasets;
 
 import java.util.ArrayList;
 
-import main.classes.Enzyme;
-import main.classes.Link;
 import main.classes.dataaccess.ILinkedDataAccess;
+import main.classes.entities.Enzyme;
+import main.classes.entities.Link;
 
 
 public class Drugbank implements IDataSet {

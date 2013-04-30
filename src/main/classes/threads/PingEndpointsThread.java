@@ -4,7 +4,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Timer;
 
-import main.classes.Config;
+import utils.Config;
+
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;

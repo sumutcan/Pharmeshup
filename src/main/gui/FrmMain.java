@@ -43,11 +43,11 @@ import java.util.ArrayList;
 import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 
-import main.classes.DrugData;
 import main.classes.DrugSearchController;
-import main.classes.Link;
 
-import main.classes.SearchResult;
+import main.classes.entities.DrugData;
+import main.classes.entities.Link;
+import main.classes.entities.SearchResult;
 import main.classes.threads.ThreadHandler;
 
 import java.awt.event.KeyAdapter;

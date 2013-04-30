@@ -1,4 +1,4 @@
-package main.classes;
+package main.classes.entities;
 
 import java.util.ArrayList;
 

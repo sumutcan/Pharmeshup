@@ -1,7 +1,7 @@
 package main.classes.datasets;
 
-import main.classes.Link;
 import main.classes.dataaccess.ILinkedDataAccess;
+import main.classes.entities.Link;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;

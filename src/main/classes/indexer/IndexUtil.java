@@ -8,11 +8,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
-import main.classes.Config;
+import utils.Config;
+import utils.QueryUtil;
 
-import main.classes.QueryUtil;
-import main.classes.SearchResult;
-import main.classes.SparqlQueryRepo;
+
+import main.classes.dataaccess.remote.SparqlQueryRepo;
+import main.classes.entities.SearchResult;
 import main.classes.threads.IndexFileCreatorThread;
 
 import com.google.gson.Gson;
@@ -96,8 +97,7 @@ public class IndexUtil {
 		if (!f.exists())
 			f.createNewFile();
 
-		Thread t = new Thread(new IndexFileCreatorThread(f, currentDate));
-		t.start();
+
 		
 
 	}

@@ -13,6 +13,7 @@ import main.classes.Config;
 import main.classes.QueryUtil;
 import main.classes.SearchResult;
 import main.classes.SparqlQueryRepo;
+import main.classes.threads.IndexFileCreatorThread;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,16 +43,7 @@ public class IndexUtil {
 	public ArrayList<SearchResult> searchInIndexFile(String searchTerm)
 			throws Exception {
 
-		Date lastUpdateDate = Config.getInstance().getLastUpdateDate();
-		Date currentDate = new Date();
-
-		if (currentDate.getTime() / (1000 * 60 * 60 * 24)
-				- lastUpdateDate.getTime() / (1000 * 60 * 60 * 24) > 1) {
-			createIndexFile();
-			Config.getInstance().setLastUpdateDate(currentDate);
-			allIndexedResults.clear();
-		}
-
+		
 		if (allIndexedResults.isEmpty()) {
 
 			BufferedReader bfr = new BufferedReader(new FileReader(idxPath));
@@ -59,7 +51,10 @@ public class IndexUtil {
 			Type listOfSearchResults = new TypeToken<ArrayList<SearchResult>>() {
 			}.getType();
 			allIndexedResults = new Gson().fromJson(bfr, listOfSearchResults);
-
+			
+			if (allIndexedResults == null)
+				allIndexedResults = new ArrayList<SearchResult>();
+			
 			bfr.close();
 		}
 
@@ -71,45 +66,39 @@ public class IndexUtil {
 
 				foundResults.add(s);
 			}
+		
+		Date lastUpdateDate = Config.getInstance().getLastUpdateDate();
+		Date currentDate = new Date();
+
+		if (currentDate.getTime() / (1000 * 60 * 60 * 24)
+				- lastUpdateDate.getTime() / (1000 * 60 * 60 * 24) > 1) {
+			createIndexFile(currentDate);
+			
+			
+		}
 
 		return foundResults;
 	}
+	
+	public void clearAllIndexedResults()
+	{
+		synchronized (allIndexedResults) {
+			allIndexedResults.clear();
+		}
+	}
+	
 
-	private void createIndexFile() throws Exception {
+	private void createIndexFile(Date currentDate) throws Exception {
 
-
-		Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getCreateIndexFileQuery());
-
-		ResultSet results = QueryUtil.getInstance().executeRemoteSelect("dbpedia", q);
 
 		File f = new File(idxPath);
 
 		if (!f.exists())
 			f.createNewFile();
 
-		FileWriter fw = new FileWriter(f, false);
-
-		ArrayList<SearchResult> searchResults = new ArrayList<SearchResult>();
-		while (results.hasNext()) {
-			QuerySolution row = results.next();
-
-			SearchResult searchResult = new SearchResult();
-			searchResult.setDrugbankID(row.getLiteral("drugbankID"));
-			searchResult.setDrugName(row.getLiteral("label").toString());
-			searchResult.setDrugSubject(row.getResource("s").toString());
-			
-			searchResults.add(searchResult);
-
-		}
-
-		Gson gson = new Gson();
-		Type listOfSearchResults = new TypeToken<ArrayList<SearchResult>>() {
-		}.getType();
-		String json = gson.toJson(searchResults, listOfSearchResults);
-
-		fw.write(json);
-
-		fw.close();
+		Thread t = new Thread(new IndexFileCreatorThread(f, currentDate));
+		t.start();
+		
 
 	}
 	

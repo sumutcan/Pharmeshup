@@ -31,6 +31,8 @@ public class SearchTerm {
 		
 		searchResults = IndexUtil.getInstance().searchInIndexFile(getSearchString());
 		
+
+		
 		return searchResults;
 	}
 	

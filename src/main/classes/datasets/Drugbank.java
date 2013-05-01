@@ -147,6 +147,14 @@ public class Drugbank implements IDataSet {
 	}
 
 	private ILinkedDataAccess linkedDataAccess;
+
+	@Override
+	public void setKeys(IDataSet dataset) {
+		
+		setDrugbankID(((DBPedia) dataset).getDrugbankID());
+		setCasNumber(((DBPedia)dataset).getCasNumber());
+		
+	}
 	
 	
 

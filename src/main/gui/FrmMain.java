@@ -45,9 +45,9 @@ import javax.swing.ListSelectionModel;
 
 import main.classes.DrugSearchController;
 
-import main.classes.datasets.DrugData;
+import main.classes.entities.DrugData;
 import main.classes.entities.Link;
-import main.classes.indexer.SearchResult;
+import main.classes.entities.SearchResult;
 import main.classes.threads.ThreadHandler;
 
 import java.awt.event.KeyAdapter;

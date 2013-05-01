@@ -2,6 +2,10 @@ package main.classes.indexer;
 
 import java.util.ArrayList;
 
+import main.classes.entities.SearchResult;
+
+
+
 
 public class SearchTerm {
 

@@ -11,6 +11,7 @@ import java.util.Date;
 
 
 import main.classes.dataaccess.remote.SparqlQueryRepo;
+import main.classes.entities.SearchResult;
 import main.classes.threads.IndexFileCreatorThread;
 import main.classes.threads.ThreadHandler;
 import main.classes.utils.Config;

@@ -2,6 +2,7 @@ package main.classes.datasets;
 
 import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.entities.Link;
+import main.classes.entities.SearchResult;
 
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
@@ -30,6 +31,14 @@ public class DBPedia implements IDataSet {
 		
 	}
 	
+	public DBPedia(ILinkedDataAccess linkedDataAccess,
+			SearchResult selectedValue) {
+		
+		this.linkedDataAccess = linkedDataAccess;
+		this.setDrugbankID(selectedValue.getDrugbankID());
+		this.setDrugName(selectedValue.getDrugName());
+	}
+
 	public Link getWikiPage() {
 		return wikiPage;
 	}
@@ -81,6 +90,12 @@ public class DBPedia implements IDataSet {
 		if (this.drugbankID == null)
 			this.drugbankID = drugbankID;
 		
+		
+	}
+
+	@Override
+	public void setKeys(IDataSet dataset) {
+		// TODO Auto-generated method stub
 		
 	}
 

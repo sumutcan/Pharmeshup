@@ -1,4 +1,6 @@
-package main.classes.indexer;
+package main.classes.entities;
+
+import main.classes.datasets.IDataSet;
 
 import com.hp.hpl.jena.rdf.model.Literal;
 
@@ -48,6 +50,7 @@ public class SearchResult {
 	private String drugSubject;
 	private String drugName;
 	private String drugbankID;
+
 	
 	
 

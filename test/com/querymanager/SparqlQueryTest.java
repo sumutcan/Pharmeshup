@@ -76,7 +76,7 @@ public class SparqlQueryTest {
 		q = SparqlQueryManager.getInstance().createQuery();
 		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
 		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
-		q.addGroupGraphPattern("?name", "owl:sameAs","?o" );
+		//q.addGroupGraphPattern("?name", "owl:sameAs","?o" );
 		assertEquals("SELECT ?s ?p ?o \n"+
 				 "WHERE\n"+
 				"{\n" +
@@ -100,7 +100,7 @@ public class SparqlQueryTest {
 		q = SparqlQueryManager.getInstance().createQuery();
 		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
 		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
-		q.addOptionalPattern("?name", "owl:sameAs","?o" );
+		//q.addOptionalPattern("?name", "owl:sameAs","?o" );
 		assertEquals("SELECT ?s ?p ?o \n"+
 				 "WHERE\n"+
 				"{\n" +
@@ -130,7 +130,7 @@ public class SparqlQueryTest {
 		q = SparqlQueryManager.getInstance().createQuery();
 		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
 		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
-		q.addFilteredGroupGraphPattern("?name", "owl:sameAs","?o", new FilterElement("regex(\"?s\",\"hebele\",i)") );
+		//q.addFilteredGroupGraphPattern("?name", "owl:sameAs","?o", new FilterElement("regex(\"?s\",\"hebele\",i)") );
 		assertEquals("SELECT ?s ?p ?o \n"+
 				 "WHERE\n"+
 				"{\n" +
@@ -144,7 +144,7 @@ public class SparqlQueryTest {
 		q = SparqlQueryManager.getInstance().createQuery();
 		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT,"?s", "?p", "?o");
 		q.addTriplePattern("?name", "?mbox","\"hebele\"" );
-		q.addFilteredOptionalPattern("?name", "owl:sameAs","?o", new FilterElement("regex(\"?s\",\"hebele\",i)") );
+		//q.addFilteredOptionalPattern("?name", "owl:sameAs","?o", new FilterElement("regex(\"?s\",\"hebele\",i)") );
 		assertEquals("SELECT ?s ?p ?o \n"+
 				 "WHERE\n"+
 				"{\n" +
@@ -166,7 +166,7 @@ public class SparqlQueryTest {
 		q.addPrefix("dc10", "http://purl.org/dc/elements/1.0/");
 		q.addPrefix("dc11", "http://purl.org/dc/elements/1.1/");
 		q.addSelectParamaters(ISparqlQuery.NOT_DISTINCT, "?title");
-		q.addGroupGraphPattern("?book", "dc10:title", "?title", new UnionElement("?book", "dc11:title", "?title"));
+		//q.addGroupGraphPattern("?book", "dc10:title", "?title", new UnionElement("?book", "dc11:title", "?title"));
 		
 		
 		String expected = "PREFIX dc10: <http://purl.org/dc/elements/1.0/>\n"+

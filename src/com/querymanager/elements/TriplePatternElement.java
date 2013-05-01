@@ -18,7 +18,7 @@ public class TriplePatternElement {
 	
 	
 	public TriplePatternElement(String s, String p, String o,
-			FilterElement[] filters) {
+			FilterElement... filters) {
 		
 		this.subject = s;
 		this.predicate = p;

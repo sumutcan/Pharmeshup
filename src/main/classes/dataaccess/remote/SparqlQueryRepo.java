@@ -7,6 +7,7 @@ import com.querymanager.ISparqlQuery;
 import com.querymanager.SparqlQueryManager;
 import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.LangFilterElement;
+import com.querymanager.elements.TriplePatternElement;
 import com.querymanager.elements.UnionElement;
 
 public class SparqlQueryRepo {
@@ -30,13 +31,10 @@ public class SparqlQueryRepo {
 				.addSelectParamaters(true, "?s", "?label", "?drugbankID")
 				.addFiltredTriplePattern("?s", "rdfs:label", "?label",
 						new LangFilterElement("?label",ISparqlQuery.LANG_EN))
-				.addGroupGraphPattern(
-						"?s",
-						"rdf:type",
-						"dbpedia-owl:Drug",
-						new UnionElement("?s", "rdf:type",
-								"dbpedia-owl:ChemicalCompound"))
-				.addOptionalPattern("?s", "dbpprop:drugbank", "?drugbankID");
+				.addOptionalPattern(new TriplePatternElement("?s", "dbpprop:drugbank", "?drugbankID"))
+				.addGroupGraphPattern(new TriplePatternElement("?s","rdf:type","dbpedia-owl:Drug"))
+				.addUnionPattern(new TriplePatternElement("?s", "rdf:type", "dbpedia-owl:ChemicalCompound"));
+				
 		
 		return query.buildQueryString();
 
@@ -49,9 +47,10 @@ public class SparqlQueryRepo {
 				.addSelectParamaters(true, "?abstract", "?casNumber", "?wikiPage","?drugbankID")
 				.addTriplePattern("?s", "rdfs:label", "\""+drugName+"\"@en")
 				.addFiltredTriplePattern("?s", "dbpedia-owl:abstract", "?abstract",new LangFilterElement("?abstract",ISparqlQuery.LANG_EN))
-				.addOptionalPattern("?s", "dbpedia-owl:casNumber", "?casNumber")
-				.addOptionalPattern("?s", "foaf:isPrimaryTopicOf", "?wikiPage")
-				.addFilteredOptionalPattern("?s", "owl:sameAs", "?drugbankID",new FilterElement("regex(str(?drugbankID),\"drugbank\",\"i\")"));
+				.addOptionalPattern(new TriplePatternElement("?s", "dbpedia-owl:casNumber", "?casNumber"))
+				.addOptionalPattern(new TriplePatternElement("?s", "foaf:isPrimaryTopicOf", "?wikiPage"))
+				.addOptionalPattern(new TriplePatternElement("?s", "owl:sameAs", "?drugbankID",new FilterElement("regex(str(?drugbankID),\"drugbank\",\"i\")")));
+		
 		
 		return query.buildQueryString();
 	}
@@ -59,10 +58,13 @@ public class SparqlQueryRepo {
 	public String getDrugbankQuery(Drugbank drugbank) throws Exception {
 		
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
-		QueryUtil.getInstance().getCommonPrefixes(query).addSelectParamaters(true, "?description");
+		QueryUtil.getInstance().getCommonPrefixes(query).addSelectParamaters(true, "?description", "?synonym");
+		query.addTriplePattern("?s", "dc:description", "?description")
+		.addOptionalPattern(new TriplePatternElement("?s", "drugbankbio:synonym", "?synonym"))
+		.addGroupGraphPattern(new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(), "owl:sameAs", "drugbankbio:"+drugbank.getDrugbankID()))
+		.addUnionPattern(new TriplePatternElement("?s", "drugbankbio:xref", "bioCas:"+drugbank.getCasNumber()))
+		.addUnionPattern(new TriplePatternElement("?s", "rdfs:label","?label"), new TriplePatternElement("?label", "<bif:contains>", "\"Naproxen\""));
 		
-		if (drugbank.getDrugbankID() != null)
-			query.addOptionalPattern("drugbankbio:"+drugbank.getDrugbankID(), "dc:description", "?description");
 		
 		return query.buildQueryString();
 		

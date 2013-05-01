@@ -45,7 +45,7 @@ import javax.swing.ListSelectionModel;
 
 import main.classes.DrugSearchController;
 
-import main.classes.entities.DrugData;
+import main.classes.datasets.DrugData;
 import main.classes.entities.Link;
 import main.classes.entities.SearchResult;
 import main.classes.threads.ThreadHandler;
@@ -287,7 +287,7 @@ public class FrmMain extends JFrame {
 		
 		try {
 			DrugData resultData =  controller.getDrugData((SearchResult)listSearchResults.getSelectedValue());
-			lblDrugname.setText(resultData.getSearchResult().getDrugName());
+			lblDrugname.setText(resultData.getDbpediaData().getDrugName());
 			
 			pnlGeneral.setTxtPaneDBPedia(resultData.getDbpediaData().getDescription());
 			pnlGeneral.txtPaneDrugbank.setText(resultData.getDrugBankdata().getDescription());

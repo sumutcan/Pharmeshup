@@ -2,8 +2,8 @@ package com.querymanager.elements;
 
 public class UnionElement extends GroupGraphPatternElement {
 
-	public UnionElement(String s, String p, String o) {
-		super(s, p, o);
+	public UnionElement(TriplePatternElement... triplePatternElements) {
+		super(triplePatternElements);
 		// TODO Auto-generated constructor stub
 	}
 	

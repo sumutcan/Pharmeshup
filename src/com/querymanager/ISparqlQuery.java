@@ -18,13 +18,10 @@ public interface ISparqlQuery {
 	public ISparqlQuery addFROM(String uri);
 	public ISparqlQuery addTriplePattern(String s, String p, String o);
 	public ISparqlQuery addFiltredTriplePattern(String s, String p, String o, FilterElement... filters);
-	public ISparqlQuery addGroupGraphPattern(String s, String p, String o);
-	public ISparqlQuery addGroupGraphPattern(String s, String p, String o, UnionElement union);
-	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p, String o, FilterElement... filters);
-	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p, String o, UnionElement union, FilterElement... filters);
+	public ISparqlQuery addGroupGraphPattern(TriplePatternElement... triplePatternElements);
+	public ISparqlQuery addUnionPattern(TriplePatternElement... triplePatternElemenents);
 	public ISparqlQuery addConstruct(TriplePatternElement... args);
-	public ISparqlQuery addOptionalPattern(String s, String p, String o) throws Exception;
-	public ISparqlQuery addFilteredOptionalPattern(String s, String p, String o, FilterElement... filters) throws Exception;
+	public ISparqlQuery addOptionalPattern(TriplePatternElement... triplePatternElements) throws Exception;
 	public ISparqlQuery addFROMNAMED(String uri);
 	public ISparqlQuery addGRAPH(String varOrIRIRef, TriplePatternElement... args) throws Exception;
 	public String buildQueryString();

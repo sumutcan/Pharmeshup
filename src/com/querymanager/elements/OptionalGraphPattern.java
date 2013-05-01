@@ -2,16 +2,11 @@ package com.querymanager.elements;
 
 public class OptionalGraphPattern extends GroupGraphPatternElement {
 
-	public OptionalGraphPattern(String s, String p, String o) {
-		super(s, p, o);
+	public OptionalGraphPattern(TriplePatternElement... triplePatterns) {
+		super(triplePatterns);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public OptionalGraphPattern(String s, String p, String o,
-			FilterElement[] filters) {
-		
-		super(s, p, o, filters);
-	}
 
 	public String toString()
 	{

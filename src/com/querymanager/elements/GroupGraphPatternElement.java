@@ -1,39 +1,25 @@
 package com.querymanager.elements;
 
-public class GroupGraphPatternElement extends TriplePatternElement {
-	
-	UnionElement unionElement;
-	
-	public GroupGraphPatternElement(String s, String p, String o) {
-		super(s, p, o);
-	}
-	
-	public GroupGraphPatternElement(String s, String p, String o, UnionElement unionElement) {
-		super(s, p, o);
-		this.unionElement = unionElement;
-	}
-	
-	public GroupGraphPatternElement(String s, String p, String o, UnionElement unionElement,
-			FilterElement[] filters) {
-		
-		super(s, p, o, filters);
-		this.unionElement = unionElement;
-	}
-	
-	public GroupGraphPatternElement(String s, String p, String o,
-			FilterElement[] filters) {
-		
-		super(s, p, o, filters);
-		
-	}
+import java.util.ArrayList;
 
+public class GroupGraphPatternElement{
+	
+	
+	private TriplePatternElement[] triplePatterns;
+	
+	public GroupGraphPatternElement(TriplePatternElement... triplePatterns) {
+		
+		this.triplePatterns = triplePatterns;
+	}
+	
 	protected String groupPatternToString() {
 		
+		String temp = "{";
+		for (TriplePatternElement t : triplePatterns)
+			temp += t.trippleString();
 		
-		if (unionElement != null)
-			return "{"+super.trippleString()+"}" + " "+unionElement;
-		
-		return "{"+super.trippleString()+"}";
+		temp += "}";
+		return temp;
 	} 
 	
 	public String toString()

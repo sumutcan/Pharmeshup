@@ -1,19 +1,16 @@
-package main.classes.entities;
+package main.classes.datasets;
 
 import main.classes.dataaccess.LinkedDataAccessFactory;
-import main.classes.datasets.DBPedia;
-import main.classes.datasets.DailyMed;
-import main.classes.datasets.Drugbank;
-import main.classes.datasets.IDataSet;
+import main.classes.entities.SearchResult;
 
 public class DrugData {
 
 
-	private SearchResult searchResult;
+	
 
 	public DrugData(SearchResult selectedValue) {
 		
-		this.searchResult = selectedValue;
+		
 		this.dbpediaData = new DBPedia(LinkedDataAccessFactory.createLinkedDataAccess(), selectedValue);
 		this.drugBankdata = new Drugbank(LinkedDataAccessFactory.createLinkedDataAccess());
 		this.dailymedData = new DailyMed(LinkedDataAccessFactory.createLinkedDataAccess());
@@ -42,9 +39,6 @@ public class DrugData {
 	private IDataSet dbpediaData;
 	private IDataSet dailymedData;
 	
-	public SearchResult getSearchResult() {
-		// TODO Auto-generated method stub
-		return searchResult;
-	}
+
 	
 }

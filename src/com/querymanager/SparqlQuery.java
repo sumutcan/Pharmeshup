@@ -25,6 +25,7 @@ class SparqlQuery implements ISparqlQuery {
 	private ArrayList<FromElement> fromElements;
 	private ArrayList<FromNamedElement> fromNamedElements;
 	private ArrayList<TriplePatternElement> tripplePatterns;
+	private ArrayList<GroupGraphPatternElement> groupGraphPatterns;
 	private ConstructElement constructElement;
 	private GraphElement graphElement;
 
@@ -98,23 +99,24 @@ class SparqlQuery implements ISparqlQuery {
 
 
 	@Override
-	public ISparqlQuery addGroupGraphPattern(String s, String p, String o) {
+	public ISparqlQuery addGroupGraphPattern(TriplePatternElement... triplePatternElements) {
 		
-		if (tripplePatterns == null)
-			tripplePatterns = new ArrayList<TriplePatternElement>();
+		if (groupGraphPatterns == null)
+			groupGraphPatterns = new ArrayList<GroupGraphPatternElement>();
 		
-		tripplePatterns.add(new GroupGraphPatternElement(s, p, o));
+		groupGraphPatterns.add(new GroupGraphPatternElement(triplePatternElements));
 		
 		return this;
 	}
 
 
 	@Override
-	public ISparqlQuery addOptionalPattern(String s, String p, String o) throws Exception {
+	public ISparqlQuery addOptionalPattern(TriplePatternElement... triplePatternElements) throws Exception {
 		
-		if (tripplePatterns == null)
-			tripplePatterns = new ArrayList<TriplePatternElement>();
-		tripplePatterns.add(new OptionalGraphPattern(s, p, o));
+		if (groupGraphPatterns == null)
+			groupGraphPatterns = new ArrayList<GroupGraphPatternElement>();
+		
+		groupGraphPatterns.add(new OptionalGraphPattern(triplePatternElements));
 		
 		return this;
 	}
@@ -143,54 +145,19 @@ class SparqlQuery implements ISparqlQuery {
 	}
 
 
+	
 	@Override
-	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p,
-			String o, FilterElement... filters) {
+	public ISparqlQuery addUnionPattern(TriplePatternElement... triplePatternElements) {
+		// TODO Auto-generated method stub
+		if (groupGraphPatterns == null)
+			groupGraphPatterns = new ArrayList<GroupGraphPatternElement>();
 		
-		if (tripplePatterns == null)
-			tripplePatterns = new ArrayList<TriplePatternElement>();
-		
-		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, filters));
-		
-		return this;
-		
-	}
-
-	@Override
-	public ISparqlQuery addGroupGraphPattern(String s, String p, String o,
-			UnionElement union) {
-		
-		if (tripplePatterns == null)
-			tripplePatterns = new ArrayList<TriplePatternElement>();
-		
-		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, union));
+		groupGraphPatterns.add(new UnionElement(triplePatternElements));
 		
 		return this;
 	}
 
 
-	@Override
-	public ISparqlQuery addFilteredGroupGraphPattern(String s, String p,
-			String o, UnionElement union, FilterElement... filters) {
-		
-		if (tripplePatterns == null)
-			tripplePatterns = new ArrayList<TriplePatternElement>();
-		
-		tripplePatterns.add(new GroupGraphPatternElement(s, p, o, union, filters));
-		
-		return this;
-	}
-
-
-	@Override
-	public ISparqlQuery addFilteredOptionalPattern(String s, String p,
-			String o, FilterElement... filters) throws Exception {
-		
-		
-		tripplePatterns.add(new OptionalGraphPattern(s, p, o, filters));
-		
-		return this;
-	}
 
 	@Override
 	public ISparqlQuery addFROMNAMED(String uri) {
@@ -247,6 +214,10 @@ class SparqlQuery implements ISparqlQuery {
 				for (TriplePatternElement triplePattern : tripplePatterns)
 					queryString += triplePattern;
 			
+			if (groupGraphPatterns != null)
+				for (GroupGraphPatternElement groupGraphPattern : groupGraphPatterns)
+					queryString += groupGraphPattern;
+			
 			if (graphElement != null)
 				queryString += graphElement;
 			
@@ -255,6 +226,9 @@ class SparqlQuery implements ISparqlQuery {
 		return queryString;
 		
 	}
+
+
+
 
 
 

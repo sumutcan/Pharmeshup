@@ -2,7 +2,7 @@ package main.classes;
 
 import java.util.ArrayList;
 
-import main.classes.entities.DrugData;
+import main.classes.datasets.DrugData;
 import main.classes.entities.SearchResult;
 import main.classes.indexer.SearchTerm;
 import main.classes.threads.ThreadHandler;

@@ -18,7 +18,7 @@ public class DrugSearchController {
 
 	public ArrayList<SearchResult> searchDrug(String searchString) throws Exception
 	{
-		ThreadHandler.getInstance().startThreads();
+		ThreadHandler.getInstance().pingEndpoints();
 		SearchTerm searchTerm = new SearchTerm();
 		
 		searchTerm.setSearchString(searchString);

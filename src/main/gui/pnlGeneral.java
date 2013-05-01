@@ -32,6 +32,7 @@ public class pnlGeneral extends JPanel {
 	JTextPane txtPaneDBPedia;
 	JList listRelatedPages;
 	JTextPane txtPaneDrugbank;
+	JList lstSynonyms;
 	public pnlGeneral() {
 		setSize(new Dimension(770,760));
 		setLayout(new BorderLayout(0, 0));
@@ -154,8 +155,8 @@ public class pnlGeneral extends JPanel {
 		lblSynonyms.setForeground(UIManager.getColor("OptionPane.warningDialog.titlePane.foreground"));
 		panel_3.add(lblSynonyms, BorderLayout.WEST);
 		
-		JList list = new JList();
-		splitPane_5.setRightComponent(list);
+		lstSynonyms = new JList();
+		splitPane_5.setRightComponent(lstSynonyms);
 		splitPane_5.setDividerLocation(20);
 		splitPane_3.setDividerLocation(380);
 		

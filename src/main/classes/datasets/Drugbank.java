@@ -2,6 +2,8 @@ package main.classes.datasets;
 
 import java.util.ArrayList;
 
+import com.hp.hpl.jena.rdf.model.Literal;
+
 import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.entities.Enzyme;
 import main.classes.entities.Link;
@@ -10,10 +12,11 @@ import main.classes.entities.Link;
 public class Drugbank implements IDataSet {
 	
 	private String drugbankID;
+	private String drugName;
 	private ArrayList<String> synonyms;
 	private String casNumber;
 	private String description;
-	private Link drugbankPage;
+	private ArrayList<Link> relatedLinks;
 	private String clearence;
 	private String halfTime;
 	private ArrayList<Enzyme> enzymes;
@@ -28,6 +31,7 @@ public class Drugbank implements IDataSet {
 		this.linkedDataAccess = linkedDataAccess;
 		this.enzymes = new ArrayList<Enzyme>();
 		this.synonyms = new ArrayList<String>();
+		this.relatedLinks = new ArrayList<Link>();
 	}
 	
 	@Override
@@ -58,13 +62,10 @@ public class Drugbank implements IDataSet {
 		this.casNumber = casNumber;
 	}
 
-	public Link getDrugbankPage() {
-		return drugbankPage;
+	public ArrayList<Link> getRelatedLinks() {
+		return relatedLinks;
 	}
 
-	public void setDrugbankPage(Link drugbankPage) {
-		this.drugbankPage = drugbankPage;
-	}
 
 	public String getClearence() {
 		return clearence;
@@ -139,12 +140,26 @@ public class Drugbank implements IDataSet {
 	}
 
 	public String getDescription() {
+		
+		if (description == null)
+			return "No data found";
+		
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+
+	public String getDrugName() {
+		return drugName;
+	}
+
+	public void setDrugName(String drugName) {
+		this.drugName = drugName;
+	}
+
 
 	private ILinkedDataAccess linkedDataAccess;
 
@@ -153,8 +168,17 @@ public class Drugbank implements IDataSet {
 		
 		setDrugbankID(((DBPedia) dataset).getDrugbankID());
 		setCasNumber(((DBPedia)dataset).getCasNumber());
-		
+		setDrugName(((DBPedia)dataset).getDrugName());
 	}
+
+	public void addSynonym(Literal literal) {
+		
+		if (literal != null)
+			if (!synonyms.contains(literal.getString()))
+				synonyms.add(literal.getString());
+	}
+
+
 	
 	
 

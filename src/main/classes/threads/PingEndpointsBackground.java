@@ -15,29 +15,24 @@ import main.classes.utils.Config;
 
 public class PingEndpointsBackground implements Runnable {
 
+	private String endpoint;
+	private String key;
+	public PingEndpointsBackground(String key, String value) {
+		
+		this.endpoint = value;
+		this.key = key;
+	}
 	@Override
 	public void run() {
 		
-		Hashtable<String, String> endpoints = null;
-		try {
-			endpoints = Config.getInstance().getAllEndpoints();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Enumeration<String> keysEnum = endpoints.keys();
-		
-		while (keysEnum.hasMoreElements())
-		{
-			String key = keysEnum.nextElement();
-			String value = endpoints.get(key);
-			if(endpointCheckerService(value))
-				Config.getInstance().addAvailableEndpoint(key, value);
+			
+			if(endpointCheckerService(endpoint))
+				Config.getInstance().addAvailableEndpoint(key, endpoint);
 			else
 				Config.getInstance().removeAvailableEndpoint(key);
 			
 			
-		}
+		
 		
 		
 		
@@ -46,7 +41,7 @@ public class PingEndpointsBackground implements Runnable {
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		Future<?> f = service.submit(new PingEndpointsThread(value));
 		try {
-			f.get(10,TimeUnit.SECONDS);
+			f.get(5,TimeUnit.SECONDS);
 			
 			return true;
 			

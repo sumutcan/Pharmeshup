@@ -30,8 +30,7 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 						.getLocalName());
 			dbPedia.setDescription(row.getLiteral("abstract").getString());
 			dbPedia.setCasNumber(row.getLiteral("casNumber"));
-			dbPedia.setWikiPage(new Link(dbPedia.getDrugName()
-					+ " at Wikipedia", row.getResource("wikiPage").toString()));
+			dbPedia.setWikiPage(new Link(row.getResource("wikiPage").toString()));
 		}
 
 	}
@@ -50,6 +49,7 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 				QuerySolution row = results.next();
 				drugbank.setDescription(row.getLiteral("?description")
 						.getString());
+				drugbank.addSynonym(row.getLiteral("?synonym"));
 			}
 		}
 		if (QueryUtil.getInstance().pingEndpoint("drugbank2")) {

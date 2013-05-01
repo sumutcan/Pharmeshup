@@ -70,7 +70,7 @@ public class FrmMain extends JFrame {
 							.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
 					FrmMain frame = new FrmMain();
 					frame.setVisible(true);
-					ThreadHandler.getInstance().startThreads();
+					ThreadHandler.getInstance().pingEndpoints();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -295,8 +295,17 @@ public class FrmMain extends JFrame {
 			
 			DefaultListModel<Link> relatedModel = new DefaultListModel<Link>();
 			relatedModel.addElement(resultData.getDbpediaData().getWikiPage());
+			
+			for (Link relatedLink : resultData.getDrugBankdata().getRelatedLinks())
+				relatedModel.addElement(relatedLink);
+				
 			pnlGeneral.listRelatedPages.setModel(relatedModel);
 			
+			DefaultListModel<String> synonymModel = new DefaultListModel<String>();
+			for (String s : resultData.getDrugBankdata().getSynonyms())
+				synonymModel.addElement(s);
+			
+			pnlGeneral.lstSynonyms.setModel(synonymModel);
 			
 		} catch (Exception ex) {
 			// TODO Auto-generated catch block

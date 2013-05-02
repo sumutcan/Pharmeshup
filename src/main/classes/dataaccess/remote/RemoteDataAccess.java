@@ -50,6 +50,8 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 				drugbank.setDescription(row.getLiteral("?description")
 						.getString());
 				drugbank.addSynonym(row.getLiteral("?synonym"));
+				drugbank.addRelatedLinks(new Link(row.getResource("?link")));
+				
 			}
 		}
 		if (QueryUtil.getInstance().pingEndpoint("drugbank2")) {
@@ -63,6 +65,7 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 					if (drugbank.getDescription() == null)
 						drugbank.setDescription(row.getLiteral("?description").getString());
 					drugbank.addSynonym(row.getLiteral("?synonym"));
+
 				}
 			
 			}

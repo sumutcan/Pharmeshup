@@ -175,6 +175,11 @@ public class Drugbank implements IDataSet {
 				synonyms.add(literal.getString());
 	}
 
+	public void addRelatedLinks(Link link) {
+		
+			if (!relatedLinks.contains(link))
+				relatedLinks.add(link);
+	}
 
 	
 	

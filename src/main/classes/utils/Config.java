@@ -39,8 +39,11 @@ public class Config {
 		try {
 			Properties props = new Properties();
 			props.clear();
-			props.load(new FileInputStream(new File(configSource+"/config.properties")));
+			FileInputStream fis = new FileInputStream(new File(configSource+"/config.properties"));
+			props.load(fis);
 			SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			
+			fis.close();
 			
 			return df.parse(props.getProperty("lastAccessDate"));
 			
@@ -50,16 +53,21 @@ public class Config {
 		}
 	}
 
-	public void setLastUpdateDate(Date currentDate) throws Exception {
+	public synchronized void setLastUpdateDate(Date currentDate) throws Exception {
 		
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		
 		try {
 			Properties props = new Properties();
 			props.clear();
-			props.load(new FileInputStream(new File(configSource+"/config.properties")));
+			FileInputStream fis = new FileInputStream(new File(configSource+"/config.properties"));
+			props.load(fis);
+			fis.close();
+			
 			props.setProperty("lastAccessDate", df.format(currentDate)); 
-			props.store(new FileOutputStream(configSource+"/config.properties"), null);
+			FileOutputStream fos = new FileOutputStream(configSource+"/config.properties");
+			props.store(fos, null);
+			fos.close();
 			
 		} catch (FileNotFoundException e) {
 			
@@ -73,7 +81,9 @@ public class Config {
 		try {
 			Properties props = new Properties();
 			props.clear();
-			props.load(new FileInputStream(new File(configSource+"/endpoints.properties")));
+			FileInputStream fis = new FileInputStream(new File(configSource+"/endpoints.properties"));
+			props.load(fis);
+			fis.close();
 			return props.getProperty(name);
 		
 		} catch (FileNotFoundException e) {
@@ -95,7 +105,9 @@ public class Config {
 		try {
 			props = new Properties();
 			props.clear();
-			props.load(new FileInputStream(new File(configSource+"/endpoints.properties")));
+			FileInputStream fis = new FileInputStream(new File(configSource+"/endpoints.properties"));
+			props.load(fis);
+			fis.close();
 
 		
 		} catch (FileNotFoundException e) {
@@ -128,7 +140,10 @@ public class Config {
 		try {
 			props = new Properties();
 			props.clear();
-			props.load(new FileInputStream(new File(configSource+"/prefixes.properties")));
+			
+			FileInputStream fis = new FileInputStream(new File(configSource+"/prefixes.properties"));
+			props.load(fis);
+			fis.close();
 			
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

@@ -1,8 +1,11 @@
 package main.classes.entities;
 
+import java.util.ArrayList;
+
 import main.classes.datasets.IDataSet;
 
 import com.hp.hpl.jena.rdf.model.Literal;
+import com.hp.hpl.jena.rdf.model.Resource;
 
 public class SearchResult {
 	
@@ -41,6 +44,10 @@ public class SearchResult {
 		this.drugSubject = drugSubject;
 	}
 	
+	public ArrayList<String> getWikiPageRedirects() {
+		return wikiPageRedirects;
+	}
+
 	public String toString()
 	{
 		return drugName;
@@ -50,6 +57,14 @@ public class SearchResult {
 	private String drugSubject;
 	private String drugName;
 	private String drugbankID;
+	private ArrayList<String> wikiPageRedirects = new ArrayList<String>();
+	public void addWikiPageRedirect(Resource resource) {
+		
+		if (resource != null)
+			if (!wikiPageRedirects.contains(resource.getLocalName()))
+				wikiPageRedirects.add(resource.getLocalName());
+		
+	}
 
 	
 	

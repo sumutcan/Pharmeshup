@@ -63,11 +63,25 @@ public class IndexUtil {
 		ArrayList<SearchResult> foundResults = new ArrayList<SearchResult>();
 
 		for (SearchResult s : allIndexedResults)
+		{
+			
 			if (s.getDrugName().toLowerCase()
 					.contains(searchTerm.toLowerCase())) {
 
 				foundResults.add(s);
 			}
+			else
+			{
+				for (String wiki : s.getWikiPageRedirects())
+				{
+					if (wiki.toLowerCase().contains(searchTerm.toLowerCase()))
+					{
+						foundResults.add(s);
+						break;
+					}
+				}
+			}
+		}
 		
 		Date lastUpdateDate = Config.getInstance().getLastUpdateDate();
 		Date currentDate = new Date();

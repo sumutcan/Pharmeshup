@@ -39,6 +39,17 @@ public class SparqlQueryRepo {
 		return query.buildQueryString();
 
 	}
+	public String getWikiPageRedirectsQuery(String subject) throws Exception
+	{
+		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
+		QueryUtil.getInstance().getCommonPrefixes(query)
+				.addSelectParamaters(true, "?page")			
+				.addTriplePattern("<"+subject+">", "rdf:type", "dbpedia-owl:Drug")
+				.addTriplePattern("?page","dbpedia-owl:wikiPageRedirects","<"+subject+">");
+		
+	
+		return query.buildQueryString();
+	}
 	public String getDBPediaDataQuery(String drugName) throws Exception
 	{
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();

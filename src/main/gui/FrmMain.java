@@ -298,12 +298,15 @@ public class FrmMain extends JFrame {
 			
 			for (Link relatedLink : resultData.getDrugBankdata().getRelatedLinks())
 				relatedModel.addElement(relatedLink);
-				
+			
+			
 			pnlGeneral.listRelatedPages.setModel(relatedModel);
 			
 			DefaultListModel<String> synonymModel = new DefaultListModel<String>();
 			for (String s : resultData.getDrugBankdata().getSynonyms())
 				synonymModel.addElement(s);
+			if (synonymModel.size() == 0)
+				synonymModel.addElement("No synonym found");
 			
 			pnlGeneral.lstSynonyms.setModel(synonymModel);
 			

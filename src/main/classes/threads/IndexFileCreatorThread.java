@@ -35,10 +35,11 @@ public class IndexFileCreatorThread implements Runnable {
 	@Override
 	public void run() {
 		
-
+		long a = System.currentTimeMillis();
 		Query q = null;
 		try {
 			q = QueryFactory.create(SparqlQueryRepo.getInstance().getCreateIndexFileQuery());
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,13 +53,41 @@ public class IndexFileCreatorThread implements Runnable {
 			e.printStackTrace();
 		}
 		ArrayList<SearchResult> searchResults = new ArrayList<SearchResult>();
+		int i = 0;
 		while (results.hasNext()) {
 			QuerySolution row = results.next();
-
+			
 			SearchResult searchResult = new SearchResult();
 			searchResult.setDrugbankID(row.getLiteral("drugbankID"));
 			searchResult.setDrugName(row.getLiteral("label").toString());
 			searchResult.setDrugSubject(row.getResource("s").toString());
+			
+			Query q2 = null;
+			try {
+				q2 = QueryFactory.create(SparqlQueryRepo.getInstance().getWikiPageRedirectsQuery(searchResult.getDrugSubject()));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			if (searchResult.getDrugbankID() != null) {
+				ResultSet pageRedirects = null;
+				try {
+					pageRedirects = QueryUtil.getInstance()
+							.executeRemoteSelect("dbpedia", q2);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				while (pageRedirects.hasNext()) {
+					QuerySolution row2 = pageRedirects.next();
+					searchResult.addWikiPageRedirect(row2.getResource("?page"));
+				}
+
+				System.out.println(i + " "
+						+ searchResult.getWikiPageRedirects());
+				i++;
+			}
 			
 			searchResults.add(searchResult);
 
@@ -76,6 +105,7 @@ public class IndexFileCreatorThread implements Runnable {
 			fw.close();
 			Config.getInstance().setLastUpdateDate(currentDate);
 			IndexUtil.getInstance().clearAllIndexedResults();
+			System.out.println("Index file created "+currentDate);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +115,7 @@ public class IndexFileCreatorThread implements Runnable {
 			e.printStackTrace();
 		}
 
-		
+		System.out.println((System.currentTimeMillis()-a)/(1000*60));
 		
 	}
 

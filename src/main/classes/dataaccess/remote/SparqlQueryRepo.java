@@ -74,7 +74,7 @@ public class SparqlQueryRepo {
 		.addOptionalPattern(new TriplePatternElement("?s", "drugbankvoca:synonym", "?synonym"))
 		.addGroupGraphPattern(new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(), "owl:sameAs", "drugbankbio:"+drugbank.getDrugbankID()))
 		.addUnionPattern(new TriplePatternElement("?s", "drugbankvoca:xref", "bioCas:"+drugbank.getCasNumber()))
-		.addUnionPattern(new TriplePatternElement("?s", "rdfs:label","?label", new FilterElement("regex(?label, \""+drugbank.getDrugName()+"\",\"i\")")));
+		.addUnionPattern(new TriplePatternElement("?s", "rdfs:label","?label", new FilterElement("regex(?label, \"^"+drugbank.getDrugName()+"\")")));
 		
 		
 		

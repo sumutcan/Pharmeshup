@@ -54,7 +54,16 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 		}
 		if (QueryUtil.getInstance().pingEndpoint("drugbank2")) {
 				
-				drugbank.setDescription("asdasd");
+				Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getDrugbank2Query(drugbank));
+				ResultSet results = QueryUtil.getInstance().executeRemoteSelect("drugbank2", q);
+				
+				while (results.hasNext())
+				{
+					QuerySolution row = results.next();
+					if (drugbank.getDescription() == null)
+						drugbank.setDescription(row.getLiteral("?description").getString());
+					drugbank.addSynonym(row.getLiteral("?synonym"));
+				}
 			
 			}
 

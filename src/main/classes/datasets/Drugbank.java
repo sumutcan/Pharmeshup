@@ -140,10 +140,7 @@ public class Drugbank implements IDataSet {
 	}
 
 	public String getDescription() {
-		
-		if (description == null)
-			return "No data found";
-		
+			
 		return description;
 	}
 

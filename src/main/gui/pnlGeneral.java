@@ -156,7 +156,9 @@ public class pnlGeneral extends JPanel {
 		panel_3.add(lblSynonyms, BorderLayout.WEST);
 		
 		lstSynonyms = new JList();
-		splitPane_5.setRightComponent(lstSynonyms);
+		JScrollPane scrollPaneSynonyms = new JScrollPane();
+		scrollPaneSynonyms.setViewportView(lstSynonyms);
+		splitPane_5.setRightComponent(scrollPaneSynonyms);
 		splitPane_5.setDividerLocation(20);
 		splitPane_3.setDividerLocation(380);
 		

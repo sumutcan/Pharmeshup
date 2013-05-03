@@ -17,22 +17,24 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 	@Override
 	public void getDBPediaData(DBPedia dbPedia) throws Exception {
 
-		Query q = QueryFactory.create(SparqlQueryRepo.getInstance()
-				.getDBPediaDataQuery(dbPedia.getDrugName()));
+		if (QueryUtil.getInstance().pingEndpoint("dbpedia")) {
+			Query q = QueryFactory.create(SparqlQueryRepo.getInstance()
+					.getDBPediaDataQuery(dbPedia.getDrugName()));
 
-		ResultSet results = QueryUtil.getInstance().executeRemoteSelect(
-				"dbpedia", q);
+			ResultSet results = QueryUtil.getInstance().executeRemoteSelect(
+					"dbpedia", q);
 
-		while (results.hasNext()) {
-			QuerySolution row = results.next();
-			if (row.getResource("?drugbankID") != null)
-				dbPedia.setDrugbankID(row.getResource("?drugbankID")
-						.getLocalName());
-			dbPedia.setDescription(row.getLiteral("abstract").getString());
-			dbPedia.setCasNumber(row.getLiteral("casNumber"));
-			dbPedia.setWikiPage(new Link(row.getResource("wikiPage").toString()));
+			while (results.hasNext()) {
+				QuerySolution row = results.next();
+				if (row.getResource("?drugbankID") != null)
+					dbPedia.setDrugbankID(row.getResource("?drugbankID")
+							.getLocalName());
+				dbPedia.setDescription(row.getLiteral("abstract").getString());
+				dbPedia.setCasNumber(row.getLiteral("casNumber"));
+				dbPedia.setWikiPage(new Link(row.getResource("wikiPage")
+						.toString()));
+			}
 		}
-
 	}
 
 	@Override

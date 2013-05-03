@@ -68,16 +68,48 @@ public class SparqlQueryRepo {
 
 	public String getDrugbankQuery(Drugbank drugbank) throws Exception {
 		
+		if (drugbank.getDrugbankID() != null) {
+
+			ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
+			QueryUtil
+					.getInstance()
+					.getCommonPrefixes(query)
+					.addSelectParamaters(true, "?description", "?synonym",
+							"?link");
+			query.addTriplePattern("drugbankbio:"+drugbank.getDrugbankID(), "dc:description", "?description")
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(),
+									"drugbankvoca:synonym", "?synonym"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(), "rdfs:seeAlso",
+									"?link"));
+			
+			return query.buildQueryString();
+
+		}
+		
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
-		QueryUtil.getInstance().getCommonPrefixes(query).addSelectParamaters(true, "?description", "?synonym","?link");
+		QueryUtil
+				.getInstance()
+				.getCommonPrefixes(query)
+				.addSelectParamaters(true, "?description", "?synonym",
+						"?link");
 		query.addTriplePattern("?s", "dc:description", "?description")
-		.addOptionalPattern(new TriplePatternElement("?s", "drugbankvoca:synonym", "?synonym"))
-		.addOptionalPattern(new TriplePatternElement("?s","rdfs:seeAlso","?link"))
-		.addGroupGraphPattern(new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(), "owl:sameAs", "drugbankbio:"+drugbank.getDrugbankID()))
-		.addUnionPattern(new TriplePatternElement("?s", "drugbankvoca:xref", "bioCas:"+drugbank.getCasNumber()))
-		.addUnionPattern(new TriplePatternElement("?s", "rdfs:label","?label", new FilterElement("regex(?label, \"^"+drugbank.getDrugName()+"\")")));
-		
-		
+				.addOptionalPattern(
+						new TriplePatternElement("?s",
+								"drugbankvoca:synonym", "?synonym"))
+				.addOptionalPattern(
+						new TriplePatternElement("?s", "rdfs:seeAlso",
+								"?link"))
+				.addGroupGraphPattern(
+						new TriplePatternElement("?s", "drugbankvoca:xref",
+								"bioCas:" + drugbank.getCasNumber()))
+				.addUnionPattern(
+						new TriplePatternElement("?s", "rdfs:label",
+								"?label", new FilterElement(
+										"regex(?label, \"^"
+												+ drugbank.getDrugName()
+												+ "\")")));
 		
 		return query.buildQueryString();
 		

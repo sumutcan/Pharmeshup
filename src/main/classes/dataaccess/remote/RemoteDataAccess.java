@@ -52,6 +52,7 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 						.getString());
 				drugbank.addSynonym(row.getLiteral("?synonym"));
 				drugbank.addRelatedLinks(new Link(row.getResource("?link")));
+				drugbank.setAbsorption(row.getLiteral("?absorption"));
 				
 			}
 		}

@@ -112,8 +112,12 @@ public class Drugbank extends ADataSet {
 		return absorption;
 	}
 
-	public void setAbsorption(String absorption) {
-		this.absorption = absorption;
+	public void setAbsorption(Literal literal) {
+		
+		if (literal != null)
+			this.absorption = literal.getString();
+		else
+			this.absorption = null;
 	}
 
 	public String getDescription() {

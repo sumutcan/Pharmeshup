@@ -75,14 +75,17 @@ public class SparqlQueryRepo {
 					.getInstance()
 					.getCommonPrefixes(query)
 					.addSelectParamaters(true, "?description", "?synonym",
-							"?link");
+							"?link","?absorption");
 			query.addTriplePattern("drugbankbio:"+drugbank.getDrugbankID(), "dc:description", "?description")
 					.addOptionalPattern(
 							new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(),
 									"drugbankvoca:synonym", "?synonym"))
 					.addOptionalPattern(
 							new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(), "rdfs:seeAlso",
-									"?link"));
+									"?link"))
+					.addOptionalPattern(
+					new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(), "drugbankvoca:absorption",
+							"?absorption"));
 			
 			return query.buildQueryString();
 
@@ -93,7 +96,7 @@ public class SparqlQueryRepo {
 				.getInstance()
 				.getCommonPrefixes(query)
 				.addSelectParamaters(true, "?description", "?synonym",
-						"?link");
+						"?link","?absorption");
 		query.addTriplePattern("?s", "dc:description", "?description")
 				.addOptionalPattern(
 						new TriplePatternElement("?s",
@@ -101,6 +104,9 @@ public class SparqlQueryRepo {
 				.addOptionalPattern(
 						new TriplePatternElement("?s", "rdfs:seeAlso",
 								"?link"))
+				.addOptionalPattern(
+					new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(), "drugbankvoca:absorption",
+							"?absorption"))
 				.addGroupGraphPattern(
 						new TriplePatternElement("?s", "drugbankvoca:xref",
 								"bioCas:" + drugbank.getCasNumber()));
@@ -114,25 +120,30 @@ public class SparqlQueryRepo {
 
 	public String getDrugbank2Query(Drugbank drugbank) throws Exception {
 		
+		
 		if (drugbank.getDrugbankID() != null) {
 			ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
 			QueryUtil.getInstance().getCommonPrefixes(query)
-					.addSelectParamaters(true, "?description", "?synonym");
+					.addSelectParamaters(true, "?description", "?synonym", "?absorption");
 			query.addTriplePattern("drugs:" + drugbank.getDrugbankID(),
 					"drugbank:description", "?description")
 					.addOptionalPattern(
 							new TriplePatternElement("drugs:"
 									+ drugbank.getDrugbankID(),
-									"drugbank:synonym", "?synonym"));
+									"drugbank:synonym", "?synonym"))
+					.addOptionalPattern(
+					new TriplePatternElement("drugs:"+drugbank.getDrugbankID(), "drugbank:absorption",
+							"?absorption"));
 
 		
 			return query.buildQueryString();
 		}
 		
 		ISparqlQuery query2 = SparqlQueryManager.getInstance().createQuery();
-		QueryUtil.getInstance().getCommonPrefixes(query2).addSelectParamaters(true, "?description", "?synonym");
+		QueryUtil.getInstance().getCommonPrefixes(query2).addSelectParamaters(true, "?description", "?synonym","?absorption");
 		query2.addTriplePattern("?s", "drugbank:description", "?description")
 		.addOptionalPattern(new TriplePatternElement("?s", "drugbank:synonym", "?synonym"))
+		.addOptionalPattern(new TriplePatternElement("drugs:"+drugbank.getDrugbankID(), "drugbank:absorption","?absorption"))
 		.addGroupGraphPattern(new TriplePatternElement("?s", "drugbank:casRegistryNumber", "bioCas:"+drugbank.getCasNumber()))
 		.addUnionPattern(new TriplePatternElement("?s", "rdfs:label","\""+drugbank.getDrugName()+"\""));
 		

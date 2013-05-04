@@ -313,6 +313,15 @@ public class FrmMain extends JFrame {
 			
 			pnlGeneral.lstSynonyms.setModel(synonymModel);
 			
+			//pharmacokinetic - table filling
+			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getAbsorption(), 0, 0);
+			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getAbsorption(), 1, 0);
+			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getAbsorption(), 2, 0);
+			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getAbsorption(), 3, 0);
+			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getAbsorption(), 4, 0);
+			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getAbsorption(), 5, 0);
+			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getAbsorption(), 6, 0);
+			
 		} catch (Exception ex) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, ex.getMessage());

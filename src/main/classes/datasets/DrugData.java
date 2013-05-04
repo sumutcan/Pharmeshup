@@ -2,6 +2,7 @@ package main.classes.datasets;
 
 import main.classes.dataaccess.LinkedDataAccessFactory;
 import main.classes.entities.SearchResult;
+import main.classes.threads.ThreadHandler;
 
 public class DrugData {
 
@@ -12,17 +13,15 @@ public class DrugData {
 		
 		
 		this.dbpediaData = new DBPedia(LinkedDataAccessFactory.createLinkedDataAccess(), selectedValue);
-		this.drugBankdata = new Drugbank(LinkedDataAccessFactory.createLinkedDataAccess());
-		this.dailymedData = new DailyMed(LinkedDataAccessFactory.createLinkedDataAccess());
+		this.drugBankdata = new Drugbank(LinkedDataAccessFactory.createLinkedDataAccess(), selectedValue);
+		this.dailymedData = new DailyMed(LinkedDataAccessFactory.createLinkedDataAccess(), selectedValue);
 		
 	}
 	
 	public void retrieve() throws Exception
 	{
 		
-		dbpediaData.getData();
-		drugBankdata.setKeys(dbpediaData);
-		drugBankdata.getData();
+		ThreadHandler.getInstance().retrieve(dbpediaData,drugBankdata);
 		
 	}
 	
@@ -35,9 +34,9 @@ public class DrugData {
 	public DailyMed getDailymedData() {
 		return (DailyMed) dailymedData;
 	}
-	private IDataSet drugBankdata;
-	private IDataSet dbpediaData;
-	private IDataSet dailymedData;
+	private ADataSet drugBankdata;
+	private ADataSet dbpediaData;
+	private ADataSet dailymedData;
 	
 
 	

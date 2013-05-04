@@ -7,14 +7,12 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.entities.Enzyme;
 import main.classes.entities.Link;
+import main.classes.entities.SearchResult;
 
 
-public class Drugbank implements IDataSet {
+public class Drugbank extends ADataSet {
 	
-	private String drugbankID;
-	private String drugName;
 	private ArrayList<String> synonyms;
-	private String casNumber;
 	private String description;
 	private ArrayList<Link> relatedLinks;
 	private String clearence;
@@ -26,9 +24,11 @@ public class Drugbank implements IDataSet {
 	private String moleculeWeightAvg;
 	private String absorption;
 	
-	public Drugbank(ILinkedDataAccess linkedDataAccess) {
+	public Drugbank(ILinkedDataAccess linkedDataAccess, SearchResult selectedValue) {
 		
-		this.linkedDataAccess = linkedDataAccess;
+		
+		super(linkedDataAccess, selectedValue);
+		
 		this.enzymes = new ArrayList<Enzyme>();
 		this.synonyms = new ArrayList<String>();
 		this.relatedLinks = new ArrayList<Link>();
@@ -38,29 +38,13 @@ public class Drugbank implements IDataSet {
 	public void getData() throws Exception {
 		
 		try {
-			linkedDataAccess.getDrugBankData(this);
+			getLinkedDataAccess().getDrugBankData(this);
 		} catch (Exception e) {
 			throw new Exception("An error occured while retrieving Drugbank data: "+ e.getMessage());
 		}
 		
 	}
 	
-	
-	public String getDrugbankID() {
-		return drugbankID;
-	}
-
-	public void setDrugbankID(String drugbankID) {
-		this.drugbankID = drugbankID;
-	}
-
-	public String getCasNumber() {
-		return casNumber;
-	}
-
-	public void setCasNumber(String casNumber) {
-		this.casNumber = casNumber;
-	}
 
 	public ArrayList<Link> getRelatedLinks() {
 		return relatedLinks;
@@ -115,13 +99,6 @@ public class Drugbank implements IDataSet {
 		this.moleculeWeightAvg = moleculeWeightAvg;
 	}
 
-	public ILinkedDataAccess getLinkedDataAccess() {
-		return linkedDataAccess;
-	}
-
-	public void setLinkedDataAccess(ILinkedDataAccess linkedDataAccess) {
-		this.linkedDataAccess = linkedDataAccess;
-	}
 
 	public ArrayList<String> getSynonyms() {
 		return synonyms;
@@ -148,25 +125,6 @@ public class Drugbank implements IDataSet {
 		this.description = description;
 	}
 	
-
-	public String getDrugName() {
-		return drugName;
-	}
-
-	public void setDrugName(String drugName) {
-		this.drugName = drugName;
-	}
-
-
-	private ILinkedDataAccess linkedDataAccess;
-
-	@Override
-	public void setKeys(IDataSet dataset) {
-		
-		setDrugbankID(((DBPedia) dataset).getDrugbankID());
-		setCasNumber(((DBPedia)dataset).getCasNumber());
-		setDrugName(((DBPedia)dataset).getDrugName());
-	}
 
 	public void addSynonym(Literal literal) {
 		

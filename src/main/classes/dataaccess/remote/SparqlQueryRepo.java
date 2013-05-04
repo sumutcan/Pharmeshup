@@ -28,10 +28,11 @@ public class SparqlQueryRepo {
 	{
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
 		QueryUtil.getInstance().getCommonPrefixes(query)
-				.addSelectParamaters(true, "?s", "?label", "?drugbankID")
+				.addSelectParamaters(true, "?s", "?label", "?drugbankID", "?casNumber")
 				.addFiltredTriplePattern("?s", "rdfs:label", "?label",
 						new LangFilterElement("?label",ISparqlQuery.LANG_EN))
 				.addOptionalPattern(new TriplePatternElement("?s", "dbpprop:drugbank", "?drugbankID"))
+				.addOptionalPattern(new TriplePatternElement("?s", "dbpedia-owl:casNumber", "?casNumber"))
 				.addGroupGraphPattern(new TriplePatternElement("?s","rdf:type","dbpedia-owl:Drug"))
 				.addUnionPattern(new TriplePatternElement("?s", "rdf:type", "dbpedia-owl:ChemicalCompound"));
 				
@@ -55,10 +56,9 @@ public class SparqlQueryRepo {
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
 		
 		QueryUtil.getInstance().getCommonPrefixes(query)
-				.addSelectParamaters(true, "?abstract", "?casNumber", "?wikiPage","?drugbankID")
+				.addSelectParamaters(true, "?abstract", "?wikiPage","?drugbankID")
 				.addTriplePattern("?s", "rdfs:label", "\""+drugName+"\"@en")
 				.addFiltredTriplePattern("?s", "dbpedia-owl:abstract", "?abstract",new LangFilterElement("?abstract",ISparqlQuery.LANG_EN))
-				.addOptionalPattern(new TriplePatternElement("?s", "dbpedia-owl:casNumber", "?casNumber"))
 				.addOptionalPattern(new TriplePatternElement("?s", "foaf:isPrimaryTopicOf", "?wikiPage"))
 				.addOptionalPattern(new TriplePatternElement("?s", "owl:sameAs", "?drugbankID",new FilterElement("regex(str(?drugbankID),\"drugbank\",\"i\")")));
 		

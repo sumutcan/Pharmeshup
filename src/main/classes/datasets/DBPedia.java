@@ -4,37 +4,16 @@ import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.entities.Link;
 import main.classes.entities.SearchResult;
 
-import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.Literal;
 
-public class DBPedia implements IDataSet {
+public class DBPedia extends ADataSet {
 
 	private Link wikiPage;
 	private String description;
-	private String drugName;
-	private String casNumber;
-	private String drugbankID;
-	private ILinkedDataAccess linkedDataAccess;
-	
-	public String getDrugName() {
-		return drugName;
-	}
-
-	public void setDrugName(String drugName) {
-		this.drugName = drugName;
-	}
-
-	public DBPedia(ILinkedDataAccess linkedDataAccess) {
-		
-		this.linkedDataAccess = linkedDataAccess;
-		
-	}
 	
 	public DBPedia(ILinkedDataAccess linkedDataAccess,
 			SearchResult selectedValue) {
 		
-		this.linkedDataAccess = linkedDataAccess;
+		super (linkedDataAccess, selectedValue);
 		this.setDrugbankID(selectedValue.getDrugbankID());
 		this.setDrugName(selectedValue.getDrugName());
 	}
@@ -52,30 +31,12 @@ public class DBPedia implements IDataSet {
 		this.description = description;
 	}
 
-	public String getCasNumber() {
-		return casNumber;
-	}
-	public void setCasNumber(Literal literal) {
-		
-		if (literal == null)
-			this.casNumber = null;
-		else
-			this.casNumber = literal.getString();
-	}
-
-	public String getDrugbankID() {
-		return drugbankID;
-	}
-
-
-
-
 	@Override
 	public void getData() throws Exception {
 		
 		try {
 
-			linkedDataAccess.getDBPediaData(this);
+			getLinkedDataAccess().getDBPediaData(this);
 			
 			
 		} catch (Exception e) {
@@ -85,19 +46,6 @@ public class DBPedia implements IDataSet {
 		
 	}
 
-	public void setDrugbankID(String drugbankID) {
-		
-		if (this.drugbankID == null)
-			this.drugbankID = drugbankID;
-		
-		
-	}
-
-	@Override
-	public void setKeys(IDataSet dataset) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 }

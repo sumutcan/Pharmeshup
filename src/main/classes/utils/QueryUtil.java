@@ -67,7 +67,6 @@ public class QueryUtil {
 	{
 		try
 		{
-			
 			return Config.getInstance().checkAvailableEndpoints(endpointName);
 			
 		}

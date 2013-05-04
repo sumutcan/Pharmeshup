@@ -60,6 +60,7 @@ public class IndexFileCreatorThread implements Runnable {
 			SearchResult searchResult = new SearchResult();
 			searchResult.setDrugbankID(row.getLiteral("drugbankID"));
 			searchResult.setDrugName(row.getLiteral("label").toString());
+			searchResult.setCasNumber(row.getLiteral("?casNumber"));
 			searchResult.setDrugSubject(row.getResource("s").toString());
 			
 			Query q2 = null;

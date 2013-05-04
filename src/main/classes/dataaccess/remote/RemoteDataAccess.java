@@ -30,7 +30,6 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 					dbPedia.setDrugbankID(row.getResource("?drugbankID")
 							.getLocalName());
 				dbPedia.setDescription(row.getLiteral("abstract").getString());
-				dbPedia.setCasNumber(row.getLiteral("casNumber"));
 				dbPedia.setWikiPage(new Link(row.getResource("wikiPage")
 						.toString()));
 			}

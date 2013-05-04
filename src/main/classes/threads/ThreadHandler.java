@@ -1,11 +1,22 @@
 package main.classes.threads;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
+import main.classes.datasets.ADataSet;
 import main.classes.utils.Config;
+
 
 
 public class ThreadHandler {
@@ -41,7 +52,29 @@ public class ThreadHandler {
 		Thread t = new Thread(new IndexFileCreatorThread(f, currentDate));
 		t.start();
 	}
+	
+	public void retrieve(ADataSet... datasets) throws Exception
+	{
+		
+		ExecutorService service = Executors.newFixedThreadPool(datasets.length);
+		ArrayList<Future<Object>> futures = new ArrayList<Future<Object>>();
+		for (ADataSet dataset : datasets)
+			futures.add(service.submit(new DataRetriever(dataset)));
+		
+		for (Future<Object> future: futures)
+		{
+			try
+			{
+				 if (!future.isDone())
+					future.get(3,TimeUnit.SECONDS);
+			}
+			catch (TimeoutException timeout)
+			{
 
+			}
+		}
+
+	}
 
 	
 	

@@ -2,7 +2,6 @@ package main.classes.entities;
 
 import java.util.ArrayList;
 
-import main.classes.datasets.IDataSet;
 
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -18,8 +17,7 @@ public class SearchResult {
 		if (drugName.contains("@")) 
 		{
 			String[] temp = drugName.split("@");
-			String label = temp[0];
-			this.drugName = label;
+			this.drugName = temp[0];
 		}
 		else
 			this.drugName = drugName;
@@ -34,6 +32,15 @@ public class SearchResult {
 			this.drugbankID = literal.getString();
 		else
 			literal = null;
+	}
+	public String getCasNumber() {
+		return casNumber;
+	}
+
+	public void setCasNumber(Literal literal) {
+		
+		if (literal != null)
+			this.casNumber = literal.getString();
 	}
 	
 	public String getDrugSubject() {
@@ -57,6 +64,8 @@ public class SearchResult {
 	private String drugSubject;
 	private String drugName;
 	private String drugbankID;
+	private String casNumber;
+
 	private ArrayList<String> wikiPageRedirects = new ArrayList<String>();
 	public void addWikiPageRedirect(Resource resource) {
 		

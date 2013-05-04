@@ -281,7 +281,8 @@ public class FrmMain extends JFrame {
 	
     public void searchDrugData()
     {
-		DrugSearchController controller = new DrugSearchController();
+		
+    	DrugSearchController controller = new DrugSearchController();
 //		pnlGeneral.setTxtPaneDBPedia("Retrieving data...");
 //		pnlGeneral.txtPaneDrugbank.setText("Retrieving data...");
 		

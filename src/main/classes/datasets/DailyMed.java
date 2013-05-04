@@ -1,14 +1,13 @@
 package main.classes.datasets;
 
 import main.classes.dataaccess.ILinkedDataAccess;
+import main.classes.entities.SearchResult;
 
-public class DailyMed implements IDataSet {
+public class DailyMed extends ADataSet {
 
-	private ILinkedDataAccess linkedDataAccess;
-
-	public DailyMed(ILinkedDataAccess linkedDataAccess) {
+	public DailyMed(ILinkedDataAccess linkedDataAccess, SearchResult selectedValue) {
 		
-		this.linkedDataAccess = linkedDataAccess;
+		super(linkedDataAccess, selectedValue);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -19,10 +18,5 @@ public class DailyMed implements IDataSet {
 		
 	}
 
-	@Override
-	public void setKeys(IDataSet dataset) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

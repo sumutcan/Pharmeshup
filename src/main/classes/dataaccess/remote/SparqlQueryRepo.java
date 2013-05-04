@@ -103,13 +103,7 @@ public class SparqlQueryRepo {
 								"?link"))
 				.addGroupGraphPattern(
 						new TriplePatternElement("?s", "drugbankvoca:xref",
-								"bioCas:" + drugbank.getCasNumber()))
-				.addUnionPattern(
-						new TriplePatternElement("?s", "rdfs:label",
-								"?label", new FilterElement(
-										"regex(?label, \"^"
-												+ drugbank.getDrugName()
-												+ "\")")));
+								"bioCas:" + drugbank.getCasNumber()));
 		
 		return query.buildQueryString();
 		
@@ -129,20 +123,8 @@ public class SparqlQueryRepo {
 					.addOptionalPattern(
 							new TriplePatternElement("drugs:"
 									+ drugbank.getDrugbankID(),
-									"drugbank:synonym", "?synonym"))
-					.addGroupGraphPattern(
-							new TriplePatternElement("drugs:"
-									+ drugbank.getDrugbankID(), "owl:sameAs",
-									"drugbankbio:" + drugbank.getDrugbankID()))
-					.addUnionPattern(
-							new TriplePatternElement("?s", "drugbankvoca:xref",
-									"bioCas:" + drugbank.getCasNumber()))
-					.addUnionPattern(
-							new TriplePatternElement("?s", "rdfs:label",
-									"?label", new FilterElement(
-											"regex(?label, \"^"
-													+ drugbank.getDrugName()
-													+ "\")")));
+									"drugbank:synonym", "?synonym"));
+
 		
 			return query.buildQueryString();
 		}

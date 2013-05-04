@@ -59,6 +59,7 @@ public class FrmMain extends JFrame {
 	final JLabel lblDrugname;
 	final JList listSearchResults; 
 	private pnlGeneral pnlGeneral;
+	private pnlPharmacokinetic pnlPharmacokinetic;
 	/**
 	 * Launch the application.
 	 */
@@ -260,8 +261,9 @@ public class FrmMain extends JFrame {
 		tabbedPane.setFont(new Font("Droid Sans", Font.BOLD, 15));
 		tabbedPane.setBackground(SystemColor.window);
 		pnlGeneral = new pnlGeneral();
+		pnlPharmacokinetic = new pnlPharmacokinetic();
 		tabbedPane.addTab("General Info", null, pnlGeneral);
-		tabbedPane.addTab("Pharmacokinetics", null);
+		tabbedPane.addTab("Pharmacokinetics", null, pnlPharmacokinetic);
 		tabbedPane.addTab("Pharmacodynamics", null);
 		tabbedPane.addTab("Clinical Trials", null);
 		scrollPane_2.setViewportView(tabbedPane);

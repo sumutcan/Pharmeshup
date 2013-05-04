@@ -56,6 +56,7 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 				drugbank.setClearence(row.getLiteral("?clearance"));
 				drugbank.setRouteOfElimination(row.getLiteral("?roe"));
 				drugbank.setVolumeOfDistribution(row.getLiteral("?vod"));
+				drugbank.setHalfTime(row.getLiteral("?halfLife"));
 				
 			}
 		}
@@ -76,6 +77,8 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 						drugbank.setClearence(row.getLiteral("?clearance"));
 					drugbank.setMoleculeWeightAvg(row.getLiteral("?molWeightAvg"));
 					drugbank.setMoleculeWeightMono(row.getLiteral("?molWeightMono"));
+					if (drugbank.getHalfTime() == null)
+						drugbank.setHalfTime(row.getLiteral("?halfLife"));
 					
 
 				}

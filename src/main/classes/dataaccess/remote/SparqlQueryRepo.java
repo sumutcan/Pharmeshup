@@ -101,7 +101,7 @@ public class SparqlQueryRepo {
 					.getInstance()
 					.getCommonPrefixes(query)
 					.addSelectParamaters(true, "?description", "?synonym",
-							"?link", "?absorption", "?clearance", "?roe","?vod");
+							"?link", "?absorption", "?clearance", "?roe","?vod","?halfLife");
 			query.addTriplePattern("drugbankbio:" + drugbank.getDrugbankID(),
 					"dc:description", "?description")
 					.addOptionalPattern(
@@ -120,6 +120,10 @@ public class SparqlQueryRepo {
 							new TriplePatternElement("drugbankbio:"
 									+ drugbank.getDrugbankID(),
 									"drugbankvoca:volume-of-distribution", "?vod"))
+										.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(),
+									"drugbankvoca:half-life", "?halfLife"))
 					.addOptionalPattern(
 							new TriplePatternElement("drugbankbio:"
 									+ drugbank.getDrugbankID(),
@@ -138,7 +142,7 @@ public class SparqlQueryRepo {
 				.getInstance()
 				.getCommonPrefixes(query)
 				.addSelectParamaters(true, "?description", "?synonym", "?link",
-						"?absorption", "?clearance", "?roe","?vod");
+						"?absorption", "?clearance", "?roe","?vod","?halfLife");
 		query.addTriplePattern("?s", "dc:description", "?description")
 				.addOptionalPattern(
 						new TriplePatternElement("?s", "drugbankvoca:synonym",
@@ -146,20 +150,19 @@ public class SparqlQueryRepo {
 				.addOptionalPattern(
 						new TriplePatternElement("?s", "rdfs:seeAlso", "?link"))
 				.addOptionalPattern(
-						new TriplePatternElement("drugbankbio:"
-								+ drugbank.getDrugbankID(),
+						new TriplePatternElement("?s",
 								"drugbankvoca:clearance", "?clearance"))
 				.addOptionalPattern(
-							new TriplePatternElement("drugbankbio:"
-									+ drugbank.getDrugbankID(),
+							new TriplePatternElement("?s",
 									"drugbankvoca:route-of-elimination", "?roe"))
 				.addOptionalPattern(
-							new TriplePatternElement("drugbankbio:"
-									+ drugbank.getDrugbankID(),
+							new TriplePatternElement("?s",
+									"drugbankvoca:half-life", "?halfLife"))
+				.addOptionalPattern(
+							new TriplePatternElement("?s",
 									"drugbankvoca:volume-of-distribution", "?vod"))
 				.addOptionalPattern(
-						new TriplePatternElement("drugbankbio:"
-								+ drugbank.getDrugbankID(),
+						new TriplePatternElement("?s",
 								"drugbankvoca:absorption", "?absorption"))
 				.addGroupGraphPattern(
 						new TriplePatternElement("?s", "drugbankvoca:xref",
@@ -177,7 +180,7 @@ public class SparqlQueryRepo {
 					.getInstance()
 					.getCommonPrefixes(query)
 					.addSelectParamaters(true, "?description", "?synonym",
-							"?absorption", "?clearance","?molWeightMono","?molWeightAvg");
+							"?absorption", "?clearance","?molWeightMono","?molWeightAvg","?halfLife");
 			query.addTriplePattern("drugs:" + drugbank.getDrugbankID(),
 					"drugbank:description", "?description")
 					.addOptionalPattern(
@@ -196,6 +199,10 @@ public class SparqlQueryRepo {
 							new TriplePatternElement("drugs:"
 									+ drugbank.getDrugbankID(),
 									"drugbank:molecularWeightAverage", "?molWeightAvg"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugs:"
+									+ drugbank.getDrugbankID(),
+									"drugbank:halfLife", "?halfLife"))
 					.addOptionalPattern(
 							new TriplePatternElement("drugs:"
 									+ drugbank.getDrugbankID(),
@@ -226,6 +233,9 @@ public class SparqlQueryRepo {
 				.addOptionalPattern(
 							new TriplePatternElement("?s",
 									"drugbank:molecularWeightAverage", "?molWeightAvg"))
+				.addOptionalPattern(
+							new TriplePatternElement("?s",
+									"drugbank:halfLife", "?halfLife"))
 				.addGroupGraphPattern(
 						new TriplePatternElement("?s",
 								"drugbank:casRegistryNumber", "bioCas:"

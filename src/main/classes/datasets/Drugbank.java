@@ -65,8 +65,9 @@ public class Drugbank extends ADataSet {
 		return halfTime;
 	}
 
-	public void setHalfTime(String halfTime) {
-		this.halfTime = halfTime;
+	public void setHalfTime(Literal literal) {
+		if (literal != null)
+			this.halfTime = DataClearUtil.hexToString(literal.getString());
 	}
 
 	public String getRouteOfElimination() {

@@ -177,7 +177,7 @@ public class SparqlQueryRepo {
 					.getInstance()
 					.getCommonPrefixes(query)
 					.addSelectParamaters(true, "?description", "?synonym",
-							"?absorption", "?clearance");
+							"?absorption", "?clearance","?molWeightMono","?molWeightAvg");
 			query.addTriplePattern("drugs:" + drugbank.getDrugbankID(),
 					"drugbank:description", "?description")
 					.addOptionalPattern(
@@ -191,6 +191,14 @@ public class SparqlQueryRepo {
 					.addOptionalPattern(
 							new TriplePatternElement("drugs:"
 									+ drugbank.getDrugbankID(),
+									"drugbank:molecularWeightMono", "?molWeightMono"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugs:"
+									+ drugbank.getDrugbankID(),
+									"drugbank:molecularWeightAverage", "?molWeightAvg"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugs:"
+									+ drugbank.getDrugbankID(),
 									"drugbank:clearance", "?clearance"));
 
 			return query.buildQueryString();
@@ -201,19 +209,23 @@ public class SparqlQueryRepo {
 				.getInstance()
 				.getCommonPrefixes(query2)
 				.addSelectParamaters(true, "?description", "?synonym",
-						"?absorption", "?clearance");
+						"?absorption", "?clearance","?molWeightAvg");
 		query2.addTriplePattern("?s", "drugbank:description", "?description")
 				.addOptionalPattern(
 						new TriplePatternElement("?s", "drugbank:synonym",
 								"?synonym"))
 				.addOptionalPattern(
-						new TriplePatternElement("drugs:"
-								+ drugbank.getDrugbankID(),
+						new TriplePatternElement("?s",
 								"drugbank:absorption", "?absorption"))
 				.addOptionalPattern(
-						new TriplePatternElement("drugs:"
-								+ drugbank.getDrugbankID(),
+						new TriplePatternElement("?s",
 								"drugbank:clearance", "?clearance"))
+				.addOptionalPattern(
+							new TriplePatternElement("?s",
+									"drugbank:molecularWeightMono", "?molWeightMono"))
+				.addOptionalPattern(
+							new TriplePatternElement("?s",
+									"drugbank:molecularWeightAverage", "?molWeightAvg"))
 				.addGroupGraphPattern(
 						new TriplePatternElement("?s",
 								"drugbank:casRegistryNumber", "bioCas:"

@@ -70,8 +70,13 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 					if (drugbank.getDescription() == null)
 						drugbank.setDescription(row.getLiteral("?description").getString());
 					drugbank.addSynonym(row.getLiteral("?synonym"));
-					drugbank.setAbsorption(row.getLiteral("?absorption"));
-					drugbank.setClearence(row.getLiteral("?clearance"));
+					if (drugbank.getAbsorption() == null)
+						drugbank.setAbsorption(row.getLiteral("?absorption"));
+					if (drugbank.getClearence() == null)
+						drugbank.setClearence(row.getLiteral("?clearance"));
+					drugbank.setMoleculeWeightAvg(row.getLiteral("?molWeightAvg"));
+					drugbank.setMoleculeWeightMono(row.getLiteral("?molWeightMono"));
+					
 
 				}
 			

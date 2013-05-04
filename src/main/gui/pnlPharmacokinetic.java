@@ -77,9 +77,9 @@ public class pnlPharmacokinetic extends JPanel {
 		headerTable.setValueAt("Clearence", 1, 0);
 		headerTable.setValueAt("Route of Elimination", 2, 0);
 		headerTable.setValueAt("Volume of Distribution", 3, 0);
-		headerTable.setValueAt("Molecule Weight", 4, 0);
-		headerTable.setValueAt("Molecule Weight (AVG)", 5, 0);
-		headerTable.setValueAt("Halftime", 6, 0);
+		headerTable.setValueAt("Molecular Weight (Mono)", 4, 0);
+		headerTable.setValueAt("Molecular Weight (AVG)", 5, 0);
+		headerTable.setValueAt("Halflife", 6, 0);
 		
 		dataTable.setTableHeader(null);
 		dataTable.setRowHeight(50);
@@ -87,7 +87,7 @@ public class pnlPharmacokinetic extends JPanel {
 		scrollPane.setViewportView(dataTable);
 	    scrollPane.setRowHeaderView(headerTable);
 		splitPane.setLeftComponent(scrollPane);
-		splitPane.setDividerLocation(300);
+		splitPane.setDividerLocation(350);
 	}
 
 }

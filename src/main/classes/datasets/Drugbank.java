@@ -91,16 +91,19 @@ public class Drugbank extends ADataSet {
 		return moleculeWeightMono;
 	}
 
-	public void setMoleculeWeightMono(String moleculeWeightMono) {
-		this.moleculeWeightMono = moleculeWeightMono;
+	public void setMoleculeWeightMono(Literal literal) {
+		if (literal != null)
+			this.moleculeWeightMono = DataClearUtil.hexToString(literal.getString());
 	}
 
 	public String getMoleculeWeightAvg() {
 		return moleculeWeightAvg;
 	}
 
-	public void setMoleculeWeightAvg(String moleculeWeightAvg) {
-		this.moleculeWeightAvg = moleculeWeightAvg;
+	public void setMoleculeWeightAvg(Literal literal) {
+		
+		if (literal != null)
+			this.moleculeWeightAvg = DataClearUtil.hexToString(literal.getString());
 	}
 
 

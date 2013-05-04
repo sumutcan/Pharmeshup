@@ -8,6 +8,7 @@ import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.entities.Enzyme;
 import main.classes.entities.Link;
 import main.classes.entities.SearchResult;
+import main.classes.utils.DataClearUtil;
 
 
 public class Drugbank extends ADataSet {
@@ -55,8 +56,9 @@ public class Drugbank extends ADataSet {
 		return clearence;
 	}
 
-	public void setClearence(String clearence) {
-		this.clearence = clearence;
+	public void setClearence(Literal literal) {
+		if (literal != null)
+			this.clearence = literal.getString();
 	}
 
 	public String getHalfTime() {
@@ -71,16 +73,18 @@ public class Drugbank extends ADataSet {
 		return routeOfElimination;
 	}
 
-	public void setRouteOfElimination(String routeOfElimination) {
-		this.routeOfElimination = routeOfElimination;
+	public void setRouteOfElimination(Literal literal) {
+		if (literal != null)
+			this.routeOfElimination = DataClearUtil.hexToString(literal.getString());
 	}
 
 	public String getVolumeOfDistribution() {
 		return volumeOfDistribution;
 	}
 
-	public void setVolumeOfDistribution(String volumeOfDistribution) {
-		this.volumeOfDistribution = volumeOfDistribution;
+	public void setVolumeOfDistribution(Literal literal) {
+		if (literal != null)		
+			this.volumeOfDistribution = DataClearUtil.hexToString(literal.getString());
 	}
 
 	public String getMoleculeWeightMono() {
@@ -115,7 +119,7 @@ public class Drugbank extends ADataSet {
 	public void setAbsorption(Literal literal) {
 		
 		if (literal != null)
-			this.absorption = literal.getString();
+			this.absorption = DataClearUtil.hexToString(literal.getString());
 		else
 			this.absorption = null;
 	}
@@ -126,7 +130,7 @@ public class Drugbank extends ADataSet {
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.description =  DataClearUtil.hexToString(description);
 	}
 	
 
@@ -134,7 +138,7 @@ public class Drugbank extends ADataSet {
 		
 		if (literal != null)
 			if (!synonyms.contains(literal.getString()))
-				synonyms.add(literal.getString());
+				synonyms.add(DataClearUtil.hexToString(literal.getString()));
 	}
 
 	public void addRelatedLinks(Link link) {

@@ -46,4 +46,15 @@ public class Link {
 	public URI getURL() throws Exception {
 		return url;
 	}
+	
+	public boolean equals(Object o)
+	{
+		Link l = (Link)o;
+		
+		if (this.url == l.url)
+			return true;
+		
+		return false;
+		
+	}
 }

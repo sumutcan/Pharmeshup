@@ -53,6 +53,9 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 				drugbank.addSynonym(row.getLiteral("?synonym"));
 				drugbank.addRelatedLinks(new Link(row.getResource("?link")));
 				drugbank.setAbsorption(row.getLiteral("?absorption"));
+				drugbank.setClearence(row.getLiteral("?clearance"));
+				drugbank.setRouteOfElimination(row.getLiteral("?roe"));
+				drugbank.setVolumeOfDistribution(row.getLiteral("?vod"));
 				
 			}
 		}
@@ -67,6 +70,8 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 					if (drugbank.getDescription() == null)
 						drugbank.setDescription(row.getLiteral("?description").getString());
 					drugbank.addSynonym(row.getLiteral("?synonym"));
+					drugbank.setAbsorption(row.getLiteral("?absorption"));
+					drugbank.setClearence(row.getLiteral("?clearance"));
 
 				}
 			

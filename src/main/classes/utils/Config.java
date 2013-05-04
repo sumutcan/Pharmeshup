@@ -76,7 +76,7 @@ public class Config {
 		
 	}
 
-	public String getEndpoint(String name) throws Exception {
+	public synchronized String getEndpoint(String name) throws Exception {
 		
 		try {
 			Properties props = new Properties();
@@ -98,7 +98,7 @@ public class Config {
 		
 	}
 	
-	public Hashtable<String, String> getAllEndpoints() throws Exception {
+	public synchronized Hashtable<String, String> getAllEndpoints() throws Exception {
 		
 		Hashtable<String, String> endpoints = new Hashtable<String, String>();
 		Properties props = null;
@@ -133,7 +133,7 @@ public class Config {
 	}
 
 
-	public Hashtable<String, String> getAllPrefixes() throws Exception {
+	public synchronized Hashtable<String, String> getAllPrefixes() throws Exception {
 		
 		Hashtable<String, String> prefixes = new Hashtable<String, String>();
 		Properties props = null;
@@ -167,20 +167,20 @@ public class Config {
 		
 	}
 
-	public boolean checkAvailableEndpoints(String endpointName) {
+	public synchronized boolean checkAvailableEndpoints(String endpointName) {
 		
 		
 		return availableEndpoints.containsKey(endpointName);
 	}
 
-	public void addAvailableEndpoint(String key, String value) {
+	public synchronized void addAvailableEndpoint(String key, String value) {
 		
 		if (!availableEndpoints.containsKey(key))
 			availableEndpoints.put(key, value);
 		
 	}
 
-	public void removeAvailableEndpoint(String key) {
+	public synchronized void removeAvailableEndpoint(String key) {
 		
 		if (availableEndpoints.containsKey(key))
 			availableEndpoints.remove(key);

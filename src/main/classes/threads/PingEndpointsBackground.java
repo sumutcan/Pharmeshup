@@ -49,8 +49,9 @@ public class PingEndpointsBackground implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return false;
 		} catch (TimeoutException e) {
 			// TODO Auto-generated catch block
 			return false;

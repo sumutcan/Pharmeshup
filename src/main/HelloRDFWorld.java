@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Iterator;
 
+import main.classes.utils.QueryUtil;
+
 import com.hp.hpl.jena.graph.Graph;
 import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.Query;
@@ -20,6 +22,7 @@ import com.hp.hpl.jena.tdb.TDBFactory;
 import com.hp.hpl.jena.util.FileManager;
 import com.querymanager.ISparqlQuery;
 import com.querymanager.SparqlQueryManager;
+import com.querymanager.elements.LangFilterElement;
 import com.querymanager.elements.TriplePatternElement;
 
 
@@ -29,9 +32,9 @@ public class HelloRDFWorld {
 
 	/**
 	 * @param args
-	 * @throws FileNotFoundException 
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
 		String folder = "/home/umutcan/rdfdata";
@@ -67,6 +70,29 @@ public class HelloRDFWorld {
 				.addSelectParamaters(ISparqlQuery.DISTINCT, "?p","?o")
 				.addTriplePattern("<Naproxen>", "?p", "?o")
 				.buildQueryString();
+		
+		ISparqlQuery query5 = SparqlQueryManager.getInstance().createQuery();
+		QueryUtil
+				.getInstance()
+				.getCommonPrefixes(query5)
+				.addSelectParamaters(true, "?s", "?label", "?drugbankID",
+						"?casNumber")
+				.addFiltredTriplePattern("?s", "rdfs:label", "?label",
+						new LangFilterElement("?label", ISparqlQuery.LANG_EN))
+				.addOptionalPattern(
+						new TriplePatternElement("?s", "dbpprop:drugbank",
+								"?drugbankID"))
+				.addOptionalPattern(
+						new TriplePatternElement("?s", "dbpedia-owl:casNumber",
+								"?casNumber"))
+				.addGroupGraphPattern(
+						new TriplePatternElement("?s", "rdf:type",
+								"dbpedia-owl:Drug"))
+				.addUnionPattern(
+						new TriplePatternElement("?s", "rdf:type",
+								"dbpedia-owl:ChemicalCompound"));
+
+		String b = query5.buildQueryString();
 		
 		
 			

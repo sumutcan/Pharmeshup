@@ -101,7 +101,7 @@ public class SparqlQueryRepo {
 					.getInstance()
 					.getCommonPrefixes(query)
 					.addSelectParamaters(true, "?description", "?synonym",
-							"?link", "?absorption", "?clearance", "?roe","?vod","?halfLife");
+							"?link", "?absorption", "?clearance", "?roe","?vod","?halfLife","?enzyme","?enzymeName");
 			query.addTriplePattern("drugbankbio:" + drugbank.getDrugbankID(),
 					"dc:description", "?description")
 					.addOptionalPattern(
@@ -120,10 +120,11 @@ public class SparqlQueryRepo {
 							new TriplePatternElement("drugbankbio:"
 									+ drugbank.getDrugbankID(),
 									"drugbankvoca:volume-of-distribution", "?vod"))
-										.addOptionalPattern(
+					.addOptionalPattern(
 							new TriplePatternElement("drugbankbio:"
 									+ drugbank.getDrugbankID(),
 									"drugbankvoca:half-life", "?halfLife"))
+					.addOptionalPattern(new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(),"drugbankvoca:enzyme","?enzyme"), new TriplePatternElement("?enzyme","drugbankvoca:name","?enzymeName"))
 					.addOptionalPattern(
 							new TriplePatternElement("drugbankbio:"
 									+ drugbank.getDrugbankID(),
@@ -245,5 +246,13 @@ public class SparqlQueryRepo {
 								+ drugbank.getDrugName() + "\""));
 
 		return query2.buildQueryString();
+	}
+	public void getDrugbankEnzymesQuery(Drugbank drugbank) throws Exception
+	{
+		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
+		QueryUtil.getInstance().getCommonPrefixes(query)
+		.addSelectParamaters(true, "?enzyme", "?name")
+		.addOptionalPattern(new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(),"drugbankvoca:enzyme","?enzyme"))
+		.addOptionalPattern(new TriplePatternElement("?enzyme","drugbankvoca:name","?name"));
 	}
 }

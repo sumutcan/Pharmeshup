@@ -151,6 +151,13 @@ public class Drugbank extends ADataSet {
 				relatedLinks.add(link);
 	}
 
+	public void addEnzyme(Enzyme enzyme) {
+		
+		if (!enzymes.contains(enzyme))
+			enzymes.add(enzyme);
+		
+	}
+
 	
 	
 

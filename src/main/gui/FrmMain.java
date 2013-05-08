@@ -46,6 +46,7 @@ import javax.swing.ListSelectionModel;
 import main.classes.DrugSearchController;
 
 import main.classes.datasets.DrugData;
+import main.classes.entities.Enzyme;
 import main.classes.entities.Link;
 import main.classes.entities.SearchResult;
 import main.classes.threads.ThreadHandler;
@@ -202,11 +203,12 @@ public class FrmMain extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					try {
 						DrugSearchController controller = new DrugSearchController();
-						
+						//long start = System.currentTimeMillis();
 						ArrayList<SearchResult> resultList = controller
 								.searchDrug(txtSearch.getText());
 
-					    
+					    long end = System.currentTimeMillis();
+						//System.out.parintln(end-start);
 						if (resultList.isEmpty())
 						{
 							DefaultListModel<String> model = new DefaultListModel<String>();
@@ -321,6 +323,23 @@ public class FrmMain extends JFrame {
 			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getMoleculeWeightMono(), 4, 0);
 			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getMoleculeWeightAvg(), 5, 0);
 			pnlPharmacokinetic.dataTable.setValueAt(resultData.getDrugBankdata().getHalfTime(), 6, 0);
+			
+		    DefaultListModel<Enzyme> enzymeModel = new DefaultListModel<Enzyme>();
+		    
+		    for (Enzyme enzyme : resultData.getDrugBankdata().getEnzymes())
+		    	enzymeModel.addElement(enzyme);
+		    
+		    pnlPharmacokinetic.lstEnzymes.setModel(enzymeModel);
+		    
+		    if (resultData.getDrugBankdata().getEnzymes().size() == 0)
+		    {
+		    	DefaultListModel<String> enzymeModelEmpty = new DefaultListModel<String>();
+		    	enzymeModelEmpty.addElement("No enzyme found");
+		    	pnlPharmacokinetic.lstEnzymes.setModel(enzymeModelEmpty);
+		    }
+		    	
+			
+			
 			
 		} catch (Exception ex) {
 			// TODO Auto-generated catch block

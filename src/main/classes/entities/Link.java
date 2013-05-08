@@ -51,8 +51,13 @@ public class Link {
 	{
 		Link l = (Link)o;
 		
-		if (this.url == l.url)
-			return true;
+		try {
+			if (this.url.equals(l.getURL()))
+				return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return false;
 		

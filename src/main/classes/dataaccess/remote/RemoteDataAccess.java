@@ -9,6 +9,7 @@ import com.hp.hpl.jena.query.ResultSet;
 import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.datasets.DBPedia;
 import main.classes.datasets.Drugbank;
+import main.classes.entities.Enzyme;
 import main.classes.entities.Link;
 import main.classes.utils.QueryUtil;
 
@@ -57,6 +58,7 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 				drugbank.setRouteOfElimination(row.getLiteral("?roe"));
 				drugbank.setVolumeOfDistribution(row.getLiteral("?vod"));
 				drugbank.setHalfTime(row.getLiteral("?halfLife"));
+				drugbank.addEnzyme(new Enzyme(row.getResource("?enzyme"), row.getLiteral("?enzymeName")));
 				
 			}
 		}

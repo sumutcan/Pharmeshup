@@ -12,6 +12,7 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.sparql.engine.http.HttpQuery;
 import com.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP;
 
@@ -27,12 +28,12 @@ public class PingEndpointsThread implements Runnable {
 	public void run() {
 		
 		
-		String q = "ASK WHERE { ?s ?p ?o }";
+		String q = "ASK {FILTER("+System.currentTimeMillis() % 100+")}";
 		Query query = QueryFactory.create(q);
 		
 		QueryEngineHTTP qexec = (QueryEngineHTTP) QueryExecutionFactory.sparqlService(endpoint, query);
-		qexec.execAsk();
-		
+		boolean b = qexec.execAsk();
+		System.out.println(endpoint+" "+b);
 		
 	}
 

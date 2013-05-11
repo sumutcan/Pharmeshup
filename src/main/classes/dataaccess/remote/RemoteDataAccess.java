@@ -89,5 +89,28 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 
 		}
 
+	@Override
+	public void getEnzymeData(Enzyme enzyme) throws Exception {
+		
+		if (QueryUtil.getInstance().pingEndpoint("drugbank"))
+		{
+			String s = SparqlQueryRepo.getInstance().getDrugbankEnzymesQuery(enzyme.getSubject().toString());
+			Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getDrugbankEnzymesQuery(enzyme.getSubject().toString()));
+			ResultSet results = QueryUtil.getInstance().executeRemoteSelect("drugbank", q);
+			
+			while (results.hasNext())
+			{
+				QuerySolution row = results.next();
+				enzyme.setCellularLocation(row.getLiteral("?cellularLoc"));
+				enzyme.setMolecularWeight(row.getLiteral("?molWeight"));
+				enzyme.setReaction(row.getLiteral("?reaction"));
+				enzyme.setSpecificFunction(row.getLiteral("?specificFunction"));
+				enzyme.setTheoreticalPi(row.getLiteral("?theoPi"));
+				
+			}
+		}
+		
+	}
+
 	}
 

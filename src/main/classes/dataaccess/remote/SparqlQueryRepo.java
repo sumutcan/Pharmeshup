@@ -247,12 +247,17 @@ public class SparqlQueryRepo {
 
 		return query2.buildQueryString();
 	}
-	public void getDrugbankEnzymesQuery(Drugbank drugbank) throws Exception
+	public String getDrugbankEnzymesQuery(String subject) throws Exception
 	{
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
 		QueryUtil.getInstance().getCommonPrefixes(query)
-		.addSelectParamaters(true, "?enzyme", "?name")
-		.addOptionalPattern(new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(),"drugbankvoca:enzyme","?enzyme"))
-		.addOptionalPattern(new TriplePatternElement("?enzyme","drugbankvoca:name","?name"));
+		.addSelectParamaters(true, "?cellularLoc", "?reaction","?specificFunction","?molWeight","?theoPi")
+		.addOptionalPattern(new TriplePatternElement("<"+subject+">","drugbankvoca:cellular-location","?cellularLoc"))
+		.addOptionalPattern(new TriplePatternElement("<"+subject+">","drugbankvoca:reaction","?reaction"))
+		.addOptionalPattern(new TriplePatternElement("<"+subject+">","drugbankvoca:specific-function","?specificFunction"))
+		.addOptionalPattern(new TriplePatternElement("<"+subject+">","drugbankvoca:molecular-weight","?molWeight"))
+		.addOptionalPattern(new TriplePatternElement("<"+subject+">","drugbankvoca:theoretical-pi","?theoPi"));
+		
+		return query.buildQueryString();
 	}
 }

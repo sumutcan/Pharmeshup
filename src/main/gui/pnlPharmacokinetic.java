@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
@@ -136,8 +137,21 @@ public class pnlPharmacokinetic extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2 && lstEnzymes.getSelectedValue() instanceof Enzyme)
 				{
-					Enzyme selectedEnzyme = (Enzyme)lstEnzymes.getSelectedValue();
-					selectedEnzyme.getEnzymeData(LinkedDataAccessFactory.createLinkedDataAccess());
+
+					try {
+						Enzyme selectedEnzyme = (Enzyme)lstEnzymes.getSelectedValue();
+						selectedEnzyme.getEnzymeData(LinkedDataAccessFactory.createLinkedDataAccess());
+						
+						txtCellular.setText(selectedEnzyme.getCellularLocation());
+						txtMolecularWeight.setText(selectedEnzyme.getMolecularWeight());
+						txtName.setText(selectedEnzyme.getName());
+						txtReaction.setText(selectedEnzyme.getReaction());
+						txtSpecificFunc.setText(selectedEnzyme.getSpecificFunction());
+						txtTheoPi.setText(selectedEnzyme.getTheoreticalPi());
+					} catch (Exception ex) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
 				}
 			}
 		});

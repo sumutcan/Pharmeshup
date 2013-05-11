@@ -2,7 +2,9 @@ package main.classes;
 
 import java.util.ArrayList;
 
+import main.classes.dataaccess.LinkedDataAccessFactory;
 import main.classes.datasets.DrugData;
+import main.classes.entities.Enzyme;
 import main.classes.entities.SearchResult;
 import main.classes.indexer.SearchTerm;
 import main.classes.threads.ThreadHandler;
@@ -36,5 +38,14 @@ public class DrugSearchController {
 			throw new Exception("Error occured while retrieving drug data: " + e.getMessage());
 		}
 		return drugData;
+	}
+	public void getEnzymeData(Enzyme selectedEnzyme) throws Exception
+	{
+		try {
+			selectedEnzyme.getEnzymeData(LinkedDataAccessFactory.createLinkedDataAccess());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new Exception("Error occured while retrieving enzyme data: " + e.getMessage());
+		}
 	}
 }

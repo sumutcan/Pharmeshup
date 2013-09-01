@@ -70,25 +70,25 @@ public class IndexFileCreatorThread implements Runnable {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			if (searchResult.getDrugbankID() != null) {
-				ResultSet pageRedirects = null;
-				try {
-					pageRedirects = QueryUtil.getInstance()
-							.executeRemoteSelect("dbpedia", q2);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				while (pageRedirects.hasNext()) {
-					QuerySolution row2 = pageRedirects.next();
-					searchResult.addWikiPageRedirect(row2.getResource("?page"));
-				}
-
-				System.out.println(i + " "
-						+ searchResult.getWikiPageRedirects());
-				i++;
-			}
+//			if (searchResult.getDrugbankID() != null) {
+//				ResultSet pageRedirects = null;
+//				try {
+//					pageRedirects = QueryUtil.getInstance()
+//							.executeRemoteSelect("dbpedia", q2);
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//
+//				while (pageRedirects.hasNext()) {
+//					QuerySolution row2 = pageRedirects.next();
+//					searchResult.addWikiPageRedirect(row2.getResource("?page"));
+//				}
+//
+//				System.out.println(i + " "
+//						+ searchResult.getWikiPageRedirects());
+//				i++;
+//			}
 			
 			searchResults.add(searchResult);
 

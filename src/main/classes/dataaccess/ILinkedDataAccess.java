@@ -4,7 +4,6 @@ import main.classes.datasets.DBPedia;
 import main.classes.datasets.Drugbank;
 import main.classes.entities.Enzyme;
 
-import com.hp.hpl.jena.query.ResultSet;
 
 public interface ILinkedDataAccess {
 
@@ -13,5 +12,6 @@ public interface ILinkedDataAccess {
 	void getDrugBankData(Drugbank drugbank) throws Exception;
 	
 	void getEnzymeData(Enzyme enzyme) throws Exception;
+
 
 }

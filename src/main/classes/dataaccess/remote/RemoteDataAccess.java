@@ -37,8 +37,7 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 				
 			}
 		
-			q = QueryFactory.create(SparqlQueryRepo.getInstance().getDBPediaConstructQuery(dbPedia.getDrugName()));
-			Model graph = QueryUtil.getInstance().executeRemoteConstruct(q, "dbpedia");
+
 		}
 	}
 
@@ -114,6 +113,12 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 			}
 		}
 		
+	}
+	public void constructDBPediaData(DBPedia dbPedia) throws Exception
+	{
+		Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getDBPediaConstructQuery(dbPedia.getDrugName()));
+		Model graph = QueryUtil.getInstance().executeRemoteConstruct(q, "dbpedia");
+		QueryUtil.getInstance().storeModel(graph, dbPedia.getDrugName()+"_"+dbPedia.getClass().getSimpleName());
 	}
 
 	}

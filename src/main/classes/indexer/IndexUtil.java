@@ -87,7 +87,7 @@ public class IndexUtil {
 		Date currentDate = new Date();
 
 		if (currentDate.getTime() / (1000 * 60 * 60 * 24)
-				- lastUpdateDate.getTime() / (1000 * 60 * 60 * 24) > 1) {
+				- lastUpdateDate.getTime() / (1000 * 60 * 60 * 24) > 7) {
 			createIndexFile(currentDate);
 			
 			

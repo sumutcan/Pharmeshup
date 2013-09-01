@@ -74,8 +74,13 @@ public class ThreadHandler {
 
 	}
 
-	public void construct(ADataSet... datasets) {
+	public void construct(ADataSet... datasets) throws Exception {
 		// TODO Auto-generated method stub
+		
+		for (ADataSet dataset : datasets)
+		{
+			dataset.constructData();
+		}
 		
 	}
 

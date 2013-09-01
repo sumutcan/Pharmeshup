@@ -3,12 +3,15 @@ package main.classes.utils;
 
 import java.util.Enumeration;
 
+import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.ReadWrite;
 
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.tdb.TDBFactory;
 import com.querymanager.ISparqlQuery;
 
 
@@ -67,5 +70,24 @@ public class QueryUtil {
 		QueryExecution qexec = QueryExecutionFactory.sparqlService(Config.getInstance().getEndpoint(endpoint), q);
 		return qexec.execConstruct();
 	}
+	
+	public synchronized void storeModel(Model drugGraph, String graphName)
+	{
+		Dataset ds = TDBFactory.createDataset(System.getProperty("user.dir")+"/data");
+		
+		ds.begin(ReadWrite.WRITE);
+		Model m = ds.getNamedModel(graphName);
+
+		if (!m.isIsomorphicWith(drugGraph)) {
+			m.add(drugGraph);
+
+			m.commit();
+			ds.commit();
+
+			m.close();
+			ds.close();
+		}
+	}
+	
 	
 }

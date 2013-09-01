@@ -33,6 +33,7 @@ public class DrugSearchController {
 		DrugData drugData = new DrugData(selectedValue); 
 		try {
 			drugData.retrieve();
+			drugData.construct();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new Exception("Error occured while retrieving drug data: " + e.getMessage());

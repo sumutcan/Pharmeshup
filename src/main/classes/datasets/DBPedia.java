@@ -1,8 +1,15 @@
 package main.classes.datasets;
 
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.rdf.model.Model;
+
 import main.classes.dataaccess.ILinkedDataAccess;
+import main.classes.dataaccess.remote.RemoteDataAccess;
+import main.classes.dataaccess.remote.SparqlQueryRepo;
 import main.classes.entities.Link;
 import main.classes.entities.SearchResult;
+import main.classes.utils.QueryUtil;
 
 
 public class DBPedia extends ADataSet {
@@ -48,7 +55,10 @@ public class DBPedia extends ADataSet {
 
 	@Override
 	public void constructData() throws Exception {
-		// TODO Auto-generated method stub
+		
+		RemoteDataAccess constructAccess = (RemoteDataAccess) getLinkedDataAccess();
+		constructAccess.constructDBPediaData(this);
+
 		
 	}
 

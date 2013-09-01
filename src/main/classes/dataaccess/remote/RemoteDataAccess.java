@@ -5,6 +5,7 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Model;
 
 import main.classes.dataaccess.ILinkedDataAccess;
 import main.classes.datasets.DBPedia;
@@ -33,7 +34,11 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 				dbPedia.setDescription(row.getLiteral("abstract").getString());
 				dbPedia.setWikiPage(new Link(row.getResource("wikiPage")
 						.toString()));
+				
 			}
+		
+			q = QueryFactory.create(SparqlQueryRepo.getInstance().getDBPediaConstructQuery(dbPedia.getDrugName()));
+			Model graph = QueryUtil.getInstance().executeRemoteConstruct(q, "dbpedia");
 		}
 	}
 
@@ -94,7 +99,6 @@ public class RemoteDataAccess implements ILinkedDataAccess {
 		
 		if (QueryUtil.getInstance().pingEndpoint("drugbank"))
 		{
-			String s = SparqlQueryRepo.getInstance().getDrugbankEnzymesQuery(enzyme.getSubject().toString());
 			Query q = QueryFactory.create(SparqlQueryRepo.getInstance().getDrugbankEnzymesQuery(enzyme.getSubject().toString()));
 			ResultSet results = QueryUtil.getInstance().executeRemoteSelect("drugbank", q);
 			

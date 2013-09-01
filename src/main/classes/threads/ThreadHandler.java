@@ -11,8 +11,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 import main.classes.datasets.ADataSet;
 import main.classes.utils.Config;
@@ -74,6 +72,11 @@ public class ThreadHandler {
 			}
 		}
 
+	}
+
+	public void construct(ADataSet... datasets) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

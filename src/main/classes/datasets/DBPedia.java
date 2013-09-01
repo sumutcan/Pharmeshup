@@ -46,6 +46,12 @@ public class DBPedia extends ADataSet {
 		
 	}
 
+	@Override
+	public void constructData() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	
 }

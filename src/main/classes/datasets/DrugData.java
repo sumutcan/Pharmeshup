@@ -24,6 +24,10 @@ public class DrugData {
 		ThreadHandler.getInstance().retrieve(dbpediaData,drugBankdata);
 		
 	}
+	public void construct() throws Exception
+	{
+		ThreadHandler.getInstance().construct(dbpediaData,drugBankdata);
+	}
 	
 	public Drugbank getDrugBankdata() {
 		return (Drugbank) drugBankdata;

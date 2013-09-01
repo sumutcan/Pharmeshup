@@ -8,7 +8,7 @@ import com.querymanager.SparqlQueryManager;
 import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.LangFilterElement;
 import com.querymanager.elements.TriplePatternElement;
-import com.querymanager.elements.UnionElement;
+
 
 public class SparqlQueryRepo {
 
@@ -91,6 +91,32 @@ public class SparqlQueryRepo {
 
 		return query.buildQueryString();
 	}
+	
+	public String getDBPediaConstructQuery(String drugName) throws Exception
+	{
+		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
+		QueryUtil.getInstance().getCommonPrefixes(query)
+		.addConstruct(new TriplePatternElement("?s","dbpedia-owl:abstract","?abstract"),
+					  new TriplePatternElement("?s", "foaf:isPrimaryTopicOf", "?wikiPage"),
+					  new TriplePatternElement("?s", "dbpedia-owl:drugbank", "?drugbankID"))
+						.addTriplePattern("?s", "rdfs:label", "\"" + drugName + "\"@en")
+						.addFiltredTriplePattern(
+								"?s",
+								"dbpedia-owl:abstract",
+								"?abstract",
+								new LangFilterElement("?abstract", ISparqlQuery.LANG_EN))
+						.addOptionalPattern(
+								new TriplePatternElement("?s", "foaf:isPrimaryTopicOf",
+										"?wikiPage"))
+						.addOptionalPattern(
+								new TriplePatternElement(
+										"?s",
+										"owl:sameAs",
+										"?drugbankID",
+										new FilterElement(
+												"regex(str(?drugbankID),\"drugbank\",\"i\")")));
+		return query.buildQueryString();
+	}
 
 	public String getDrugbankQuery(Drugbank drugbank) throws Exception {
 
@@ -171,6 +197,102 @@ public class SparqlQueryRepo {
 
 		return query.buildQueryString();
 
+	}
+	
+	public String getDrugbankConstructQuery(Drugbank drugbank) throws Exception
+	{
+		if (drugbank.getDrugbankID() != null)
+		{
+			ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
+			QueryUtil
+					.getInstance()
+					.getCommonPrefixes(query)
+					.addConstruct(new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(),"dc:description","?description"),
+							      new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "drugbankvoca:synonym", "?synonym"),
+							      new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "rdfs:seeAlso", "?link"),
+							      new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "drugbankvoca:absorption", "?absorption"),
+							      new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "drugbankvoca:clearance", "?clearance"),
+							      new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "drugbankvoca:route-of-elimination", "?roe"),
+								  new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "drugbankvoca:volume-of-distribution", "?vod"),
+								  new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "drugbankvoca:half-life", "?halfLife"),
+								  new TriplePatternElement("drugbankbio:" + drugbank.getDrugbankID(), "drugbankvoca:enzyme", "?enzyme"),
+								  new TriplePatternElement("?enzyme", "drugbankvoca:name", "?enzymeName"));
+			
+			query.addTriplePattern("drugbankbio:" + drugbank.getDrugbankID(),
+					"dc:description", "?description")
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(),
+									"drugbankvoca:synonym", "?synonym"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(), "rdfs:seeAlso",
+									"?link"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(),
+									"drugbankvoca:route-of-elimination", "?roe"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(),
+									"drugbankvoca:volume-of-distribution", "?vod"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(),
+									"drugbankvoca:half-life", "?halfLife"))
+					.addOptionalPattern(new TriplePatternElement("drugbankbio:"+drugbank.getDrugbankID(),"drugbankvoca:enzyme","?enzyme"), new TriplePatternElement("?enzyme","drugbankvoca:name","?enzymeName"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(),
+									"drugbankvoca:clearance", "?clearance"))
+					.addOptionalPattern(
+							new TriplePatternElement("drugbankbio:"
+									+ drugbank.getDrugbankID(),
+									"drugbankvoca:absorption", "?absorption"));
+			return query.buildQueryString();
+		}
+		
+		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
+		QueryUtil
+				.getInstance()
+				.getCommonPrefixes(query)
+				.addConstruct(new TriplePatternElement("?s","dc:description","?description"),
+						      new TriplePatternElement("?s", "drugbankvoca:synonym", "?synonym"),
+						      new TriplePatternElement("?s", "rdfs:seeAlso", "?link"),
+						      new TriplePatternElement("?s", "drugbankvoca:absorption", "?absorption"),
+						      new TriplePatternElement("?s", "drugbankvoca:clearance", "?clearance"),
+						      new TriplePatternElement("?s", "drugbankvoca:route-of-elimination", "?roe"),
+							  new TriplePatternElement("?s", "drugbankvoca:volume-of-distribution", "?vod"),
+							  new TriplePatternElement("?s", "drugbankvoca:half-life", "?halfLife"),
+							  new TriplePatternElement("?s", "drugbankvoca:enzyme", "?enzyme"),
+							  new TriplePatternElement("?enzyme", "drugbankvoca:name", "?enzymeName"));
+		
+		query.addTriplePattern("?s", "dc:description", "?description")
+		.addOptionalPattern(
+				new TriplePatternElement("?s", "drugbankvoca:synonym",
+						"?synonym"))
+		.addOptionalPattern(
+				new TriplePatternElement("?s", "rdfs:seeAlso", "?link"))
+		.addOptionalPattern(
+				new TriplePatternElement("?s",
+						"drugbankvoca:clearance", "?clearance"))
+		.addOptionalPattern(
+					new TriplePatternElement("?s",
+							"drugbankvoca:route-of-elimination", "?roe"))
+		.addOptionalPattern(
+					new TriplePatternElement("?s",
+							"drugbankvoca:half-life", "?halfLife"))
+		.addOptionalPattern(
+					new TriplePatternElement("?s",
+							"drugbankvoca:volume-of-distribution", "?vod"))
+		.addOptionalPattern(
+				new TriplePatternElement("?s",
+						"drugbankvoca:absorption", "?absorption"))
+		.addGroupGraphPattern(
+				new TriplePatternElement("?s", "drugbankvoca:xref",
+						"bioCas:" + drugbank.getCasNumber()));
+		
+		return query.buildQueryString();
 	}
 
 	public String getDrugbank2Query(Drugbank drugbank) throws Exception {

@@ -1,6 +1,5 @@
 package com.querymanager.elements;
 
-import java.util.ArrayList;
 
 public class ConstructElement {
 	

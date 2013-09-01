@@ -51,8 +51,8 @@ public abstract class ADataSet {
 
 	
 	public abstract void getData() throws Exception;
-		
-
+	
+	public abstract void constructData() throws Exception;
 
 	public void setDrugbankID(String drugbankID) {
 		

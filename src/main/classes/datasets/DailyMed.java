@@ -18,5 +18,11 @@ public class DailyMed extends ADataSet {
 		
 	}
 
+	@Override
+	public void constructData() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

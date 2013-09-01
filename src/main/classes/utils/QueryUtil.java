@@ -8,6 +8,7 @@ import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Model;
 import com.querymanager.ISparqlQuery;
 
 
@@ -61,5 +62,10 @@ public class QueryUtil {
 			return false;
 		}
 	}
-
+	public synchronized Model executeRemoteConstruct(Query q, String endpoint) throws Exception
+	{
+		QueryExecution qexec = QueryExecutionFactory.sparqlService(Config.getInstance().getEndpoint(endpoint), q);
+		return qexec.execConstruct();
+	}
+	
 }

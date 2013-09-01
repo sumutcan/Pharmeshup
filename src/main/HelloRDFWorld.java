@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Iterator;
 
+import main.classes.dataaccess.remote.SparqlQueryRepo;
 import main.classes.utils.QueryUtil;
 
 import com.hp.hpl.jena.graph.Graph;
@@ -95,7 +96,9 @@ public class HelloRDFWorld {
 		String b = query5.buildQueryString();
 		
 		
-			
+		String c2 = SparqlQueryRepo.getInstance().getDBPediaConstructQuery("Naproxen");
+		
+		
 		Query query = QueryFactory.create(c);
 //		QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
 		QueryExecution qexec = QueryExecutionFactory.create(query, tdb);

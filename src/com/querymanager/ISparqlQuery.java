@@ -2,7 +2,6 @@ package com.querymanager;
 
 import com.querymanager.elements.FilterElement;
 import com.querymanager.elements.TriplePatternElement;
-import com.querymanager.elements.UnionElement;
 
 public interface ISparqlQuery {
 	

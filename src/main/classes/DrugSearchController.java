@@ -43,7 +43,7 @@ public class DrugSearchController {
 	public void getEnzymeData(Enzyme selectedEnzyme) throws Exception
 	{
 		try {
-			selectedEnzyme.getEnzymeData(LinkedDataAccessFactory.createLinkedDataAccess());
+			selectedEnzyme.getEnzymeData(LinkedDataAccessFactory.createLinkedDataAccess("drugbank"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new Exception("Error occured while retrieving enzyme data: " + e.getMessage());

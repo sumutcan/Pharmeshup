@@ -22,6 +22,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JTextField;
 
+import main.classes.DrugSearchController;
 import main.classes.dataaccess.LinkedDataAccessFactory;
 import main.classes.entities.Enzyme;
 
@@ -140,7 +141,8 @@ public class pnlPharmacokinetic extends JPanel {
 
 					try {
 						Enzyme selectedEnzyme = (Enzyme)lstEnzymes.getSelectedValue();
-						selectedEnzyme.getEnzymeData(LinkedDataAccessFactory.createLinkedDataAccess());
+						DrugSearchController controller = new DrugSearchController();
+						controller.getEnzymeData(selectedEnzyme);
 						
 						txtCellular.setText(selectedEnzyme.getCellularLocation());
 						txtMolecularWeight.setText(selectedEnzyme.getMolecularWeight());

@@ -96,7 +96,8 @@ public class SparqlQueryRepo {
 	{
 		ISparqlQuery query = SparqlQueryManager.getInstance().createQuery();
 		QueryUtil.getInstance().getCommonPrefixes(query)
-		.addConstruct(new TriplePatternElement("?s","dbpedia-owl:abstract","?abstract"),
+		.addConstruct(new TriplePatternElement("?s","rdfs:label","\""+drugName+"\"@en"),
+					  new TriplePatternElement("?s","dbpedia-owl:abstract","?abstract"),
 					  new TriplePatternElement("?s", "foaf:isPrimaryTopicOf", "?wikiPage"),
 					  new TriplePatternElement("?s", "dbpedia-owl:drugbank", "?drugbankID"))
 						.addTriplePattern("?s", "rdfs:label", "\"" + drugName + "\"@en")

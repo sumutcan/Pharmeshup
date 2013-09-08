@@ -56,8 +56,11 @@ public class DBPedia extends ADataSet {
 	@Override
 	public void constructData() throws Exception {
 		
-		RemoteDataAccess constructAccess = (RemoteDataAccess) getLinkedDataAccess();
-		constructAccess.constructDBPediaData(this);
+		if (getLinkedDataAccess() instanceof RemoteDataAccess)
+		{
+			RemoteDataAccess constructAccess = (RemoteDataAccess) getLinkedDataAccess();
+			constructAccess.constructDBPediaData(this);
+		}
 
 		
 	}
